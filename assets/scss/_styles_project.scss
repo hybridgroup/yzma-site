@@ -20,3 +20,16 @@
 		color: inherit;
 	}
 }
+
+// Docsy gives a feature block no class of its own. This selector matches the
+// markup of the blocks/feature shortcode. A blurb that wraps to two lines put
+// its "Read more" link lower than the others. Hold the links on one line.
+.td-box .row > .col-lg-4.text-center {
+	display: flex;
+	flex-direction: column;
+
+	> p:last-child {
+		margin-top: auto;
+		margin-bottom: 0;
+	}
+}
