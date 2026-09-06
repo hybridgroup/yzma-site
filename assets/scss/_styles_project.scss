@@ -6,3 +6,17 @@
 	width: auto;
 	margin-bottom: 1.5rem;
 }
+
+// Docsy takes the inline code color from $secondary. That color is not
+// readable on a block that has the same color for its background.
+.td-box--secondary,
+.td-box--dark,
+.td-cover-block {
+	code {
+		color: $yzma-cream;
+	}
+
+	a > code {
+		color: inherit;
+	}
+}
