@@ -1,0 +1,53 @@
+baseURL = 'https://yzma.ai/'
+languageCode = 'en-us'
+title = 'yzma'
+[module]
+proxy = "direct"
+[[module.imports]]
+path = "github.com/google/docsy"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[params]
+copyright = "The Hybrid Group"
+description = "Go with your own intelligence"
+images = ["/images/yzma-logo-social.png"]
+
+[params.links]
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+[[params.links.user]]
+	name = "Bluesky"
+	url = "https://bsky.app/profile/yzma.ai"
+	icon = "fab fa-bluesky"
+		desc = "Follow us on Bluesky to get the latest news!"
+[[params.links.user]]
+	name = "Mastodon"
+	url = "https://mastodon.social/@yzma_ai"
+	icon = "fab fa-mastodon"
+		desc = "You can also follow us on Mastodon"
+# Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+[[params.links.developer]]
+	name = "GitHub"
+	url = "https://github.com/hybridgroup/yzma"
+	icon = "fab fa-github"
+        desc = "Development takes place here!"
+[[params.links.developer]]
+	name = "Go Reference"
+	url = "https://pkg.go.dev/github.com/hybridgroup/yzma"
+	icon = "fas fa-book"
+        desc = "The API reference for the Go packages"
+
+[params.mermaid]
+enable = true
+
+# User interface configuration
+[params.ui]
+# Enable to show the side bar menu in its compact state.
+sidebar_menu_compact = true
+#  Set to true to disable breadcrumb navigation.
+breadcrumb_disable = false
+#  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = true
+#  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+navbar_logo = false
