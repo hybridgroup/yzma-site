@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on Linux.
 ---
 
-![Linux logo](/images/linux-logo.webp)
+<img src="/images/linux-logo.webp" alt="Linux logo" class="platform-logo">
 
 Linux runs on amd64 and on arm64. Choose the tab for the processor that you want to use.
 

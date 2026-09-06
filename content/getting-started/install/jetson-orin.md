@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on an NVIDIA Jetson Orin.
 ---
 
-![NVIDIA logo](/images/NVIDIA-logo.png)
+<img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo">
 
 yzma runs on the [NVIDIA Jetson Orin](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/). Install the latest version of the Jetpack software for your device before you start. Jetpack gives you the GPU drivers.
 

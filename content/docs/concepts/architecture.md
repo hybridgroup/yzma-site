@@ -42,7 +42,9 @@ flowchart TD
     loader --> purego
     loader --> ffi
     purego --> libllama
+    purego --> libmtmd
     ffi --> libllama
+    ffi --> libmtmd
     libllama --> ggml
     libmtmd --> ggml
     ggml --> cpu

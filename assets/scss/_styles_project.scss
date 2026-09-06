@@ -1,1 +1,8 @@
 @import 'td/code-dark';
+
+// Keep the platform logos small on the install pages.
+.platform-logo {
+	max-height: 90px;
+	width: auto;
+	margin-bottom: 1.5rem;
+}

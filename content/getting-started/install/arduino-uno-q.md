@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on an Arduino UNO Q.
 ---
 
-![Arduino logo](/images/arduino-logo.png)
+<img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo">
 
 yzma runs on the [Arduino UNO Q board](https://docs.arduino.cc/hardware/uno-q/). The board runs a Debian based Linux, so the installation uses the `trixie` operating system name.
 

@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on Windows.
 ---
 
-![Windows logo](/images/windows-10-logo.png)
+<img src="/images/windows-10-logo.png" alt="Windows logo" class="platform-logo">
 
 Choose the tab for the processor that you want to use.
 

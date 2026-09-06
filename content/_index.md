@@ -4,10 +4,9 @@ title: "yzma"
 
 {{< blocks/cover title="" image_anchor="top" height="min" color="dark" >}}
 
-![yzma logo](images/yzma_logo_transparent.png)
+<img src="/images/yzma-logo-cover.png" alt="yzma" class="img-fluid mt-0 mt-md-5" style="max-width: 720px; width: 80%;">
 
-<p class="display-1 mt-0 mt-md-5 pb-4">yzma</p>
-<p class="h2 mt-md-5 pb-4">Go with your own intelligence</p>
+<p class="h3 mt-4 pb-4">Local inference for Go, with llama.cpp</p>
 
 <div class="mx-auto">
 	<a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/getting-started" >}}">
@@ -30,18 +29,15 @@ Your models run in the same process as your program. No model server is necessar
 
 {{< blocks/section color="light" type="row">}}
 {{% blocks/feature icon="fa fa-microchip" title="Accelerate" url="docs/concepts/acceleration" %}}
-    Use CUDA, Metal, Vulkan, ROCm,
-    or WebGPU for maximum performance
+Use CUDA, Metal, Vulkan, ROCm, or WebGPU for maximum performance.
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa fa-image" title="See" url="docs/tutorials/vision" %}}
-    Run Vision Language Models
-    on images, audio, and video
+Run Vision Language Models on images, audio, and video.
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa fa-globe" title="Run anywhere" url="docs/concepts/webassembly" %}}
-    Run on Linux, macOS, Windows,
-    or in a browser with WebAssembly
+Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 {{% /blocks/feature %}}
 {{< /blocks/section >}}
 

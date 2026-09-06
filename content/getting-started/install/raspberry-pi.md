@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on a Raspberry Pi.
 ---
 
-![Raspberry Pi logo](/images/raspberry-pi-os-logo.png)
+<img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo">
 
 yzma runs on a Raspberry Pi 4 and on a Raspberry Pi 5. You need the 64 bit version of the Raspberry Pi OS.
 

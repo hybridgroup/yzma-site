@@ -7,7 +7,7 @@ description: >
   How to install the llama.cpp libraries on macOS.
 ---
 
-![Apple logo](/images/apple-logo.png)
+<img src="/images/apple-logo.png" alt="Apple logo" class="platform-logo">
 
 macOS on Apple silicon uses the Metal GPU. You do not need to install a driver.
 

@@ -1,12 +1,20 @@
-$yzma-orange: #f48122ff;
-$yzma-orange-dark: #e4781fff;
-$yzma-rust: #a25618ff;
-$yzma-brown: #69513dff;
-$yzma-bistre: #2f251dff;
-$yzma-cream: #fdf6efff;
+$yzma-orange: #f48122;
+$yzma-orange-dark: #e4781f;
+$yzma-rust: #a25618;
+$yzma-brown: #69513d;
+$yzma-bistre: #2f251d;
+$yzma-cream: #fdf6ef;
 
 $primary: $yzma-rust;
 $orange: $yzma-orange;
 $secondary: $yzma-brown;
 $light: $yzma-cream;
 $dark: $yzma-bistre;
+
+// Docsy takes the link color from $blue-500, which is set before this file.
+// Set the link color directly to keep the links on brand.
+$link-color: $yzma-rust;
+$link-hover-color: $yzma-orange-dark;
+
+// Docsy mixes $blue into the link color of a colored block.
+$blue: $yzma-orange;
