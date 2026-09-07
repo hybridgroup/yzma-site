@@ -51,27 +51,27 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/kronk-logo.png" alt="Kronk logo"></p>
 		<h3 class="h4"><a href="https://github.com/ardanlabs/kronk">Kronk</a></h3>
-		<p class="mb-0">A high level API that feels like an OpenAI compatible API.</p>
+		<p class="mb-0">High-performance OpenAI compatible API with SDK and model server.</p>
 	</div>
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/nornicdb-logo.svg" alt="NornicDB logo"></p>
 		<h3 class="h4"><a href="https://github.com/orneryd/NornicDB">NornicDB</a></h3>
-		<p class="mb-0">A graph database for AI agents and knowledge systems.</p>
+		<p class="mb-0">Graph database for AI agents and knowledge systems.</p>
 	</div>
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/openocta-logo.png" alt="OpenOcta logo"></p>
 		<h3 class="h4"><a href="https://github.com/openocta/openocta">OpenOcta</a></h3>
-		<p class="mb-0">A desktop IT operations agent for Windows and macOS.</p>
+		<p class="mb-0">Desktop IT operations agent for Windows and macOS.</p>
 	</div>
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/th2053-logo.png" alt="Talking Heads From The Year 2053 logo"></p>
 		<h3 class="h4"><a href="https://talkingheads2053.com/">Talking Heads From The Year 2053</a></h3>
-		<p class="mb-0">Physical AI that runs locally on the Arduino UNO Q.</p>
+		<p class="mb-0">First show whose actors use Physical AI running locally on Arduino UNO Q.</p>
 	</div>
 </div>
 
 <div class="text-center mt-5">
-<p class="mb-0"><a href="/projects/">See every project that uses yzma</a></p>
+<p class="mb-0"><a href="/projects/">See more projects that use yzma</a></p>
 </div>
 {{< /blocks/section >}}
 
