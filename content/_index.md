@@ -8,7 +8,7 @@ description: >
 
 <img src="/images/yzma-logo-cover.png" alt="yzma" class="img-fluid mt-0 mt-md-5" style="max-width: 720px; width: 80%;">
 
-<p class="h3 mt-4 pb-4">Local inference in Go using llama.cpp with full hardware acceleration</p>
+<p class="h3 mt-4 pb-4">Go with your own intelligence - local inference in Go using llama.cpp including hardware acceleration</p>
 
 <div class="mx-auto">
 	<a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/getting-started" >}}">
@@ -55,7 +55,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/kronk-logo.png" alt="Kronk logo"></p>
 		<h3 class="h4"><a href="https://github.com/ardanlabs/kronk">Kronk</a></h3>
-		<p class="mb-0">High-performance OpenAI compatible API with SDK and model server.</p>
+		<p class="mb-0">High-performance OpenAI compatible API with both local SDK and model server.</p>
 	</div>
 	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 		<p class="project-logo"><img src="/images/projects/nornicdb-logo.svg" alt="NornicDB logo"></p>
