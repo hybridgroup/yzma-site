@@ -41,11 +41,11 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 {{% /blocks/feature %}}
 {{< /blocks/section >}}
 
-<div><a id="who-uses" class="td-offset-anchor"></a></div>
+<div><a id="powered-by" class="td-offset-anchor"></a></div>
 
 {{< blocks/section color="primary" >}}
 <div class="text-center">
-<h2 class="mb-2">Who uses yzma</h2>
+<h2 class="mb-2">Powered by yzma</h2>
 <p class="lead">These projects build on yzma.</p>
 </div>
 
