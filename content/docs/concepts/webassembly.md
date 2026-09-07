@@ -81,6 +81,7 @@ The model file must come down to the browser before the first token. A 2 GB mode
 
 ## Next steps
 
+- [Try it in your browser](/try/)
 - [Install the WebAssembly build](/getting-started/install/browser/)
 - [Run yzma in a browser](/docs/tutorials/browser/)
 - [Build for a browser](/docs/guides/browser/)

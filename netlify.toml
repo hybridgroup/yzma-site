@@ -1,8 +1,16 @@
 [build]
-  command = "hugo"
+  command = "./scripts/fetch-demo.sh && hugo"
   publish = "public"
 
 [build.environment]
   NODE_VERSION = "20.16.0" # LTS version
   HUGO_VERSION = "0.135.0"
   GO_VERSION = "1.24"
+
+# The demo needs these two headers to get SharedArrayBuffer. They are on the
+# demo only, because require-corp applies to every asset of a page.
+[[headers]]
+  for = "/try/*"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "require-corp"
