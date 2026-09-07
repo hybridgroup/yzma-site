@@ -10,10 +10,24 @@ rm -rf "$DIR"
 mkdir -p "$DIR"
 
 case "$URL" in
-	file://*) tar -xzf "${URL#file://}" -C "$DIR" ;;
-	/*) tar -xzf "$URL" -C "$DIR" ;;
-	*) curl -fsSL "$URL" | tar -xz -C "$DIR" ;;
+	http://* | https://*)
+		TARBALL="$(mktemp)"
+		trap 'rm -f "$TARBALL"' EXIT
+		if ! curl -fsSL "$URL" -o "$TARBALL"; then
+			echo "fetch-demo: the download failed: $URL" >&2
+			echo "fetch-demo: the assets workflow of yzma-wasm-example makes this file." >&2
+			exit 1
+		fi
+		;;
+	file://*)
+		TARBALL="${URL#file://}"
+		;;
+	*)
+		TARBALL="$URL"
+		;;
 esac
+
+tar -xzf "$TARBALL" -C "$DIR"
 
 echo "demo: $URL"
 ls "$DIR"
