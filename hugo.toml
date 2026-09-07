@@ -1,6 +1,6 @@
 baseURL = 'https://yzma.ai/'
 languageCode = 'en-us'
-title = 'yzma'
+title = 'yzma - Go with your own intelligence'
 [module]
 proxy = "direct"
 [[module.imports]]
@@ -12,7 +12,7 @@ unsafe = true
 [params]
 copyright = "The Hybrid Group"
 description = "Go with your own intelligence"
-images = ["/images/yzma-logo-social.png"]
+images = ["/images/yzma-social-card.png"]
 
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.

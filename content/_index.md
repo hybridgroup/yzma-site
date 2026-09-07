@@ -1,5 +1,7 @@
 ---
 title: "yzma"
+description: >
+  yzma lets you write Go applications that use llama.cpp for local inference with full hardware acceleration.
 ---
 
 {{< blocks/cover title="" image_anchor="top" height="min" color="dark" >}}
