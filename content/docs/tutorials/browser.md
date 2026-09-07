@@ -111,5 +111,6 @@ make test-wasm
 
 ## Next steps
 
+- [Try it in your browser](/try/) runs a page like this one, with no build.
 - [Build for a browser](/docs/guides/browser/) shows the headers, the threads, and the WebGPU settings.
 - [WebAssembly](/docs/concepts/webassembly/) shows how the two modules work together.

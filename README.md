@@ -44,6 +44,29 @@ The result goes in the `public` directory.
 | `static/favicons/` | The icons for the browser tab. |
 | `hugo.toml` | The configuration of the site. |
 | `netlify.toml` | The build settings for Netlify. |
+| `scripts/` | The script that gets the browser demo. |
+
+## The browser demo
+
+The page at [yzma.ai/try/](https://yzma.ai/try/) holds a frame with the demo
+from [yzma-wasm-example](https://github.com/hybridgroup/yzma-wasm-example). The
+files of the demo are not in this repository. A build gets them from the `demo`
+release of that repository:
+
+```shell
+./scripts/fetch-demo.sh
+```
+
+The files go to `static/try/app`, which git ignores. Netlify runs the script
+before Hugo. Set `DEMO_URL` to take the tarball from another place, such as a
+local build.
+
+```shell
+DEMO_URL=~/Development/yzma-wasm-example/demo.tar.gz ./scripts/fetch-demo.sh
+```
+
+`netlify.toml` sends the COOP header and the COEP header for `/try/*`. The demo
+needs them to get `SharedArrayBuffer` and the build with more than one thread.
 
 ## Write a page
 

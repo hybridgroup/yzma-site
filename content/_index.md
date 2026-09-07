@@ -14,6 +14,9 @@ description: >
 	<a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/getting-started" >}}">
 		Get Started <i class="fas fa-arrow-alt-circle-right ml-2"></i>
 	</a>
+	<a class="btn btn-lg btn-primary mr-3 mb-4" href="/try/">
+		Try it in your browser <i class="fas fa-comments ml-2"></i>
+	</a>
 	<a class="btn btn-lg btn-secondary mr-3 mb-4" href="https://github.com/hybridgroup/yzma">
 		See the code <i class="fab fa-github ml-2 "></i>
 	</a>
@@ -41,6 +44,19 @@ Run Vision Language Models on images, audio, and video.
 {{% blocks/feature icon="fa fa-globe" title="Run anywhere" url="docs/concepts/webassembly" %}}
 Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 {{% /blocks/feature %}}
+{{< /blocks/section >}}
+
+{{< blocks/section color="white" >}}
+<div class="text-center">
+<h2 class="mb-2">See it run, now</h2>
+<p class="lead">A model in your browser. No install, no signup, and no server.</p>
+
+<p class="mt-4"><a href="/try/"><img src="/images/yzma-in-browser.png" alt="A chat with a model in a browser" class="img-fluid rounded shadow" style="max-width: 720px; width: 100%;"></a></p>
+
+<p class="mt-4">The page downloads the model one time and then runs it on your machine. Chrome and Edge use the GPU with WebGPU.</p>
+
+<p class="mt-4"><a class="btn btn-lg btn-primary" href="/try/">Try it in your browser <i class="fas fa-comments ml-2"></i></a></p>
+</div>
 {{< /blocks/section >}}
 
 <div><a id="powered-by" class="td-offset-anchor"></a></div>

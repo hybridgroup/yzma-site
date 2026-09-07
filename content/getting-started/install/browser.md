@@ -31,4 +31,4 @@ You also need [TinyGo](https://tinygo.org) 0.41.1 or later to build the program.
 
 ## Next steps
 
-See [Run yzma in a browser](/docs/tutorials/browser/) for a complete lesson, and [WebAssembly](/docs/concepts/webassembly/) for how it works.
+[Try it in your browser](/try/) runs such a page now, with no install. See [Run yzma in a browser](/docs/tutorials/browser/) for a complete lesson, and [WebAssembly](/docs/concepts/webassembly/) for how it works.
