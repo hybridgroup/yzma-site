@@ -18,6 +18,40 @@ menu:
 
 <iframe class="yzma-demo" src="/try/app/?embed=1" title="yzma chat demo"></iframe>
 
+<script>
+// The frame has the height of its content, thus the page scrolls and the
+// frame does not. The demo is on this origin, so the page can measure it.
+(function () {
+	var frame = document.querySelector(".yzma-demo");
+	if (!frame || !window.ResizeObserver) return;
+
+	var watcher = null;
+	var last = 0;
+
+	function fit() {
+		var doc = frame.contentDocument;
+		if (!doc || !doc.body) return;
+		// scrollHeight is never less than the frame, thus measure the box.
+		var height = Math.ceil(doc.documentElement.getBoundingClientRect().height);
+		if (!height || height === last) return;
+		last = height;
+		// The border is part of the height of the frame, thus add it.
+		frame.style.height = (height + frame.offsetHeight - frame.clientHeight) + "px";
+	}
+
+	frame.addEventListener("load", function () {
+		var doc = frame.contentDocument;
+		if (!doc) return;
+		if (watcher) watcher.disconnect();
+		last = 0;
+		watcher = new ResizeObserver(fit);
+		watcher.observe(doc.documentElement);
+		watcher.observe(doc.body);
+		fit();
+	});
+})();
+</script>
+
 <p class="mt-4">The demo is a Go program that <a href="https://tinygo.org">TinyGo</a> compiles to WebAssembly. It uses the <a href="https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm"><code>pkg/llamawasm</code></a> package, which has the same calls as the package for a host.</p>
 
 <ul>

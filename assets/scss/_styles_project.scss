@@ -89,11 +89,12 @@
 }
 
 // The browser demo sits in a frame, so the page keeps the look of the site.
+// The script on the page sets the height to the height of the content. This
+// height applies until then, and when the script cannot run.
 .yzma-demo {
+	box-sizing: border-box;
 	width: 100%;
-	height: 80vh;
-	max-height: 900px;
-	min-height: 640px;
+	height: 640px;
 	border: 1px solid $border-color;
 	border-radius: .25rem;
 }
