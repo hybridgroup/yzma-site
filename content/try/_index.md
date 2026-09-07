@@ -16,7 +16,7 @@ menu:
 
 <p>Push <strong>Load</strong> to start. The smallest model in the list is 220 MB, so the first download takes a moment, and then the browser keeps it for the next time. The line at the top right names the backend.</p>
 
-<iframe class="yzma-demo" src="/try/app/" title="yzma chat demo"></iframe>
+<iframe class="yzma-demo" src="/try/app/?embed=1" title="yzma chat demo"></iframe>
 
 <p class="mt-4">The demo is a Go program that <a href="https://tinygo.org">TinyGo</a> compiles to WebAssembly. It uses the <a href="https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm"><code>pkg/llamawasm</code></a> package, which has the same calls as the package for a host.</p>
 
