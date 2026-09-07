@@ -33,3 +33,41 @@
 		margin-bottom: 0;
 	}
 }
+
+// Docsy colors a link inside a paragraph of a colored block, but it does not
+// color a link inside a heading. Such a link takes the normal link color,
+// which is the same color as the background of the primary block. Docsy also
+// gives a paragraph link on the primary block a contrast of only 3.74 to 1.
+.td-box--primary,
+.td-box--secondary,
+.td-box--dark {
+	h1 > a,
+	h2 > a,
+	h3 > a,
+	h4 > a,
+	h5 > a,
+	h6 > a {
+		color: $yzma-cream;
+		text-decoration: underline;
+
+		&:hover {
+			color: $white;
+		}
+	}
+
+	p > a {
+		color: $yzma-cream;
+	}
+}
+
+// Hold the descriptions of the "Who uses yzma" row on one line, whatever the
+// number of lines that the name above them takes.
+.td-box--primary .row > div {
+	display: flex;
+	flex-direction: column;
+
+	> p:last-child {
+		margin-top: auto;
+		margin-bottom: 0;
+	}
+}

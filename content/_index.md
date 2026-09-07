@@ -6,7 +6,7 @@ title: "yzma"
 
 <img src="/images/yzma-logo-cover.png" alt="yzma" class="img-fluid mt-0 mt-md-5" style="max-width: 720px; width: 80%;">
 
-<p class="h3 mt-4 pb-4">Local inference for Go, with llama.cpp</p>
+<p class="h3 mt-4 pb-4">Local inference in Go using llama.cpp with full hardware acceleration</p>
 
 <div class="mx-auto">
 	<a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/getting-started" >}}">
@@ -39,6 +39,36 @@ Run Vision Language Models on images, audio, and video.
 {{% blocks/feature icon="fa fa-globe" title="Run anywhere" url="docs/concepts/webassembly" %}}
 Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 {{% /blocks/feature %}}
+{{< /blocks/section >}}
+
+{{< blocks/section color="primary" >}}
+<div class="text-center">
+<h2 class="mb-2">Who uses yzma</h2>
+<p class="lead">These projects build on yzma.</p>
+</div>
+
+<div class="row text-center mt-4">
+	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+		<h3 class="h4"><a href="https://github.com/ardanlabs/kronk">Kronk</a></h3>
+		<p class="mb-0">A high level API that feels like an OpenAI compatible API.</p>
+	</div>
+	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+		<h3 class="h4"><a href="https://github.com/orneryd/NornicDB">NornicDB</a></h3>
+		<p class="mb-0">A graph database for AI agents and knowledge systems.</p>
+	</div>
+	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+		<h3 class="h4"><a href="https://github.com/openocta/openocta">OpenOcta</a></h3>
+		<p class="mb-0">A desktop IT operations agent for Windows and macOS.</p>
+	</div>
+	<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+		<h3 class="h4"><a href="https://talkingheads2053.com/">Talking Heads From The Year 2053</a></h3>
+		<p class="mb-0">Physical AI that runs locally on the Arduino UNO Q.</p>
+	</div>
+</div>
+
+<div class="text-center mt-5">
+<p class="mb-0"><a href="/projects/">See every project that uses yzma</a></p>
+</div>
 {{< /blocks/section >}}
 
 {{% blocks/lead color="secondary" %}}
