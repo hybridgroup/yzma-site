@@ -1,6 +1,6 @@
 baseURL = 'https://yzma.ai/'
 languageCode = 'en-us'
-title = 'yzma - Go with your own intelligence'
+title = 'yzma'
 [module]
 proxy = "direct"
 [[module.imports]]
