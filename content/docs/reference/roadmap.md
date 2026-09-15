@@ -35,7 +35,6 @@ These mtmd functions have no wrapper yet.
 - `mtmd_bitmap_init_lazy`
 - `mtmd_get_cap_from_file`
 - `mtmd_helper_video_read_next`
-- `mtmd_image_tokens_get_decoder_pos`
 
 ## WebAssembly
 
