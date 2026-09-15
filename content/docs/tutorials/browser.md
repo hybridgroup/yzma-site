@@ -11,7 +11,7 @@ yzma runs in a browser. The model stays on the machine of the reader, and no ser
 
 ## Before you start
 
-You need [TinyGo](https://tinygo.org) 0.41.1 or later, and a clone of the yzma repository.
+You need [TinyGo](https://tinygo.org) 0.42.0 or later, and a clone of the yzma repository.
 
 ```shell
 git clone https://github.com/hybridgroup/yzma.git

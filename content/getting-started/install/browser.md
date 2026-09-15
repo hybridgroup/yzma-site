@@ -27,7 +27,7 @@ Every build holds the multimodal library, so a model with a projector works for 
 
 A browser program uses the smaller API of the [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm) package. The names and the order of the calls are the same as in `pkg/llama`, so a program moves from one to the other with a change of the import.
 
-You also need [TinyGo](https://tinygo.org) 0.41.1 or later to build the program.
+You also need [TinyGo](https://tinygo.org) 0.42.0 or later to build the program.
 
 ## Next steps
 
