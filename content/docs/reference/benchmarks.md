@@ -15,7 +15,7 @@ These are the newest results. Read them with three conditions in mind.
 - The text tables and the multimodal tables use different models and different prompts. A number of one table does not compare with a number of the other.
 - The WebAssembly numbers come from the generation loop of the browser example, not from the Go benchmark. They do not compare with the native tables.
 
-The numbers change with each `llama.cpp` release. The [detail files](#the-detail-files) in the repository are always the newest ones. The measurements here are from 2026-09-17 to 2026-09-19.
+The numbers change with each `llama.cpp` release. The [detail files](#the-detail-files) in the repository are always the newest ones. The measurements here are from 2026-09-17 to 2026-09-23.
 
 ## Text generation
 
@@ -23,9 +23,9 @@ The model is `SmolLM-135M.Q2_K`. The `llama.cpp` build is b10964.
 
 | Platform | Backend | Machine | Device | Tokens a second |
 | --- | --- | --- | --- | --- |
-| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 842.8 |
-| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 734.3 |
-| Linux amd64 | CPU | Intel Core i9-13900HX | - | 245.8 |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 852.6 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 746.2 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 270.1 |
 | Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 190.5 |
 | Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 183.2 |
 | Linux arm64 | CPU | Jetson Orin Nano Super | - | 84.2 |
@@ -48,15 +48,15 @@ The model is `SmolVLM-256M-Instruct-Q8_0` with its projector. The `llama.cpp` bu
 
 | Platform | Backend | Machine | Device | Tokens a second |
 | --- | --- | --- | --- | --- |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 2297.0 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 2138.0 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 856.1 |
 | Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 2032.0 |
 | Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 1772.0 |
 | Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 410.5 |
 | macOS arm64 | Metal | Apple M4 Pro | MTL0 | 1085.0 |
 | macOS arm64 | CPU | Apple M4 Pro | - | 799.4 |
 | macOS arm64 | BLAS | Apple M4 Pro | BLAS | 701.1 |
-| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 863.1 |
-| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 836.8 |
-| Linux amd64 | CPU | Intel Core i9-13900HX | - | 61.6 |
 | Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 427.2 |
 | Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 423.0 |
 | Linux arm64 | CPU | Jetson Orin Nano Super | - | 138.2 |
@@ -73,11 +73,11 @@ The model is `SmolLM-135M.Q2_K`. The `llama.cpp` build is b11017.
 
 | Where | Build | Machine | Tokens a second |
 | --- | --- | --- | --- |
-| Node | CPU, more threads | Intel Core i9-13900HX | 107.9 |
-| Chrome | CPU, more threads | Intel Core i9-13900HX | 89.0 |
+| Node | CPU, more threads | Intel Core i9-13900HX | 99.9 |
+| Chrome | CPU, more threads | Intel Core i9-13900HX | 90.1 |
 | Node | CPU, one thread | Intel Core i9-13900HX | 13.8 |
 
-The build with more threads is approximately eight times the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
+The build with more threads is approximately seven times the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
 
 The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md).
 
@@ -91,25 +91,25 @@ Embeddings, with `bge-small-en-v1.5-q8_0`, 29 prompt tokens, and a vector of 384
 
 | Engine | Tokens a second | First token ms |
 | --- | --- | --- |
-| yzma, in process | 23943.5 | 1.2 |
-| Docker Model Runner, REST | 7137.5 | 4.1 |
-| ollama, REST | 6363.5 | 4.6 |
+| yzma, in process | 23653.5 | 1.2 |
+| Docker Model Runner, REST | 7079.5 | 4.1 |
+| ollama, REST | 6953.5 | 4.2 |
 
-yzma is 3.4 to 3.8 times faster here, at 1.2 ms against 4.1 ms and 4.6 ms. The ten runs do not overlap.
+yzma is 3.3 to 3.4 times faster here, at 1.2 ms against 4.1 ms and 4.2 ms. The ten runs do not overlap.
 
 Text, with 16 tokens, greedy sampling, and one request at a time.
 
 | Engine | gemma4-e2b | qwen3-vl-2b | First token ms, gemma4-e2b |
 | --- | --- | --- | --- |
-| yzma, in process | 118.8 | 168.6 | 12.3 |
-| ollama, REST | 106.3 | 154.2 | 23.5 |
-| Docker Model Runner, REST | 105.7 | 159.6 | 26.1 |
+| yzma, in process | 117.1 | 166.5 | 12.5 |
+| ollama, REST | 105.2 | 153.2 | 23.8 |
+| Docker Model Runner, REST | 104.3 | 157.4 | 26.8 |
 
-yzma is 5.6 to 12.3 percent faster here, and it takes half the time to the first token.
+yzma is 5.8 to 12.3 percent faster here, and it takes half the time to the first token.
 
 Images have no numbers yet, because each engine preprocesses an image in a different way.
 
-Each engine brings its own `llama.cpp` build. These numbers are from 2026-09-18, with yzma 1.27.0, ollama 0.34.2, and Docker Model Runner v1.2.8.
+Each engine brings its own `llama.cpp` build. These numbers are from 2026-09-22, with yzma from the main branch, ollama 0.34.2, and Docker Model Runner v1.2.8.
 
 The details are in [comparison.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/comparison.md).
 
@@ -150,7 +150,11 @@ The script asks `llama.cpp` which devices the machine has. It runs the text suit
 | `--machine` | The key of the section. The default is the host name. |
 | `--label` | The name of the machine in the table. |
 | `--llamacpp` | The build tag, when the library came from elsewhere. |
+| `--threads` | The count of CPU threads. The default is one for each performance core. |
+| `--threadpool` | Holds each CPU thread to a CPU of its own. |
 | `--dry-run` | Prints the result and changes no file. |
+
+Without `--threadpool`, the system moves the threads during the work. A short run then gives a low number, and each run gives a different number. The flag has no effect on macOS.
 
 The PowerShell script takes the same names with one dash and a capital, as `-Backend` and `-DryRun`. The flags go after the name of the file.
 
