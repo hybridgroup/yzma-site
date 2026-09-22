@@ -28,7 +28,7 @@ description: >
 
 yzma lets you write Go applications that use [llama.cpp](https://github.com/ggml-org/llama.cpp) for local inference.
 
-Your models run in the same process as your program. No model server is necessary. No C compiler is necessary. Use the hardware acceleration that your machine has.
+Your models run in the same process as your program. No model server is necessary. No C compiler is necessary. And you can use the hardware acceleration that your machine has.
 
 {{% /blocks/lead %}}
 
@@ -63,7 +63,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 
 {{< blocks/section color="light" >}}
 <div class="text-center">
-<h2 class="mb-2">Devices</h2>
+<h2 class="mb-2">Devices On The Edge</h2>
 <p class="lead">These small devices are tested and benchmarked for inference at the edge.</p>
 </div>
 
@@ -71,17 +71,17 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
 		<p><img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo"></p>
 		<h3 class="h4"><a href="/getting-started/install/arduino-uno-q/">Arduino UNO Q</a></h3>
-		<p class="mb-0">Run a model on the Linux side of the board with the CPU.</p>
+		<p class="mb-0">Run models on the Linux side of this dual-function board using CPU.</p>
 	</div>
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
 		<p><img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo"></p>
 		<h3 class="h4"><a href="/getting-started/install/jetson-orin/">Jetson Orin Nano</a></h3>
-		<p class="mb-0">Use the GPU of the board with CUDA or Vulkan.</p>
+		<p class="mb-0">Use the onboard GPU with CUDA or Vulkan.</p>
 	</div>
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
 		<p><img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo"></p>
 		<h3 class="h4"><a href="/getting-started/install/raspberry-pi/">Raspberry Pi</a></h3>
-		<p class="mb-0">Run a model with the CPU on a board that costs very little.</p>
+		<p class="mb-0">Run a model with the CPU on this popular board.</p>
 	</div>
 </div>
 {{< /blocks/section >}}
@@ -91,7 +91,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 <h2 class="mb-2">Is it Fast? Yes.</h2>
 <p class="lead">yzma calls llama.cpp in the same process. There is no server between your program and the model.</p>
 
-<p class="mt-4">A desktop GPU gives more than 800 tokens a second. An Arduino UNO Q gives 32 tokens a second with its CPU alone.</p>
+<p class="mt-4">A desktop class GPU can process more than 800 tokens a second. An edge device like Arduino UNO Q can process more than 32 tokens a second with its CPU alone.</p>
 
 <p class="mt-4"><a class="btn btn-lg btn-primary" href="/docs/reference/benchmarks/">See the benchmarks <i class="fas fa-gauge-high ml-2"></i></a></p>
 </div>
