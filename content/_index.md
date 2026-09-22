@@ -59,6 +59,44 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 </div>
 {{< /blocks/section >}}
 
+<div><a id="devices" class="td-offset-anchor"></a></div>
+
+{{< blocks/section color="light" >}}
+<div class="text-center">
+<h2 class="mb-2">Devices</h2>
+<p class="lead">These small devices are tested and benchmarked for inference at the edge.</p>
+</div>
+
+<div class="row text-center mt-4">
+	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
+		<p><img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo"></p>
+		<h3 class="h4"><a href="/getting-started/install/arduino-uno-q/">Arduino UNO Q</a></h3>
+		<p class="mb-0">Run a model on the Linux side of the board with the CPU.</p>
+	</div>
+	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
+		<p><img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo"></p>
+		<h3 class="h4"><a href="/getting-started/install/jetson-orin/">Jetson Orin Nano</a></h3>
+		<p class="mb-0">Use the GPU of the board with CUDA or Vulkan.</p>
+	</div>
+	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
+		<p><img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo"></p>
+		<h3 class="h4"><a href="/getting-started/install/raspberry-pi/">Raspberry Pi</a></h3>
+		<p class="mb-0">Run a model with the CPU on a board that costs very little.</p>
+	</div>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/section color="white" >}}
+<div class="text-center">
+<h2 class="mb-2">Is it Fast? Yes.</h2>
+<p class="lead">yzma calls llama.cpp in the same process. There is no server between your program and the model.</p>
+
+<p class="mt-4">A desktop GPU gives more than 800 tokens a second. An Arduino UNO Q gives 32 tokens a second with its CPU alone.</p>
+
+<p class="mt-4"><a class="btn btn-lg btn-primary" href="/docs/reference/benchmarks/">See the benchmarks <i class="fas fa-gauge-high ml-2"></i></a></p>
+</div>
+{{< /blocks/section >}}
+
 <div><a id="powered-by" class="td-offset-anchor"></a></div>
 
 {{< blocks/section color="primary" >}}
