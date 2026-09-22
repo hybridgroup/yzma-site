@@ -9,58 +9,166 @@ description: >
 
 yzma is fast because it calls `llama.cpp` in the same process. There is no external server.
 
-The complete measurements change with each release, so they stay in the repository:
+These are the newest results. Read them with three conditions in mind.
 
-**[BENCHMARKS.md](https://github.com/hybridgroup/yzma/blob/main/BENCHMARKS.md)**
+- Each number is the median of five runs.
+- The text tables and the multimodal tables use different models and different prompts. A number of one table does not compare with a number of the other.
+- The WebAssembly numbers come from the generation loop of the browser example, not from the Go benchmark. They do not compare with the native tables.
 
-That page has results for Linux with a CPU on amd64 and arm64, Linux with CUDA, ROCm, and Vulkan, macOS with Metal, and Windows with a CPU, CUDA, and Vulkan. Each group has text model results and multimodal model results.
+The numbers change with each `llama.cpp` release. The [detail files](#the-detail-files) in the repository are always the newest ones. The measurements here are from 2026-09-17 to 2026-09-19.
 
-## An example
+## Text generation
 
-The `Qwen3-VL-2B-Instruct` Vision Language Model doing inference on an image and a text prompt, on an Apple M4 Max with 128 GB of RAM:
+The model is `SmolLM-135M.Q2_K`. The `llama.cpp` build is b10964.
 
-```shell
-$ go test -run none -benchtime=10s -count=5 -bench BenchmarkMultimodalInference
-goos: darwin
-goarch: arm64
-pkg: github.com/hybridgroup/yzma/pkg/mtmd
-cpu: Apple M4 Max
-BenchmarkMultimodalInference-16		10		1577948683 ns/op	788.9 tokens/s
-BenchmarkMultimodalInference-16		12		1243692014 ns/op	910.8 tokens/s
-BenchmarkMultimodalInference-16		 7		1654741804 ns/op	737.2 tokens/s
-BenchmarkMultimodalInference-16		 7		1568106947 ns/op	771.9 tokens/s
-BenchmarkMultimodalInference-16		10		1704669371 ns/op	706.1 tokens/s
-PASS
-ok  	github.com/hybridgroup/yzma/pkg/mtmd	76.644s
-```
+| Platform | Backend | Machine | Device | Tokens a second |
+| --- | --- | --- | --- | --- |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 842.8 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 734.3 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 245.8 |
+| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 190.5 |
+| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 183.2 |
+| Linux arm64 | CPU | Jetson Orin Nano Super | - | 84.2 |
+| Linux arm64 | CPU | Arduino UNO Q | - | 32.0 |
+| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 28.8 |
+| macOS arm64 | CPU | Apple M4 Pro | - | 779.0 |
+| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 513.3 |
+| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 505.0 |
+| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 801.1 |
+| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 701.3 |
+| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 113.2 |
 
-## Run the benchmarks yourself
+This model is small, so a CPU with many cores can be faster than a GPU. The M4 Pro is the example. A larger model changes the order.
 
-Download the model and set the variable:
+The details are in [linux.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/linux.md), [macos.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/macos.md), and [windows.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/windows.md).
 
-```shell
-yzma model get -u https://huggingface.co/QuantFactory/SmolLM-135M-GGUF/resolve/main/SmolLM-135M.Q2_K.gguf
-export YZMA_BENCHMARK_MODEL=~/models/SmolLM-135M.Q2_K.gguf
-export YZMA_LIB=/path/to/lib
-```
+## Multimodal
 
-Then run the text benchmarks:
+The model is `SmolVLM-256M-Instruct-Q8_0` with its projector. The `llama.cpp` build is b10964.
 
-```shell
-go test -run none -bench . ./pkg/llama/
-```
+| Platform | Backend | Machine | Device | Tokens a second |
+| --- | --- | --- | --- | --- |
+| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 2032.0 |
+| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 1772.0 |
+| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 410.5 |
+| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 1085.0 |
+| macOS arm64 | CPU | Apple M4 Pro | - | 799.4 |
+| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 701.1 |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 863.1 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 836.8 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 61.6 |
+| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 427.2 |
+| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 423.0 |
+| Linux arm64 | CPU | Jetson Orin Nano Super | - | 138.2 |
+| Linux arm64 | CPU | Arduino UNO Q | - | 4.1 |
+| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 3.5 |
 
-For the multimodal benchmarks, set `YZMA_BENCHMARK_MMMODEL` and `YZMA_BENCHMARK_MMPROJ`, then:
+A projector computes many numbers at the same time, which is the function of a GPU. Thus a GPU helps a multimodal model more than a text model.
 
-```shell
-go test -run none -bench . ./pkg/mtmd/
-```
-
-See [Environment variables](/docs/reference/environment/).
+The details are in the same three files.
 
 ## In a browser
 
-The browser measurements are on the [Build for a browser](/docs/guides/browser/) page.
+The model is `SmolLM-135M.Q2_K`. The `llama.cpp` build is b11017.
+
+| Where | Build | Machine | Tokens a second |
+| --- | --- | --- | --- |
+| Node | CPU, more threads | Intel Core i9-13900HX | 107.9 |
+| Chrome | CPU, more threads | Intel Core i9-13900HX | 89.0 |
+| Node | CPU, one thread | Intel Core i9-13900HX | 13.8 |
+
+The build with more threads is approximately eight times the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
+
+The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md).
+
+## Against other engines
+
+yzma calls `llama.cpp` in the same process. ollama and Docker Model Runner answer over an OpenAI compatible REST interface, so each request pays for a round trip.
+
+The machine is an Intel Core i9-13900HX with an RTX 4070. Each suite is ten runs.
+
+Embeddings, with `bge-small-en-v1.5-q8_0`, 29 prompt tokens, and a vector of 384.
+
+| Engine | Tokens a second | First token ms |
+| --- | --- | --- |
+| yzma, in process | 23943.5 | 1.2 |
+| Docker Model Runner, REST | 7137.5 | 4.1 |
+| ollama, REST | 6363.5 | 4.6 |
+
+yzma is 3.4 to 3.8 times faster here, at 1.2 ms against 4.1 ms and 4.6 ms. The ten runs do not overlap.
+
+Text, with 16 tokens, greedy sampling, and one request at a time.
+
+| Engine | gemma4-e2b | qwen3-vl-2b | First token ms, gemma4-e2b |
+| --- | --- | --- | --- |
+| yzma, in process | 118.8 | 168.6 | 12.3 |
+| ollama, REST | 106.3 | 154.2 | 23.5 |
+| Docker Model Runner, REST | 105.7 | 159.6 | 26.1 |
+
+yzma is 5.6 to 12.3 percent faster here, and it takes half the time to the first token.
+
+Images have no numbers yet, because each engine preprocesses an image in a different way.
+
+Each engine brings its own `llama.cpp` build. These numbers are from 2026-09-18, with yzma 1.27.0, ollama 0.34.2, and Docker Model Runner v1.2.8.
+
+The details are in [comparison.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/comparison.md).
+
+## The detail files
+
+Each file has the output of every run and the information of each device.
+
+| File | What is in it |
+| --- | --- |
+| [linux.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/linux.md) | Linux, amd64 and arm64, CPU, CUDA, and Vulkan |
+| [macos.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/macos.md) | macOS, CPU, BLAS, and Metal |
+| [windows.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/windows.md) | Windows, CPU, CUDA, and Vulkan |
+| [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md) | WebAssembly in Node and in a browser |
+| [comparison.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/comparison.md) | yzma against ollama and Docker Model Runner |
+
+## Run the benchmarks yourself
+
+Get the library and the models, then run the script.
+
+```shell
+make download-llama.cpp
+make download-benchmark-models
+./benchmarks/run.sh
+```
+
+On Windows, use a PowerShell prompt at the root of the repository. A Command Prompt opens the file in an editor and does not run it.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\benchmarks\run.ps1
+```
+
+The script asks `llama.cpp` which devices the machine has. It runs the text suite and the multimodal suite for each one, and it writes each result to the file of the platform. It takes the `llama.cpp` tag from `yzma-install.json` of the library directory.
+
+| Flag | What it does |
+| --- | --- |
+| `--backend` | One backend only, as `vulkan`. |
+| `--suite` | One suite only, as `text`. |
+| `--machine` | The key of the section. The default is the host name. |
+| `--label` | The name of the machine in the table. |
+| `--llamacpp` | The build tag, when the library came from elsewhere. |
+| `--dry-run` | Prints the result and changes no file. |
+
+The PowerShell script takes the same names with one dash and a capital, as `-Backend` and `-DryRun`. The flags go after the name of the file.
+
+The machine name is part of the key of a section. Give the same name each time, or the file gets two sections for one machine.
+
+## Compare yzma with other engines yourself
+
+This suite needs the servers to run, and each one needs the model.
+
+```shell
+make download-compare-models
+docker model pull hf.co/qwen/qwen3-vl-4b-instruct-gguf:q4_k_m
+./benchmarks/compare.sh
+```
+
+Every engine must read the same GGUF file. Thus the commands take the file of Hugging Face and not `gemma4:e4b` or `ai/gemma3`, which are the conversions of a vendor. The script says which command gets a model that is absent.
+
+See [Environment variables](/docs/reference/environment/) for the variables that the benchmarks read.
 
 ## Measure your own program
 
