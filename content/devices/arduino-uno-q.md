@@ -4,14 +4,14 @@ linkTitle: "Arduino UNO Q"
 type: "docs"
 weight: 10
 description: >
-  Run models on the Linux side of the Arduino UNO Q.
+  Run models on the Arduino UNO Q.
 ---
 
 <img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo">
 
-The Arduino UNO Q is a board with two functions. A microcontroller controls the hardware, and an arm64 processor runs a Debian based Linux.
+The Arduino UNO Q is a unique board with two functions. It has both a Qualcomm QRB2210 arm64 processor running a full Debian based Linux, as well as a STM32U585 microcontroller.
 
-yzma runs on the Linux side of the board and uses the CPU. With a small text model, the board makes approximately 32 tokens a second.
+yzma runs on the Linux side of the board and uses the CPU for inference. With a small text model, the board can process approximately 32 tokens a second.
 
 ## Links
 
