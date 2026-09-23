@@ -69,18 +69,18 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 
 <div class="row text-center mt-4">
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
-		<p><img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo"></p>
-		<h3 class="h4"><a href="/getting-started/install/arduino-uno-q/">Arduino UNO Q</a></h3>
+		<p><a href="/devices/arduino-uno-q/"><img src="/images/arduino-logo.png" alt="Arduino logo" class="platform-logo"></a></p>
+		<h3 class="h4"><a href="/devices/arduino-uno-q/">Arduino UNO Q</a></h3>
 		<p class="mb-0">Run models on the Linux side of this dual-function board using CPU.</p>
 	</div>
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
-		<p><img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo"></p>
-		<h3 class="h4"><a href="/getting-started/install/jetson-orin/">Jetson Orin Nano</a></h3>
+		<p><a href="/devices/jetson-orin-nano/"><img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo"></a></p>
+		<h3 class="h4"><a href="/devices/jetson-orin-nano/">Jetson Orin Nano</a></h3>
 		<p class="mb-0">Use the onboard GPU with CUDA or Vulkan.</p>
 	</div>
 	<div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
-		<p><img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo"></p>
-		<h3 class="h4"><a href="/getting-started/install/raspberry-pi/">Raspberry Pi</a></h3>
+		<p><a href="/devices/raspberry-pi/"><img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo"></a></p>
+		<h3 class="h4"><a href="/devices/raspberry-pi/">Raspberry Pi</a></h3>
 		<p class="mb-0">Run a model with the CPU on this popular board.</p>
 	</div>
 </div>
