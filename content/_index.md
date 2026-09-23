@@ -91,7 +91,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 <h2 class="mb-2">Is it Fast? Yes.</h2>
 <p class="lead">yzma calls llama.cpp in the same process. There is no server between your program and the model.</p>
 
-<p class="mt-4">A desktop class GPU can process more than 800 tokens a second. An edge device like Arduino UNO Q can process more than 32 tokens a second with its CPU alone.</p>
+<p class="mt-4">A desktop class GPU can process more than 850 tokens a second. An edge device like Arduino UNO Q can process more than 32 tokens a second with its CPU alone.</p>
 
 <p class="mt-4"><a class="btn btn-lg btn-primary" href="/docs/reference/benchmarks/">See the benchmarks <i class="fas fa-gauge-high ml-2"></i></a></p>
 </div>
