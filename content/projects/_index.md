@@ -2,10 +2,10 @@
 title: "Projects"
 linkTitle: "Projects"
 type: "docs"
-weight: 7
+weight: 8
 menu:
   main:
-    weight: 7
+    weight: 8
 description: >
   Tools, applications, tutorials, and media that use yzma.
 

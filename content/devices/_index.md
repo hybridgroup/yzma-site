@@ -2,10 +2,10 @@
 title: "Devices"
 linkTitle: "Devices"
 type: "docs"
-weight: 8
+weight: 7
 menu:
   main:
-    weight: 8
+    weight: 7
 description: >
   Small devices that run yzma for inference at the edge.
 
