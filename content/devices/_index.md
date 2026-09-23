@@ -16,7 +16,7 @@ cascade:
   github_branch: main
 ---
 
-We test and benchmark yzma on these small devices. Each page tells you about the device and gives links to its installation page and its benchmark results.
+We test and benchmark yzma on these small devices. Learn more about each, including how to install yzma and benchmark results.
 
 - [Arduino UNO Q](/devices/arduino-uno-q/)
 - [NVIDIA Jetson Orin Nano](/devices/jetson-orin-nano/)
