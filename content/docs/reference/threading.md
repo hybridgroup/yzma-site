@@ -15,8 +15,8 @@ Each token is a graph of many matrix operations. `llama.cpp` divides each operat
 
 ```mermaid
 flowchart TD
-    token["One token"] --> graph["Graph of matrix operations"]
-    graph --> split["Divide one operation into equal parts"]
+    token["One token"] --> ops["Graph of matrix operations"]
+    ops --> split["Divide one operation into equal parts"]
     subgraph cpu["CPU"]
         subgraph p1["Performance core"]
             t1["Thread 1"]
