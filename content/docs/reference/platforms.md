@@ -11,9 +11,11 @@ description: >
 
 | Operating system | CPU | GPU |
 | --- | --- | --- |
-| Linux | amd64, arm64 | CUDA, Vulkan, HIP, ROCm, SYCL |
+| Linux | amd64, arm64 | CUDA, Vulkan, HIP, ROCm, SYCL, OpenVINO |
 | macOS | arm64 | Metal |
-| Windows | amd64 | CUDA, Vulkan, HIP, SYCL, OpenCL |
+| Windows | amd64 | CUDA, Vulkan, HIP, SYCL, OpenCL, OpenVINO |
+
+OpenVINO is on amd64 only.
 
 A browser is also a target:
 

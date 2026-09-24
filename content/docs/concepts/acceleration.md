@@ -13,9 +13,11 @@ description: >
 
 | Operating system | CPU | GPU |
 | --- | --- | --- |
-| Linux | amd64, arm64 | CUDA, Vulkan, HIP, ROCm, SYCL |
+| Linux | amd64, arm64 | CUDA, Vulkan, HIP, ROCm, SYCL, OpenVINO |
 | macOS | arm64 | Metal |
-| Windows | amd64 | CUDA, Vulkan, HIP, SYCL, OpenCL |
+| Windows | amd64 | CUDA, Vulkan, HIP, SYCL, OpenCL, OpenVINO |
+
+OpenVINO is on amd64 only.
 
 A browser is also a target:
 
@@ -30,6 +32,7 @@ A browser is also a target:
 | CPU | You have no GPU, or the model is small. |
 | CUDA | You have an NVIDIA GPU. This is the fastest choice on NVIDIA hardware. |
 | Metal | You have a Mac with Apple silicon. No installation is necessary. |
+| OpenVINO | You have an Intel CPU, GPU, or NPU on Linux or Windows amd64. |
 | ROCm | You have an AMD GPU and the ROCm 7.2 drivers. |
 | Vulkan | You have a GPU but no vendor driver stack. Vulkan works on many cards. |
 | WebGPU | Your program runs in a browser. |
@@ -40,7 +43,11 @@ Name the backend with the `--processor` flag:
 yzma install --lib /path/to/lib --processor cuda
 ```
 
-`yzma` also finds CUDA and ROCm without help. `download.HasCUDA()` and `download.HasROCm()` report what the machine has.
+`yzma` also finds CUDA and ROCm without help. `download.HasCUDA()` and `download.HasROCm()` report what the machine has, and the version that it has.
+
+On Linux, the CUDA build must match the CUDA version of the machine. `yzma install` reads that version and takes the CUDA 12 build or the CUDA 13 build. To name one, use `--processor cuda-12` or `--processor cuda-13`. If the machine reports no version, arm64 takes CUDA 12 and amd64 takes CUDA 13.
+
+OpenVINO uses the CPU unless you name another device. Set `GGML_OPENVINO_DEVICE` to `GPU` or `NPU` before you run the program. On a machine with more than one Intel GPU, use `GPU.0` or `GPU.1`.
 
 ## See what your machine has
 

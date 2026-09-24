@@ -30,6 +30,21 @@ yzma install --lib C:\path\to\lib --processor cuda
 
 The installer also downloads the `cudart` files that CUDA on Windows needs.
 {{% /tab %}}
+{{% tab header="OpenVINO" %}}
+To use an Intel CPU, GPU, or NPU with OpenVINO, run this command.
+
+```shell
+yzma install --lib C:\path\to\lib --processor openvino
+```
+
+The download has the OpenVINO runtime. A GPU or an NPU also needs the Intel drivers. See [Configurations for Intel hardware](https://docs.openvino.ai/2026/get-started/install-openvino/configurations.html).
+
+OpenVINO uses the CPU unless you name another device:
+
+```shell
+set GGML_OPENVINO_DEVICE=GPU
+```
+{{% /tab %}}
 {{% tab header="ROCm" %}}
 To use an AMD GPU, run this command:
 

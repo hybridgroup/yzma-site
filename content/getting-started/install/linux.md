@@ -27,6 +27,23 @@ Then run this command:
 ```shell
 yzma install --lib /path/to/lib --processor cuda
 ```
+
+The command reads the CUDA version of the machine and takes the CUDA 12 build or the CUDA 13 build. To name one, use `--processor cuda-12` or `--processor cuda-13`.
+{{% /tab %}}
+{{% tab header="OpenVINO" %}}
+To use an Intel CPU, GPU, or NPU with OpenVINO, run this command. OpenVINO is on amd64 only.
+
+```shell
+yzma install --lib /path/to/lib --processor openvino
+```
+
+The download has the OpenVINO runtime. A GPU or an NPU also needs the Intel drivers. See [Configurations for Intel hardware](https://docs.openvino.ai/2026/get-started/install-openvino/configurations.html).
+
+OpenVINO uses the CPU unless you name another device:
+
+```shell
+export GGML_OPENVINO_DEVICE=GPU
+```
 {{% /tab %}}
 {{% tab header="ROCm" %}}
 To use an AMD GPU, first install the ROCm 7.2 drivers. See [Install ROCm](#install-rocm) below.
