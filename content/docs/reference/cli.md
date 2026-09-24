@@ -41,7 +41,7 @@ Downloads the prebuilt `llama.cpp` libraries for this machine.
 | --- | --- | --- |
 | `--version`, `-v` | The version that this yzma release uses | The `llama.cpp` version to install. Accepts `VERSION@sha256:DIGEST` to pin the digests. |
 | `--lib`, `-l` | `$YZMA_LIB` | The directory for the library files. |
-| `--processor`, `-p` | `cpu` | The processor to use. The values are `cpu`, `cuda`, `metal`, and `vulkan`. |
+| `--processor`, `-p` | Found on this machine | The processor to use. The values are `cpu`, `cuda`, `cuda-12`, `cuda-13`, `metal`, `openvino`, `rocm`, and `vulkan`. With no value, yzma takes CUDA or ROCm if the machine has it, and the CPU if not. |
 | `--os` | This machine | The target operating system. Use it for `trixie`, `bookworm`, and `wasm`. |
 | `--upgrade`, `-u` | false | Replaces an installation that is already there. |
 | `--quiet`, `-q` | false | Prints nothing. |

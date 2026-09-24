@@ -41,23 +41,26 @@ The last argument is the resolver. A nil value uses the built in table. See [Cus
 | --- | --- |
 | `Arch` | `download.AMD64` or `download.ARM64`. |
 | `OS` | `download.Linux`, `download.Darwin`, `download.Windows`, `download.Bookworm`, `download.Trixie`, or `download.Wasm`. |
-| `Processor` | `download.CPU`, `download.CUDA`, `download.Metal`, `download.Vulkan`, `download.ROCm`, or `download.WebGPU`. |
+| `Processor` | `download.CPU`, `download.CUDA`, `download.CUDA12`, `download.CUDA13`, `download.Metal`, `download.OpenVINO`, `download.ROCm`, `download.Vulkan`, or `download.WebGPU`. |
 | `Version` | The release tag of `llama.cpp`, or `"latest"`, or an empty string. |
+| `CUDAVersion` | The CUDA version of the machine, such as `"13.0"`. It selects the Linux build for `download.CUDA`. Empty takes CUDA 12 on arm64 and CUDA 13 on amd64. |
 
 ## Find the processor
 
 `yzma` can find CUDA and ROCm on the machine.
 
 ```go
-switch {
-case download.HasCUDA():
+if ok, version := download.HasCUDA(); ok {
 	target.Processor = download.CUDA
-case download.HasROCm():
+	target.CUDAVersion = version
+} else if ok, _ := download.HasROCm(); ok {
 	target.Processor = download.ROCm
-default:
+} else {
 	target.Processor = download.CPU
 }
 ```
+
+Give the CUDA version to the target, because on Linux it selects the CUDA 12 build or the CUDA 13 build. `download.CUDA12` and `download.CUDA13` name a build and ignore the version. The functions that take strings, such as `download.Get`, take the version with `download.WithCUDAVersion`.
 
 ## The version
 
