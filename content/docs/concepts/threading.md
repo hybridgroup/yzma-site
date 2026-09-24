@@ -4,7 +4,7 @@ linkTitle: "Threading"
 type: "docs"
 weight: 35
 description: >
-  How yzma uses the CPU threads for improving performance.
+  How yzma uses CPU threads to improve performance.
 ---
 
 High performance inference requires that we use multiple threads when executing on a multicore processor. `llama.cpp` has functions to calculate how many threads to use per model. yzma then uses this information to set how many threads it uses, and on which cores they run.
