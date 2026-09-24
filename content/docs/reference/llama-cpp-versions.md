@@ -18,6 +18,7 @@ For the current list, see [the README](https://github.com/hybridgroup/yzma#requi
 | v0.3.0 | v1.25.0 |
 | v0.4.0 | v1.26.0 to v1.26.1 |
 | v0.4.1 | v1.27.0 |
+| v0.5.0 | v1.28.0 |
 
 A tagged release of yzma installs its own `llama.cpp` release by default. Thus `yzma install` with no `--version` flag gets the version in this table.
 

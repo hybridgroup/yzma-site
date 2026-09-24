@@ -46,6 +46,7 @@ Sometimes a change in `llama.cpp` breaks yzma. These are the known compatible ve
 | v0.3.0 | v1.25.0 |
 | v0.4.0 | v1.26.0 to v1.26.1 |
 | v0.4.1 | v1.27.0 |
+| v0.5.0 | v1.28.0 |
 
 A tagged release of yzma installs its own `llama.cpp` release by default. Thus `yzma install` with no `--version` flag gets the version in this table. Use `-version latest` to get the most recent nightly build. A build from the `main` branch always uses the most recent nightly build.
 
