@@ -9,6 +9,48 @@ description: >
 
 High performance inference requires that we use multiple threads when executing on a multicore processor. `llama.cpp` has functions to calculate how many threads to use per model. yzma then uses this information to set how many threads it uses, and on which cores they run.
 
+## How llama.cpp uses processor cores
+
+Each token is a graph of many matrix operations. `llama.cpp` divides each operation into equal parts, one for each thread. All threads must finish an operation before the next operation starts. Thus the slowest thread sets the speed.
+
+```mermaid
+flowchart TD
+    token["One token"] --> graph["Graph of matrix operations"]
+    graph --> split["Divide one operation into equal parts"]
+    subgraph cpu["CPU"]
+        subgraph p1["Performance core"]
+            t1["Thread 1"]
+        end
+        subgraph p2["Performance core"]
+            t2["Thread 2"]
+        end
+        subgraph p3["Performance core"]
+            t3["Thread 3"]
+        end
+        subgraph e1["Efficiency core"]
+            t4["Thread 4, slow"]
+        end
+    end
+    split --> t1
+    split --> t2
+    split --> t3
+    split --> t4
+    t1 --> wait["Wait for all threads"]
+    t2 --> wait
+    t3 --> wait
+    t4 --> wait
+    wait -- "next operation" --> split
+```
+
+Two conditions make a thread slow:
+
+- The thread is on an efficiency core.
+- Two threads share one physical core. The two CPUs of one core share the same arithmetic units.
+
+Too few threads also make inference slow, because cores stay idle. Thus the best number is one thread for each physical performance core.
+
+## How yzma uses threads
+
 ```mermaid
 flowchart TD
     subgraph os["Operating system"]
