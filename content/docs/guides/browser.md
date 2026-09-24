@@ -15,7 +15,7 @@ This page holds the details for a program that runs in a browser. See [the tutor
 
 | Build | What the browser must have |
 | --- | --- |
-| `yzma_wasm_webgpu` | WebGPU with f16 shaders, and JSPI. Chrome and Edge 137 or later. |
+| `yzma_wasm_webgpu` | WebGPU with f16 shaders, and JSPI. Chrome and Edge 137 or later. The loader also drops this build if the self test of the GPU fails. |
 | `yzma_wasm_mt` | `SharedArrayBuffer`, so a page with the COOP header and the COEP header. |
 | `yzma_wasm` | Nothing. It works in every browser. |
 
@@ -132,16 +132,41 @@ The backend of `llama.cpp` needs `shader-f16` and reports no device without it. 
 google-chrome --enable-dawn-features=vulkan_enable_f16_on_nvidia
 ```
 
+### The self test of the GPU
+
+A GPU that `llama.cpp` accepts can still compute wrong values. The answer of the model is then random tokens, and nothing in the text shows that the fault is the GPU and not a weak model. So the loader measures the device.
+
+Before it gives the module to the page, `yzma-loader.js` runs one small matrix multiply on the GPU and the same one on the CPU. It compares the two results with the normalized mean squared error. A good device gives about 3e-8 and noise gives about 1. The limit is 1e-2. The test needs no model and takes a few milliseconds.
+
+When the test fails, the loader drops the GPU build and takes a CPU build. `globalThis.yzmaGPUReject` holds the reason. A Go program gets the same answer from `llamawasm.BackendOK()`.
+
+```go
+if !llamawasm.BackendOK() {
+	// The GPU computed wrong values, so the page runs on the CPU.
+}
+```
+
+`BackendOK` is true for a build with only the CPU, and for a module older than ABI 8, which has no test.
+
 ### Vulkan in Chrome on Linux
 
-Chrome on Linux keeps Vulkan off. WebGPU then uses the OpenGL ES backend of ANGLE, which has no `shader-f16` on any card. Start Chrome with both switches, and close every window of Chrome first.
+Chrome on Linux keeps Vulkan off. WebGPU then uses the OpenGL ES backend of ANGLE, in the compatibility mode of Dawn. `chrome://gpu` shows `Vulkan: Disabled`, and the first adapter of Dawn Info is an `OpenGLES backend` line with `(Compatibility Mode)` at the end.
+
+This path gives one of two results, and neither is good.
+
+- On many cards the adapter has no `shader-f16`. `llama.cpp` then finds no device and the loader takes the CPU. The page is slow but correct.
+- On an Intel Xe with Mesa the adapter has `shader-f16`, `llama.cpp` takes it, and it computes wrong values. The [self test](#the-self-test-of-the-gpu) catches this case and takes the CPU. See [issue #341](https://github.com/hybridgroup/yzma/issues/341).
+
+These switches ask Chrome for the Vulkan backend. Close every window of Chrome first.
 
 ```shell
 google-chrome --enable-features=Vulkan \
   --enable-dawn-features=vulkan_enable_f16_on_nvidia
 ```
 
-`chrome://gpu` then says `Vulkan: Enabled`.
+`chrome://gpu` must then say `Vulkan: Enabled`, and the first adapter of Dawn Info must be a `Vulkan backend` line with the name of the card.
+
+The switches are worth a test, but they are not a repair. On Ubuntu 22.04 with Mesa 23.2.1, Chrome says `Vulkan: Enabled` and Dawn still gives the OpenGL ES adapter, so the GPU still computes wrong values. Such a machine has no GPU path that works, and the self test takes the CPU.
 
 ### Firefox
 
@@ -160,6 +185,7 @@ The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the 
 
 - WebGPU needs an adapter with f16 shaders, and Chrome or Edge 137 or later. Every other browser uses the CPU with SIMD.
 - A browser does not give the matrix instructions of a subgroup, which `llama.cpp` uses only outside a browser. Thus the GPU is slower in a page than the same backend on a desktop.
+- Some drivers give an adapter that `llama.cpp` accepts and that computes wrong values. The loader then takes a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - One JavaScript ArrayBuffer holds a maximum of 2 GB, so a larger model must come in splits.
 - `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no saved state, and no quantization.
