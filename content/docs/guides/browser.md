@@ -61,25 +61,13 @@ The threads have no effect on an image. The projector used 30.4 seconds on four 
 
 ## Speed
 
-Measured in Chrome on one machine, an RTX 4070 with an Intel integrated GPU, with the greedy sampler.
+The numbers are on the [Benchmarks](/docs/reference/benchmarks/#in-a-browser) page. With `SmolLM-135M.Q2_K` on an Intel Core i9-13900HX, the build with more threads gives 91.8 tokens a second in Chrome. That is 7.7 times the build with one thread.
 
-| Model | Backend | Tokens a second |
-| --- | --- | --- |
-| SmolLM-135M Q2_K | one thread | 10.8 |
-| SmolLM-135M Q2_K | more threads | 63.3 |
-| SmolLM-135M Q2_K | WebGPU | 63.3 |
-| Gemma 3 1B Q2_K | more threads | 18.5 |
-| Gemma 3 1B Q2_K | WebGPU | 38.7 |
+To measure a build, run `./benchmarks/run.sh --backend wasm` in the yzma repository for Node. For a browser, which WebGPU needs, paste `benchmarks/browser-bench.js` in the console of the page.
 
-The GPU is faster on the larger model. On the smaller model the two results agree, because each operation is too small to justify the transfer to the GPU.
+The GPU is faster on a larger model. On a small model the CPU and the GPU agree, because each operation is too small to justify the transfer to the GPU. Test both with `?mode=cpu` and `?mode=webgpu`.
 
-An image gives a different result. This is the same photo of 960 by 720 through the projector of SmolVLM-256M Q8_0, and then 32 tokens of answer.
-
-| Backend | Time for the image | Tokens a second |
-| --- | --- | --- |
-| more threads, in Chrome | 42.7 s | 96.9 |
-| WebGPU, in Chrome | 1.6 s | 64.4 |
-| one thread, in Node | 80 s | 17.4 |
+An image gives a different result. A photo of 960 by 720 through the projector of SmolVLM-256M Q8_0 takes 42.7 seconds on the CPU with more threads and 1.6 seconds with WebGPU.
 
 A projector computes many numbers at the same time, which is the function of a GPU. Thus the GPU is 25 times faster. A page with images needs WebGPU more than a page with text only.
 

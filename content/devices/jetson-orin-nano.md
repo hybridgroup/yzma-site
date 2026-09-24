@@ -11,7 +11,7 @@ description: >
 
 The NVIDIA Jetson Orin Nano is a small computer for AI at the edge. It has an arm64 processor and an NVIDIA GPU on the same board.
 
-yzma uses the GPU with CUDA or Vulkan. With a small text model and CUDA, the board can process over 190 tokens a second.
+yzma uses the GPU with CUDA or Vulkan. With a small text model and CUDA, the board can process approximately 190 tokens a second.
 
 ## Links
 
