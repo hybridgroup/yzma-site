@@ -184,3 +184,38 @@ It is a nested Go module, so `go build ./...` and `go test ./...` at the root of
 ```shell
 make check-ffi
 ```
+
+## yzma-bench
+
+`yzma-bench` is a separate tool for the people who run the benchmarks. It is not a subcommand. It puts the result of a run into the markdown file of the platform in `benchmarks/`, and it makes the tables of that file again. The scripts `benchmarks/run.sh` and `benchmarks/compare.sh` call it, so you seldom run it yourself.
+
+| Subcommand | What it does |
+| --- | --- |
+| `update` | Puts one result in the file and makes the tables again. |
+| `remove` | Deletes the sections of the keys that you give and makes the tables again. |
+| `check` | Makes sure that the tables agree with the sections. |
+
+The main flags of `update`:
+
+| Flag | What it does |
+| --- | --- |
+| `--file` | The markdown file of the platform. Necessary. |
+| `--suite` | The suite, such as `text`, `multimodal`, or a comparison suite. Necessary. |
+| `--backend` | The backend, such as `cpu`, `cuda`, or `vulkan`, or the engine for a comparison. Necessary. |
+| `--machine` | The short name of the machine. It is part of the key of the section. Necessary. |
+| `--device` | The device of the run, such as `CUDA0` or `Vulkan1`. |
+| `--label` | The name of the machine in the table. |
+| `--llamacpp` | The tag of the `llama.cpp` build. |
+| `--output` | The file with the output of `go test`. The default is standard input. |
+| `--dry-run` | Prints the result and changes no file. |
+
+The Makefile has targets for the benchmarks:
+
+| Target | What it does |
+| --- | --- |
+| `make benchmarks` | Runs `benchmarks/run.sh`. |
+| `make benchmarks-wasm` | Runs the WebAssembly benchmarks in Node. |
+| `make benchmarks-compare` | Compares yzma with ollama and Docker Model Runner. |
+| `make check-benchmarks` | Runs `yzma-bench check` on each result file. |
+
+See [Benchmarks](/docs/reference/benchmarks/) for how to run them.
