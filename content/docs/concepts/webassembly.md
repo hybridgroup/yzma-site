@@ -75,7 +75,7 @@ A browser program uses [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgro
 
 ## Limits
 
-The browser package has no audio, no video, no LoRA adapters, no saved state, and no quantization.
+The browser package has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
 
 The model file must come down to the browser before the first token. A 2 GB model is a 2 GB download.
 

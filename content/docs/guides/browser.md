@@ -188,5 +188,5 @@ The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the 
 - Some drivers give an adapter that `llama.cpp` accepts and that computes wrong values. The loader then takes a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - One JavaScript ArrayBuffer holds a maximum of 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no saved state, and no quantization.
+- `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
 - The shim gives no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.
