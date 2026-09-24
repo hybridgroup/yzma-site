@@ -20,6 +20,7 @@ The complete API is on [pkg.go.dev](https://pkg.go.dev/github.com/hybridgroup/yz
 | vlm | [`pkg/vlm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/vlm) | An experimental high level type for Vision Language Models. |
 | loader | [`pkg/loader`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/loader) | Opens a shared library and prepares a call. |
 | utils | [`pkg/utils`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/utils) | Converts a Go string to a C string and back. |
+| speculative | [`exp/speculative`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/speculative) | Experimental. The NextN hidden state calls for MTP speculative decoding. |
 
 See [Packages](/docs/concepts/packages/) for what each one is for.
 

@@ -21,7 +21,7 @@ A browser is also a target:
 | --- | --- | --- |
 | Browser | wasm32 SIMD, one or more threads | WebGPU |
 
-In a browser the API is the smaller one of `pkg/llamawasm`. It has no audio, no video, no LoRA adapters, no saved state, and no quantization.
+In a browser the API is the smaller one of `pkg/llamawasm`. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
 
 ## Boards
 

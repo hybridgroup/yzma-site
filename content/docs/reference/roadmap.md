@@ -17,7 +17,11 @@ That page gives a table for each area. Each row names a `llama.cpp` function and
 
 ## The areas
 
-Backend, Model, Vocab, Context, Backend Sampling, Memory, Batch, Sampling, Logging, Performance, Chat, State, LoRA, and mtmd.
+Backend, Model, Vocab, Context, Backend Sampling, Speculative Decoding, Memory, Batch, Sampling, Logging, Performance, Chat, State, LoRA, and mtmd.
+
+## Speculative decoding
+
+The [`exp/speculative`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/speculative) package has the four NextN hidden state functions that MTP speculative decoding needs. They come from `src/llama-ext.h`, a staging header of `llama.cpp`, so they can change or go away with an update. On Windows, `speculative.Available` can report false, because the header gives C++ names only.
 
 ## What has no wrapper
 
@@ -38,9 +42,9 @@ These mtmd functions have no wrapper yet.
 
 ## WebAssembly
 
-The browser shim uses ABI 6. 107 functions reach WebAssembly. 100 of them are complete and 7 are partial. All of them are among the 253 that have a wrapper on a host.
+The browser shim uses ABI 9. 170 functions reach WebAssembly. 163 of them are complete and 7 are partial. All of them are among the 258 that have a wrapper on a host.
 
-The browser package has no audio, no video, no LoRA adapters, no saved state, and no quantization. See [WebAssembly](/docs/concepts/webassembly/).
+The browser package has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory. See [WebAssembly](/docs/concepts/webassembly/).
 
 ## How the bindings stay correct
 

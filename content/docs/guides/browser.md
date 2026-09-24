@@ -174,5 +174,5 @@ The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the 
 - A browser does not give the matrix instructions of a subgroup, which `llama.cpp` uses only outside a browser. Thus the GPU is slower in a page than the same backend on a desktop.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - One JavaScript ArrayBuffer holds a maximum of 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no saved state, and no quantization.
+- `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
 - The shim gives no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.

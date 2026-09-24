@@ -20,6 +20,7 @@ yzma is a set of Go packages. Most programs use two or three of them.
 | [`pkg/vlm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/vlm) | An experimental high level type for Vision Language Models. |
 | [`pkg/loader`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/loader) | Opens a shared library and prepares a function call. |
 | [`pkg/utils`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/utils) | Converts a Go string to a C string and back. |
+| [`exp/speculative`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/speculative) | Experimental. The NextN hidden state calls for MTP speculative decoding. They can change with a `llama.cpp` update. |
 
 ## pkg/llama
 
@@ -60,4 +61,4 @@ Use this package to install the libraries from inside your own program, and to d
 
 A browser program imports `pkg/llamawasm` instead of `pkg/llama` and `pkg/mtmd`. The names and the order of the calls are the same, so a program moves from one to the other with a change of the import.
 
-The browser package is smaller. It has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no saved state, and no quantization.
+The browser package is smaller. It has text generation, embeddings, images, every sampler of a host, the logits, the metadata of a model, and the performance counters. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
