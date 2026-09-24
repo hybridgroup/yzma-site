@@ -6,9 +6,9 @@ The site uses [Hugo](https://gohugo.io) with the [Docsy](https://www.docsy.dev) 
 
 ## What you need
 
-- Hugo **extended** 0.135.0 or later. The extended build is necessary, because Docsy uses SCSS.
+- Hugo **extended** 0.160.1 or later. Netlify uses 0.164.0, which is the version that Docsy tests.
 - Go 1.24 or later. Docsy comes in as a Hugo Module, so the build needs Go.
-- Node 20 or later, for the PostCSS step.
+- Node 24 or later. npm installs Dart Sass, Bootstrap, and Font Awesome for Docsy.
 
 ## Build the site
 
@@ -21,16 +21,29 @@ npm install
 Then start the local server:
 
 ```shell
-hugo server
+npm run serve
 ```
 
-The site is then at http://localhost:1313.
+The site is then at http://localhost:1313. Run Hugo through npm, because Hugo finds Dart Sass only in `node_modules/.bin`.
 
 To make the files for a release:
 
 ```shell
-hugo --gc --minify
+npm run build -- --gc --minify
 ```
+
+## Update Docsy
+
+Get the new version, then update the Node packages that Docsy uses:
+
+```shell
+hugo mod get github.com/google/docsy/theme@v0.17.0
+hugo mod tidy
+hugo mod npm pack
+npm install
+```
+
+`hugo mod npm pack` writes `packages/hugoautogen/package.json`. Commit it with `go.mod`, `go.sum`, `package.json`, and `package-lock.json`.
 
 The result goes in the `public` directory.
 
@@ -41,7 +54,7 @@ The result goes in the `public` directory.
 | `content/` | The pages of the site. |
 | `assets/scss/_variables_project.scss` | The brand colors. |
 | `static/images/` | Logos and screenshots. |
-| `static/favicons/` | The icons for the browser tab. |
+| `static/favicon*`, `static/apple-touch-icon*` | The icons for the browser tab. Docsy finds them by name. |
 | `hugo.toml` | The configuration of the site. |
 | `netlify.toml` | The build settings for Netlify. |
 | `scripts/` | The script that gets the browser demo. |

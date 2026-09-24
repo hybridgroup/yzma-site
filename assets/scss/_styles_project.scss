@@ -98,3 +98,11 @@
 	border: 1px solid $border-color;
 	border-radius: .25rem;
 }
+
+// Over the cover of the home page, show the cover through the navbar.
+.td-navbar.td-navbar-cover.td-navbar-transparent {
+	@include media-breakpoint-up(md) {
+		--td-navbar-bg-color: transparent;
+		--td-navbar-backdrop-filter: none;
+	}
+}
