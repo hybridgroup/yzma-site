@@ -139,6 +139,8 @@ yzma uses the [purego](https://github.com/ebitengine/purego) and [ffi](https://g
 Ready to get started? [Click here](getting-started).
 {{% /blocks/lead %}}
 
+<div><a id="sponsors" class="td-offset-anchor"></a></div>
+
 {{< blocks/section color="white" >}}
 <div class="text-center">
 <h2 class="h4 mb-3">Sponsors</h2>
