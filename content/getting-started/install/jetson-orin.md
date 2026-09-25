@@ -22,18 +22,18 @@ yzma install --lib /path/to/lib --processor cuda
 The command reads the CUDA version of the Jetpack and takes the CUDA 12 build or the CUDA 13 build. If it cannot read the version, it takes CUDA 12. To name one, use `--processor cuda-12` or `--processor cuda-13`.
 {{% /tab %}}
 {{% tab header="Vulkan" %}}
-Vulkan on the Jetson Orin needs a newer GLIBC. Upgrade the shared libraries first:
+Decide where you want to put the library files, then run this command:
+
+```shell
+yzma install --lib /path/to/lib --processor vulkan
+```
+
+Jetpack 7 has the correct GLIBC for Vulkan. If you use Jetpack 6 or earlier, upgrade the shared libraries before you install:
 
 ```shell
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update
 sudo apt-get install --only-upgrade libstdc++6
-```
-
-Then run this command:
-
-```shell
-yzma install --lib /path/to/lib --processor vulkan
 ```
 {{% /tab %}}
 {{< /tabpane >}}
