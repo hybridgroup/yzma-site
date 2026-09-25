@@ -89,33 +89,19 @@ The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/mai
 
 ## Against other engines
 
-yzma calls `llama.cpp` in the same process. ollama and Docker Model Runner answer over an OpenAI compatible REST interface, so each request pays for a round trip.
+These benchmarks are to compare inference performance using 3 different engines that support GGUF models:
 
-The machine is an Intel Core i9-13900HX with an RTX 4070. Each suite is five runs.
+- yzma
+- [ollama](https://ollama.com/)
+- [Docker Model Runner](https://docs.docker.com/ai/model-runner/)
 
-Embeddings, with `bge-small-en-v1.5-q8_0`, 29 prompt tokens, and a vector of 384.
-
-| Engine | Tokens a second | First token ms |
+| Suite | Result | Evidence |
 | --- | --- | --- |
-| yzma, in process | 20954.0 | 1.4 |
-| ollama, REST | 6968.0 | 4.2 |
-| Docker Model Runner, REST | 6366.0 | 4.6 |
+| Embeddings | yzma 2.6 to 3.1 times faster, 1.4 ms against 4.3 ms and 3.7 ms | Five runs, no overlap, each engine at 29 prompt tokens and a vector of 384 |
+| Text | yzma 10.5 to 14.7 percent faster, 0.45 to 0.5 of the time to the first token | Five runs, no overlap, each engine at the same count of prompt tokens |
+| Images | yzma 1.2 to 1.4 times faster for a request, 0.5 to 0.8 of the time to the first token | Five runs, no overlap, yzma and Docker Model Runner at the same count of prompt tokens, ollama at 5 more |
 
-yzma is 3.0 to 3.3 times faster here, at 1.4 ms against 4.2 ms and 4.6 ms. The five runs do not overlap.
-
-Text, with 16 tokens, greedy sampling, and one request at a time.
-
-| Engine | gemma4-e2b | qwen3-vl-2b | First token ms, gemma4-e2b |
-| --- | --- | --- | --- |
-| yzma, in process | 119.0 | 168.7 | 12.2 |
-| Docker Model Runner, REST | 107.4 | 160.1 | 25.6 |
-| ollama, REST | 106.4 | 153.5 | 23.5 |
-
-yzma is 5.4 to 11.8 percent faster here, and it takes about half the time to the first token.
-
-Images have no numbers yet, because each engine preprocesses an image in a different way.
-
-Each engine brings its own `llama.cpp` build. These numbers are from 2026-09-24, with yzma 1.28.0, ollama 0.34.4, and Docker Model Runner v1.2.8.
+yzma calls `llama.cpp` in the same process. ollama and Docker Model Runner require an OpenAI compatible REST interface, so each request pays for a round trip.
 
 The details are in [comparison.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/comparison.md).
 
