@@ -13,6 +13,11 @@ The Arduino UNO Q is a unique board with two functions. It has both a Qualcomm Q
 
 yzma runs on the Linux side of the board and uses the CPU for inference. With a small text model, the board can process approximately 32 tokens a second.
 
+<figure class="device-photo">
+<img src="/images/devices/arduino-uno-q.webp" alt="Arduino UNO Q board">
+<figcaption>Image by <a href="https://github.com/arduino/docs-content">Arduino</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></figcaption>
+</figure>
+
 ## Links
 
 - [Arduino UNO Q website](https://docs.arduino.cc/hardware/uno-q/)

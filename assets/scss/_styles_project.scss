@@ -7,6 +7,21 @@
 	margin-bottom: 1.5rem;
 }
 
+.device-photo {
+	margin: 1.5rem 0;
+
+	img {
+		max-width: 100%;
+		width: 480px;
+		height: auto;
+	}
+
+	figcaption {
+		font-size: 0.8rem;
+		color: var(--bs-secondary-color);
+	}
+}
+
 // Docsy takes the inline code color from $secondary. That color is not
 // readable on a block that has the same color for its background.
 .td-box--secondary,
