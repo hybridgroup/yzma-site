@@ -13,6 +13,11 @@ The NVIDIA Jetson Orin Nano is a small computer for AI at the edge. It has an ar
 
 yzma uses the GPU with CUDA or Vulkan. With a small text model and CUDA, the board can process approximately 190 tokens a second.
 
+<figure class="device-photo">
+<img src="/images/devices/jetson-orin-nano.webp" alt="NVIDIA Jetson Orin Nano Developer Kit">
+<figcaption>Image by <a href="https://www.seeedstudio.com/NVIDIAr-Jetson-Orintm-Nano-Developer-Kit-p-5617.html">Seeed Studio</a></figcaption>
+</figure>
+
 ## Links
 
 - [NVIDIA Jetson Orin Nano website](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/)
