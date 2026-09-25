@@ -138,3 +138,13 @@ yzma uses the [purego](https://github.com/ebitengine/purego) and [ffi](https://g
 
 Ready to get started? [Click here](getting-started).
 {{% /blocks/lead %}}
+
+{{< blocks/section color="white" >}}
+<div class="text-center">
+<h2 class="h4 mb-3">Sponsors</h2>
+<p class="sponsors mb-0">
+	<a href="https://www.ardanlabs.com/"><img src="/images/sponsors/ardanlabs-logo.svg" alt="">Ardan Labs</a>
+	<a href="https://hybridgroup.com/"><img src="/images/sponsors/hybridgroup-logo.png" alt="">The Hybrid Group</a>
+</p>
+</div>
+{{< /blocks/section >}}

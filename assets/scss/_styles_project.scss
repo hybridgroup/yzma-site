@@ -106,3 +106,16 @@
 		--td-navbar-backdrop-filter: none;
 	}
 }
+
+// The sponsors at the bottom of the home page. Each logo is tiny and sits in front of the name.
+.sponsors a {
+	display: inline-flex;
+	align-items: center;
+	margin: 0 1rem;
+
+	img {
+		height: 24px;
+		width: auto;
+		margin-right: .5rem;
+	}
+}
