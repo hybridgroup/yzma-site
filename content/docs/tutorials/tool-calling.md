@@ -89,7 +89,7 @@ The model writes the tool calls in its answer. `ParseToolCalls` reads them:
 toolCalls := message.ParseToolCalls(response)
 ```
 
-`StripMarkup` removes the tool call markers, so you can print the text that the model said:
+`StripMarkup` removes the tool call markers, so you can print what the model said:
 
 ```go
 fmt.Printf("Assistant: %s\n", message.StripMarkup(response))
@@ -142,7 +142,7 @@ Each model family writes a tool call in its own way. `pkg/message` reads all of 
 | `FormatGPT` | `.name <\|message\|>{...}` |
 | `FormatPhi` | Standard JSON, with its own turn markers |
 
-`ParseToolCalls` finds the format without help. `DetectFormat` reads the format from the answer, and `DetectFormatFromPath` reads it from the name of the model file.
+`ParseToolCalls` finds the format on its own. `DetectFormat` reads the format from the answer, and `DetectFormatFromPath` reads it from the name of the model file.
 
 ## Stop markers
 

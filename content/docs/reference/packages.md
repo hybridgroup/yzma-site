@@ -32,7 +32,7 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 | --- | --- |
 | `llama.Load(path)` | Opens the shared libraries. |
 | `llama.Init()` | Starts the backend. |
-| `llama.LogSet(llama.LogSilent())` | Stops the messages of `llama.cpp`. |
+| `llama.LogSet(llama.LogSilent())` | Silences the `llama.cpp` log messages. |
 | `llama.Close()` | Closes the libraries. |
 
 ### Model and context
@@ -41,7 +41,7 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 | --- | --- |
 | `llama.ModelDefaultParams()` | The default model parameters. |
 | `llama.ModelLoadFromFile(path, params)` | Reads a GGUF file. |
-| `llama.ModelGetVocab(model)` | Gives the vocabulary. |
+| `llama.ModelGetVocab(model)` | Returns the vocabulary. |
 | `llama.ContextDefaultParams()` | The default context parameters. |
 | `llama.InitFromModel(model, params)` | Makes a context. |
 | `llama.ModelFree(model)` | Frees the model. |
@@ -53,7 +53,7 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 | `llama.Tokenize(vocab, text, addBOS, parseSpecial)` | Text to tokens. |
 | `llama.TokenToPiece(vocab, token, buf, lstrip, special)` | One token to text. |
 | `llama.Detokenize(...)` | Tokens to text. |
-| `llama.VocabIsEOG(vocab, token)` | Reports the end of generation token. |
+| `llama.VocabIsEOG(vocab, token)` | Reports if a token is an end of generation token. |
 
 ### Generation
 
@@ -61,14 +61,14 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 | --- | --- |
 | `llama.BatchGetOne(tokens)` | Makes a batch from tokens. |
 | `llama.Decode(ctx, batch)` | Runs the model. |
-| `llama.SamplerSample(sampler, ctx, idx)` | Takes the next token. |
-| `llama.GetEmbeddingsSeq(ctx, seq, n)` | Gives an embedding vector. |
+| `llama.SamplerSample(sampler, ctx, idx)` | Samples the next token. |
+| `llama.GetEmbeddingsSeq(ctx, seq, n)` | Returns an embedding vector. |
 
 ### Memory
 
 | Call | What it does |
 | --- | --- |
-| `llama.GetMemory(ctx)` | Gives the memory of the context. |
+| `llama.GetMemory(ctx)` | Returns the memory of the context. |
 | `llama.MemoryClear(mem, data)` | Clears it. |
 | `llama.MemorySeqRm(mem, seq, p0, p1)` | Removes part of a sequence. |
 

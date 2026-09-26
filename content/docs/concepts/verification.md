@@ -7,7 +7,7 @@ description: >
   How yzma checks the files that it downloads.
 ---
 
-`yzma install` downloads shared libraries and then runs them in your process. Thus yzma checks each file before it writes anything.
+`yzma install` downloads shared libraries and then runs them in your process. So yzma checks each file before it writes anything.
 
 ## Digests
 
@@ -20,7 +20,7 @@ https://github.com/hybridgroup/llama-cpp-builder/releases/download/b10783/b10783
 https://hybridgroup.github.io/llama-cpp-builder/digests/b10783.json
 ```
 
-Both hold the same bytes. yzma reads the release asset first. It falls back to the copy.
+Both hold the same bytes. yzma reads the release asset first and falls back to the copy.
 
 ## Policies
 
@@ -48,7 +48,7 @@ A version accepts a digest after it:
 VERSION@sha256:DIGEST
 ```
 
-The digest is the digest of the manifest of that release. It gives you a value from outside the release host to check the manifest against.
+The digest is the digest of that release's manifest. It gives you a value from outside the release host to check the manifest against.
 
 ```shell
 yzma install --lib /path/to/lib --version b10783@sha256:abc123...
@@ -73,9 +73,9 @@ yzma verify --lib /path/to/lib
 
 The check reads the files that are in place and compares them with the record.
 
-A file that no asset of this install holds is reported as `FileUnexpected`. It does not make the check fail, because one directory can hold more than one install. Add the `--strict` flag to make it fail.
+A file that is not part of this install is reported as `FileUnexpected`. It does not make the check fail, because one directory can hold more than one install. Add the `--strict` flag to make it fail.
 
-An installation that an earlier release of yzma made has no manifest. The first check then fetches one and keeps it. No check after that needs a network.
+An installation made by an earlier release of yzma has no manifest. The first check fetches one and keeps it, so later checks don't need a network.
 
 ## Next steps
 

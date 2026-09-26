@@ -11,7 +11,7 @@ description: >
 
 The Raspberry Pi is a popular single board computer. yzma runs on a Raspberry Pi 4 and on a Raspberry Pi 5 with the 64 bit version of the Raspberry Pi OS.
 
-yzma uses the CPU. With a small text model, a Raspberry Pi 4 can process approximately 35 tokens a second.
+yzma uses the CPU. With a small text model, a Raspberry Pi 4 can process about 35 tokens a second.
 
 <figure class="device-photo">
 <img src="/images/devices/raspberry-pi-5.webp" alt="Raspberry Pi 5 board">

@@ -24,7 +24,7 @@ yzma is a set of Go packages. Most programs use two or three of them.
 
 ## pkg/llama
 
-This is the package that most programs import. It gives about 250 functions, in these groups.
+This is the package that most programs import. It has about 250 functions in these groups.
 
 - **Load.** `Load`, `Init`, `Close`, `PrintSystemInfo`.
 - **Model.** `ModelLoadFromFile`, `ModelDefaultParams`, `ModelGetVocab`, `ModelChatTemplate`, `ModelMeta*`.
@@ -59,6 +59,6 @@ Use this package to install the libraries from inside your own program, and to d
 
 ## Which package for a browser
 
-A browser program imports `pkg/llamawasm` instead of `pkg/llama` and `pkg/mtmd`. The names and the order of the calls are the same, so a program moves from one to the other with a change of the import.
+A browser program imports `pkg/llamawasm` instead of `pkg/llama` and `pkg/mtmd`. The names and the order of the calls are the same, so you can move a program from one to the other by changing the import.
 
-The browser package is smaller. It has text generation, embeddings, images, every sampler of a host, the logits, the metadata of a model, and the performance counters. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
+The browser package is smaller. It has text generation, embeddings, images, every native sampler, logits, model metadata, and performance counters. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.

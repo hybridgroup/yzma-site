@@ -31,7 +31,7 @@ A browser is also a target:
 | --- | --- |
 | CPU | You have no GPU, or the model is small. |
 | CUDA | You have an NVIDIA GPU. This is the fastest choice on NVIDIA hardware. |
-| Metal | You have a Mac with Apple silicon. No installation is necessary. |
+| Metal | You have a Mac with Apple silicon. You don't need to install anything. |
 | OpenVINO | You have an Intel CPU, GPU, or NPU on Linux or Windows amd64. |
 | ROCm | You have an AMD GPU and the ROCm 7.2 drivers. |
 | Vulkan | You have a GPU but no vendor driver stack. Vulkan works on many cards. |
@@ -43,7 +43,7 @@ Name the backend with the `--processor` flag:
 yzma install --lib /path/to/lib --processor cuda
 ```
 
-`yzma` also finds CUDA and ROCm without help. `download.HasCUDA()` and `download.HasROCm()` report what the machine has, and the version that it has.
+`yzma` also finds CUDA and ROCm on its own. `download.HasCUDA()` and `download.HasROCm()` report what the machine has, and the version that it has.
 
 On Linux, the CUDA build must match the CUDA version of the machine. `yzma install` reads that version and takes the CUDA 12 build or the CUDA 13 build. To name one, use `--processor cuda-12` or `--processor cuda-13`. If the machine reports no version, arm64 takes CUDA 12 and amd64 takes CUDA 13.
 
@@ -65,13 +65,13 @@ yzma system
 
 ## Layers on the GPU
 
-`ModelParams.NGpuLayers` sets how many layers of the model go to the GPU. Put all of the layers on the GPU when the model fits in the GPU memory. Put fewer layers there when it does not fit.
+`ModelParams.NGpuLayers` sets how many layers of the model go to the GPU. Put all of the layers on the GPU when the model fits in GPU memory. Put fewer layers there when it does not fit.
 
 `llama.SupportsGpuOffload()` reports if the build can move layers at all.
 
 ## Mixture of Experts models
 
-A Mixture of Experts model has weights that most tokens do not use. You can keep those weights in the CPU memory and keep the rest on the GPU. This makes a large model fit on a small GPU.
+A Mixture of Experts model has weights that most tokens do not use. You can keep those weights in CPU memory and the rest on the GPU. This makes a large model fit on a small GPU.
 
 The `chat` example has two flags for this:
 

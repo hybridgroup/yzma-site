@@ -7,11 +7,11 @@ description: >
   How to control which token the model takes next.
 ---
 
-A model does not give one token. It gives a score for every token in the vocabulary. The sampler chain turns those scores into one token.
+A model doesn't output a single token. It gives a score for every token in the vocabulary. The sampler chain turns those scores into one token.
 
 ## The chain
 
-Each sampler in the chain changes the scores, or it takes a token. The samplers run in the order that you add them.
+Each sampler in the chain either changes the scores or picks a token. The samplers run in the order that you add them.
 
 ```go
 sampler := llama.SamplerChainInit(llama.SamplerChainDefaultParams())
@@ -23,7 +23,7 @@ llama.SamplerChainAdd(sampler, llama.SamplerInitDist(llama.DefaultSeed))
 defer llama.SamplerFree(sampler)
 ```
 
-Put the sampler that takes the token last. That is `SamplerInitDist` or `SamplerInitGreedy`.
+Put the sampler that picks the token at the end. That is `SamplerInitDist` or `SamplerInitGreedy`.
 
 ## Take the token
 
@@ -37,19 +37,19 @@ The last argument is the index of the token in the batch. Use `-1` for the last 
 
 | Sampler | What it does |
 | --- | --- |
-| `SamplerInitGreedy` | Always takes the token with the highest score. The answer is the same every time. |
-| `SamplerInitDist` | Takes a token at random, with the scores as the probability. |
+| `SamplerInitGreedy` | Always picks the token with the highest score. The answer is the same every time. |
+| `SamplerInitDist` | Picks a token at random, with the scores as the probability. |
 | `SamplerInitTopK(k)` | Keeps the k best tokens. |
-| `SamplerInitTopP(p, keep)` | Keeps the best tokens that together make p of the probability. |
-| `SamplerInitMinP(p, keep)` | Removes a token that is much worse than the best one. |
+| `SamplerInitTopP(p, keep)` | Keeps the best tokens whose combined probability reaches p. |
+| `SamplerInitMinP(p, keep)` | Removes tokens that are much less likely than the best one. |
 | `SamplerInitTemp(t)` | A higher t gives more variation. A lower t gives a safer answer. |
 | `SamplerInitTempExt` | A temperature that changes with the certainty of the model. |
 | `SamplerInitTypical(p, keep)` | Keeps the tokens with a typical amount of information. |
 | `SamplerInitTopNSigma(n)` | Keeps the tokens within n standard deviations of the best one. |
-| `SamplerInitXTC` | Removes the most probable tokens sometimes, to make the text less usual. |
+| `SamplerInitXTC` | Sometimes removes the most probable tokens, to make the text less predictable. |
 | `SamplerInitPenalties` | Lowers the score of a token that came before. This stops repetition. |
 | `SamplerInitDry` | Stops the model from repeating a sequence. |
-| `SamplerInitMirostat` | Holds the surprise of the text at a target value. |
+| `SamplerInitMirostat` | Keeps the surprise of the text near a target value. |
 | `SamplerInitMirostatV2` | The newer version of Mirostat. |
 | `SamplerInitLogitBias` | Adds a value to the score of the tokens that you name. |
 | `SamplerInitGrammar` | Makes the answer follow a GBNF grammar. |
@@ -107,4 +107,4 @@ llama.SamplerChainAdd(sampler, llama.SamplerInitGrammar(vocab, grammar, "root"))
 llama.PerfSamplerPrint(sampler)
 ```
 
-This prints how much time the sampler used.
+This prints how much time the sampler took.

@@ -62,7 +62,7 @@ Most examples take these flags.
 | `-image` | The image file. |
 | `-temp` | The temperature. |
 | `-c` | The size of the context. |
-| `-n` | How many tokens to make. |
+| `-n` | How many tokens to generate. |
 | `-v` | Shows the messages of `llama.cpp`. |
 
 ## Related pages

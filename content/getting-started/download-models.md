@@ -36,7 +36,7 @@ See [Models](/docs/guides/models/) for the complete list with the command for ea
 
 ## Projector files
 
-A Vision Language Model needs two files. There is the model file, and there is the projector file. The projector file turns an image into tokens that the model reads. The name of a projector file starts with `mmproj`.
+A Vision Language Model needs two files, the model file and the projector file. The projector file turns an image into tokens that the model reads. The name of a projector file starts with `mmproj`.
 
 Download both files:
 

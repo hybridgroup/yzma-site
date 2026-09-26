@@ -28,7 +28,7 @@ Then run this command:
 yzma install --lib /path/to/lib --processor cuda
 ```
 
-The command reads the CUDA version of the machine and takes the CUDA 12 build or the CUDA 13 build. To name one, use `--processor cuda-12` or `--processor cuda-13`.
+The command reads the CUDA version of the machine and takes the CUDA 12 build or the CUDA 13 build. To choose one, use `--processor cuda-12` or `--processor cuda-13`.
 {{% /tab %}}
 {{% tab header="OpenVINO" %}}
 To use an Intel CPU, GPU, or NPU with OpenVINO, run this command. OpenVINO is on amd64 only.
@@ -39,7 +39,7 @@ yzma install --lib /path/to/lib --processor openvino
 
 The download has the OpenVINO runtime. A GPU or an NPU also needs the Intel drivers. See [Configurations for Intel hardware](https://docs.openvino.ai/2026/get-started/install-openvino/configurations.html).
 
-OpenVINO uses the CPU unless you name another device:
+OpenVINO uses the CPU unless you choose another device:
 
 ```shell
 export GGML_OPENVINO_DEVICE=GPU
@@ -54,7 +54,7 @@ Then run this command:
 yzma install --lib /path/to/lib --processor rocm
 ```
 
-`yzma` also finds ROCm without help. If ROCm is already installed, this command is sufficient:
+`yzma` can also find ROCm on its own. If ROCm is already installed, this command is enough:
 
 ```shell
 yzma install --lib /path/to/lib
@@ -114,7 +114,7 @@ sudo apt install rocm
 {{% /tab %}}
 {{< /tabpane >}}
 
-Reboot the machine after you install ROCm. The `render` group and the `video` group need at least a new login.
+Reboot the machine after you install ROCm. At a minimum, log in again so the `render` and `video` group changes take effect.
 
 Check the installation:
 

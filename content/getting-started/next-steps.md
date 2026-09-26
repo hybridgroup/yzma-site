@@ -32,4 +32,4 @@ Your first program works. Here is what to do next.
 
 ## See what other people build
 
-The [Projects](/projects/) section shows the tools, the applications, and the articles that use yzma.
+The [Projects](/projects/) section shows tools, applications, and articles that use yzma.

@@ -23,7 +23,7 @@ A page can set the choice with `globalThis.yzmaMode`. The values are `auto`, whi
 
 With `webgpu` the loader still falls back to the CPU when the browser cannot run that build. A slow page is better than a page that does not work.
 
-Ask `llama.cpp` which part computes, not the browser. A page can have WebGpu while `llama.cpp` finds no device.
+Ask `llama.cpp` which device does the work, not the browser. A page can have WebGpu while `llama.cpp` finds no device.
 
 ```go
 backend := llamawasm.Backend()
@@ -41,13 +41,13 @@ Cross-Origin-Embedder-Policy: require-corp
 
 `wasm/serve/main.go` sends them. When a host sends no headers, the loader takes the build with one thread. `llamawasm.Threaded()` reports the selection.
 
-A host such as GitHub Pages sends no headers. A page there gets them from a service worker such as `coi-serviceworker`. Such a worker must not send the download of the model through `respondWith`. Firefox stops a service worker that holds a response open for a long time, and the download then fails with `TypeError: Error in input stream`. Let the browser make the cross origin request instead, for example with `event.stopImmediatePropagation()` in a listener before the one of the worker.
+A host such as GitHub Pages sends no headers. A page there gets them from a service worker such as `coi-serviceworker`. Such a worker must not send the download of the model through `respondWith`. Firefox stops a service worker that holds a response open for a long time, and the download then fails with `TypeError: Error in input stream`. Let the browser make the cross origin request instead, for example with `event.stopImmediatePropagation()` in a listener that runs before the worker's listener.
 
-An isolated page can get a model from another origin only when that origin sends the CORS headers. Hugging Face sends them. A model on a host with no CORS headers needs a copy on the origin of the page.
+An isolated page can get a model from another origin only when that origin sends the CORS headers. Hugging Face sends them. A model on a host with no CORS headers must be copied to the origin of the page.
 
 ## Threads
 
-`llama.cpp` asks for four threads unless a caller changes it. A machine with more cores then loses much speed.
+`llama.cpp` asks for four threads unless a caller changes it. A machine with more cores then loses a lot of speed.
 
 | Tokens a second, in Chrome | Four threads | Every thread |
 | --- | --- | --- |
@@ -55,7 +55,7 @@ An isolated page can get a model from another origin only when that origin sends
 | Gemma 3 1B Q2_K | 8.7 | 18.5 |
 | SmolVLM-256M Q8_0, the answer | 56.3 | 96.9 |
 
-Thus `ContextDefaultParams` and `MtmdContextParamsDefault` send `llamawasm.Threads()`, which the JavaScript glue reads from the machine.
+So `ContextDefaultParams` and `MtmdContextParamsDefault` send `llamawasm.Threads()`, which the JavaScript glue reads from the machine.
 
 The threads have no effect on an image. The projector used 30.4 seconds on four threads and 33.3 seconds on sixteen. The GPU makes an image fast, not the CPU.
 
@@ -69,7 +69,7 @@ The GPU is faster on a larger model. On a small model the CPU and the GPU agree,
 
 An image gives a different result. A photo of 960 by 720 through the projector of SmolVLM-256M Q8_0 takes 42.7 seconds on the CPU with more threads and 1.6 seconds with WebGPU.
 
-A projector computes many numbers at the same time, which is the function of a GPU. Thus the GPU is 25 times faster. A page with images needs WebGPU more than a page with text only.
+A projector does many calculations at the same time, which is what a GPU is built for. That makes the GPU 25 times faster. A page with images needs WebGPU more than a page with text only.
 
 The CPU builds give the same text each time. The GPU gives the same text for the first tokens and then different text, because the shaders do the calculations in a different order.
 
@@ -84,7 +84,7 @@ const { data } = context.getImageData(0, 0, width, height); // RGBA
 worker.postMessage({ kind: "describe", prompt, width, height, rgba: data.buffer }, [data.buffer]);
 ```
 
-Thus every format that the browser reads is usable, and the WebAssembly build needs no image library. The Go side removes the alpha byte and sends the RGB to mtmd.
+So every format that the browser can read works, and the WebAssembly build needs no image library. The Go side removes the alpha byte and sends the RGB to mtmd.
 
 The multimodal calls have an `Mtmd` prefix, because one package holds the llama calls as well.
 
@@ -100,7 +100,7 @@ Then the usual loop of `SamplerSample` and `Decode` follows, the same as for tex
 
 The prompt must hold one marker for each image. `MtmdMarker` gives the marker of the model.
 
-Two files come down for this, the model and its projector.
+This downloads two files, the model and its projector.
 
 ## Tool calling
 
@@ -117,13 +117,13 @@ A model must be trained for tool calls to make one. Qwen2.5-0.5B-Instruct is abo
 
 `llamawasm.ChatApplyTemplate` takes one message only. Use `pkg/template` for a conversation with turns.
 
-The shim gives no end of turn token, so the WebAssembly build takes the text of the end of sequence token and tries a short list of the usual markers. A host build reads the token itself.
+The shim has no end of turn token, so the WebAssembly build uses the text of the end of sequence token and tries a short list of the usual markers. A host build reads the token itself.
 
 ## WebGPU settings
 
 ### f16 shaders and NVIDIA
 
-The backend of `llama.cpp` needs `shader-f16` and reports no device without it. In a browser the backend uses the adapter of the browser and sets no options.
+The backend of `llama.cpp` needs `shader-f16` and reports no device without it. In a browser the backend uses the browser's adapter and sets no options.
 
 - An Intel integrated GPU gives f16 and the WebGPU build works.
 - A discrete NVIDIA card does not give f16 in a browser. Dawn has the `vulkan_enable_f16_on_nvidia` option, and `llama.cpp` sets it outside a browser but not in one. A page cannot set it, because it is a flag of the browser. Start Chrome with this command:
@@ -150,14 +150,14 @@ if !llamawasm.BackendOK() {
 
 ### Vulkan in Chrome on Linux
 
-Chrome on Linux keeps Vulkan off. WebGPU then uses the OpenGL ES backend of ANGLE, in the compatibility mode of Dawn. `chrome://gpu` shows `Vulkan: Disabled`, and the first adapter of Dawn Info is an `OpenGLES backend` line with `(Compatibility Mode)` at the end.
+Chrome on Linux keeps Vulkan off. WebGPU then uses the OpenGL ES backend of ANGLE, in Dawn's compatibility mode. `chrome://gpu` shows `Vulkan: Disabled`, and the first adapter of Dawn Info is an `OpenGLES backend` line with `(Compatibility Mode)` at the end.
 
 This path gives one of two results, and neither is good.
 
 - On many cards the adapter has no `shader-f16`. `llama.cpp` then finds no device and the loader takes the CPU. The page is slow but correct.
 - On an Intel Xe with Mesa the adapter has `shader-f16`, `llama.cpp` takes it, and it computes wrong values. The [self test](#the-self-test-of-the-gpu) catches this case and takes the CPU. See [issue #341](https://github.com/hybridgroup/yzma/issues/341).
 
-These switches ask Chrome for the Vulkan backend. Close every window of Chrome first.
+These switches ask Chrome for the Vulkan backend. Close all Chrome windows first.
 
 ```shell
 google-chrome --enable-features=Vulkan \
@@ -175,18 +175,18 @@ Firefox runs the WebGPU build, but WebGPU is not on by default. Set both of thes
 | Switch | Why |
 | --- | --- |
 | `dom.webgpu.enabled` | WebGPU on Linux is still behind this switch. |
-| `dom.webgpu.workers.enabled` | `llama.cpp` loads in the worker, so WebGPU in a page is not sufficient. |
+| `dom.webgpu.workers.enabled` | `llama.cpp` loads in the worker, so WebGPU in a page is not enough. |
 
-JSPI came in Firefox 153, so 153 or later needs no more switches.
+JSPI arrived in Firefox 153, so 153 or later needs no other switches.
 
-The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the CPU there. Mode `webgpu` still selects the GPU, which makes a test of a repair easy.
+The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the CPU there. Mode `webgpu` still selects the GPU, which makes it easy to test a fix.
 
 ## Limits
 
 - WebGPU needs an adapter with f16 shaders, and Chrome or Edge 137 or later. Every other browser uses the CPU with SIMD.
-- A browser does not give the matrix instructions of a subgroup, which `llama.cpp` uses only outside a browser. Thus the GPU is slower in a page than the same backend on a desktop.
+- A browser does not give the matrix instructions of a subgroup, which `llama.cpp` uses only outside a browser. So the GPU is slower in a page than the same backend on a desktop.
 - Some drivers give an adapter that `llama.cpp` accepts and that computes wrong values. The loader then takes a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - One JavaScript ArrayBuffer holds a maximum of 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
+- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
 - The shim gives no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.

@@ -7,9 +7,9 @@ description: >
   Download the llama.cpp libraries with Go code.
 ---
 
-Your application can install the `llama.cpp` libraries itself. Then the person who uses it does not have to run the `yzma` command.
+Your application can install the `llama.cpp` libraries itself. Then your users don't have to run the `yzma` command.
 
-`pkg/download` does this work.
+`pkg/download` handles this.
 
 ## Install
 
@@ -60,11 +60,11 @@ if ok, version := download.HasCUDA(); ok {
 }
 ```
 
-Give the CUDA version to the target, because on Linux it selects the CUDA 12 build or the CUDA 13 build. `download.CUDA12` and `download.CUDA13` name a build and ignore the version. The functions that take strings, such as `download.Get`, take the version with `download.WithCUDAVersion`.
+Set the CUDA version on the target, because on Linux it selects the CUDA 12 build or the CUDA 13 build. `download.CUDA12` and `download.CUDA13` name a build and ignore the version. The functions that take strings, such as `download.Get`, take the version with `download.WithCUDAVersion`.
 
 ## The version
 
-- An empty string takes `download.DefaultVersion`. That is the `llama.cpp` release that this yzma release was tested with. A development build of yzma leaves that empty, so an empty string then gets the most recent nightly build.
+- An empty string uses `download.DefaultVersion`. That is the `llama.cpp` release that this yzma release was tested with. A development build of yzma leaves that empty, so an empty string then gets the most recent nightly build.
 - `"latest"` always gets the most recent nightly build.
 - A tag such as `b10783` gets that release.
 
@@ -90,7 +90,7 @@ if download.AlreadyInstalled(libPath, target) {
 err := download.GetModel(modelURL, download.DefaultModelsDir())
 ```
 
-`GetModelWithProgress` and `GetModelWithContext` give you a tracker and a context.
+`GetModelWithProgress` and `GetModelWithContext` let you pass a tracker and a context.
 
 ## Check the files
 
@@ -98,10 +98,10 @@ err := download.GetModel(modelURL, download.DefaultModelsDir())
 
 ## Ship the libraries with your application
 
-You do not have to download at all. Put the library files beside your program and give the path to `llama.Load`:
+You don't have to download anything. Put the library files beside your program and pass the path to `llama.Load`:
 
 ```go
 llama.Load(filepath.Join(exeDir, "lib"))
 ```
 
-This gives you a program that works with no network. The cost is a larger download for the application, and you must build one package for each platform.
+This gives you a program that works without a network. The cost is a larger download for the application, and you must build one package for each platform.

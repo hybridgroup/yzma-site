@@ -39,13 +39,13 @@ messages := []message.Message{
 prompt, err := template.Apply(tmpl, messages, true)
 ```
 
-The third argument adds the marker that starts the turn of the assistant. Set it to `true` before you generate an answer.
+The third argument adds the marker that starts the assistant's turn. Set it to `true` before you generate an answer.
 
 `llama.ChatApplyTemplate` does the same with the code in `llama.cpp`.
 
 ## Built in templates
 
-yzma holds three templates for a model file that has none.
+yzma includes three templates for a model file that has none.
 
 | Name | Use it for |
 | --- | --- |

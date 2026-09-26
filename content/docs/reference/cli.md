@@ -116,12 +116,12 @@ llama.cpp b10783 in /path/to/lib
 
 Notes.
 
-- `yzma install` writes `yzma-install.json` beside the libraries. `yzma verify` needs it, so you must install again when an older yzma made the installation.
-- `yzma install` also writes `yzma-manifest.json`, which holds the digests. Thus `yzma verify` needs no network. An installation with no manifest makes the command fetch one and keep it, so only the first check needs a network.
+- `yzma install` writes `yzma-install.json` beside the libraries. `yzma verify` needs it, so reinstall if an older yzma made the installation.
+- `yzma install` also writes `yzma-manifest.json`, which holds the digests. So `yzma verify` doesn't need a network. If an installation has no manifest, the command fetches one and keeps it, so only the first check needs a network.
 - The record sits beside the libraries, so anything that can change the libraries can change the record. Give `--version` to name the release that must be there.
 - One directory can hold more than one install, so a file that is not part of this one is reported but does not fail the check. Add `--strict` to fail on those.
 - Only the assets that `llama-cpp-builder` builds carry file digests. An install from the `llama.cpp` release page has an archive digest but no file digests, and `yzma verify` says so.
-- A pin makes the check mandatory, so it does not go with `--verify off`.
+- A pin makes the check mandatory, so you can't use it with `--verify off`.
 
 ## yzma model
 
@@ -133,7 +133,7 @@ Downloads a model from a URL.
 
 | Flag | What it does |
 | --- | --- |
-| `--url`, `-u` | The URL of the model. This flag is necessary. |
+| `--url`, `-u` | The URL of the model. This flag is required. |
 | `--output`, `-o` | Where to put the file. The default is the models directory. |
 | `--yes`, `-y` | Answers yes to every question. |
 | `--show-progress` | Shows the progress of the download. |
@@ -148,7 +148,7 @@ Shows the information in a model file.
 
 | Flag | What it does |
 | --- | --- |
-| `--model`, `-m` | The path to the model file. This flag is necessary. |
+| `--model`, `-m` | The path to the model file. This flag is required. |
 | `--lib`, `-l` | The directory with the `llama.cpp` libraries. |
 
 ## yzma system
@@ -177,7 +177,7 @@ yzma version
 
 ## yzma-checker
 
-`yzma-checker` is a separate tool for the people who build yzma. It is not a subcommand. It compares the FFI parameter types, the return types, and the constants of yzma against the `llama.cpp` headers.
+`yzma-checker` is a separate tool for people who work on yzma. It is not a subcommand. It compares the FFI parameter types, the return types, and the constants of yzma against the `llama.cpp` headers.
 
 It is a nested Go module, so `go build ./...` and `go test ./...` at the root of the repository do not include it.
 
@@ -187,22 +187,22 @@ make check-ffi
 
 ## yzma-bench
 
-`yzma-bench` is a separate tool for the people who run the benchmarks. It is not a subcommand. It puts the result of a run into the markdown file of the platform in `benchmarks/`, and it makes the tables of that file again. The scripts `benchmarks/run.sh` and `benchmarks/compare.sh` call it, so you seldom run it yourself.
+`yzma-bench` is a separate tool for people who run the benchmarks. It is not a subcommand. It puts the result of a run into the platform's markdown file in `benchmarks/` and rebuilds the tables in that file. The scripts `benchmarks/run.sh` and `benchmarks/compare.sh` call it, so you seldom run it yourself.
 
 | Subcommand | What it does |
 | --- | --- |
-| `update` | Puts one result in the file and makes the tables again. |
-| `remove` | Deletes the sections of the keys that you give and makes the tables again. |
-| `check` | Makes sure that the tables agree with the sections. |
+| `update` | Puts one result in the file and rebuilds the tables. |
+| `remove` | Deletes the sections of the keys that you give and rebuilds the tables. |
+| `check` | Checks that the tables match the sections. |
 
 The main flags of `update`:
 
 | Flag | What it does |
 | --- | --- |
-| `--file` | The markdown file of the platform. Necessary. |
-| `--suite` | The suite, such as `text`, `multimodal`, or a comparison suite. Necessary. |
-| `--backend` | The backend, such as `cpu`, `cuda`, or `vulkan`, or the engine for a comparison. Necessary. |
-| `--machine` | The short name of the machine. It is part of the key of the section. Necessary. |
+| `--file` | The platform's markdown file. Required. |
+| `--suite` | The suite, such as `text`, `multimodal`, or a comparison suite. Required. |
+| `--backend` | The backend, such as `cpu`, `cuda`, or `vulkan`, or the engine for a comparison. Required. |
+| `--machine` | The short name of the machine. It is part of the section key. Required. |
 | `--device` | The device of the run, such as `CUDA0` or `Vulkan1`. |
 | `--label` | The name of the machine in the table. |
 | `--llamacpp` | The tag of the `llama.cpp` build. |

@@ -16,6 +16,6 @@ cascade:
   github_branch: main
 ---
 
-Who uses yzma? These pages show the tools, the applications, the tutorials, and the media that people build with it.
+Who uses yzma? These pages show tools, applications, tutorials, and media that people build with it.
 
 Do you have a project that uses yzma? Tell us about it in the [yzma repository](https://github.com/hybridgroup/yzma/issues).

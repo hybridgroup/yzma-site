@@ -88,14 +88,14 @@ $ go run ./examples/hello/
 "Yes, I'm ready to go."
 ```
 
-No C compiler is necessary. The normal `go run` command is sufficient.
+You don't need a C compiler. The normal `go run` command is enough.
 
 ## What each step does
 
 1. `llama.Load` opens the `llama.cpp` shared libraries at run time.
 2. `llama.Init` starts the backend.
 3. `ModelLoadFromFile` reads the GGUF file.
-4. `InitFromModel` makes a context. The context holds the state of one conversation.
+4. `InitFromModel` creates a context. The context holds the state of one conversation.
 5. `Tokenize` turns the prompt into tokens.
 6. The sampler chain selects the next token. This program uses a greedy sampler, which always takes the token with the highest score.
 7. The loop calls `Decode` to run the model, and `SamplerSample` to take a token. `TokenToPiece` turns the token back into text.

@@ -28,7 +28,7 @@ description: >
 
 yzma lets you write Go applications that use [llama.cpp](https://github.com/ggml-org/llama.cpp) for local inference.
 
-Your models run in the same process as your program. No model server is necessary. No C compiler is necessary. And you can use the hardware acceleration that your machine has.
+Your models run in the same process as your program. You don't need a model server or a C compiler. And you can use the hardware acceleration that your machine has.
 
 {{% /blocks/lead %}}
 
@@ -53,7 +53,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 
 <p class="mt-4"><a href="/try/"><img src="/images/yzma-in-browser.png" alt="A chat with a model in a browser" class="img-fluid rounded shadow" style="max-width: 720px; width: 100%;"></a></p>
 
-<p class="mt-4">The page downloads the model one time and then runs it on your machine. Chrome and Edge use the GPU with WebGPU.</p>
+<p class="mt-4">The page downloads the model once and then runs it on your machine. Chrome and Edge use the GPU with WebGPU.</p>
 
 <p class="mt-4"><a class="btn btn-lg btn-primary" href="/try/">Try it in your browser <i class="fas fa-comments ml-2"></i></a></p>
 </div>
@@ -134,7 +134,7 @@ Run on Linux, macOS, Windows, or in a browser with WebAssembly.
 {{< /blocks/section >}}
 
 {{% blocks/lead color="secondary" %}}
-yzma uses the [purego](https://github.com/ebitengine/purego) and [ffi](https://github.com/JupiterRider/ffi) packages, so CGo is not necessary. Build your programs with the normal `go build` and `go run` commands.
+yzma uses the [purego](https://github.com/ebitengine/purego) and [ffi](https://github.com/JupiterRider/ffi) packages, so you don't need CGo. Build your programs with the normal `go build` and `go run` commands.
 
 Ready to get started? [Click here](getting-started).
 {{% /blocks/lead %}}

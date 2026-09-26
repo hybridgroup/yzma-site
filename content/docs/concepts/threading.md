@@ -11,7 +11,7 @@ High performance inference requires that we use multiple threads when executing 
 
 ## How llama.cpp uses processor cores
 
-Each token is a graph of many matrix operations. `llama.cpp` divides each operation into equal parts, one for each thread. All threads must finish an operation before the next operation starts. Thus the slowest thread sets the speed.
+Each token is a graph of many matrix operations. `llama.cpp` divides each operation into equal parts, one for each thread. All threads must finish an operation before the next operation starts. So the slowest thread sets the speed.
 
 ```mermaid
 flowchart TD
@@ -47,7 +47,7 @@ Two conditions make a thread slow:
 - The thread is on an efficiency core.
 - Two threads share one physical core. The two CPUs of one core share the same arithmetic units.
 
-Too few threads also make inference slow, because cores stay idle. Thus the best number is one thread for each physical performance core.
+Too few threads also make inference slow, because cores stay idle. So the best number is one thread for each physical performance core.
 
 ## How yzma uses threads
 
@@ -89,7 +89,7 @@ By default `llama.cpp` requests four threads. This is slow on a machine with man
 | System | How yzma counts the cores |
 | --- | --- |
 | Linux | It reads sysfs. `/sys/devices/cpu_core/cpus` gives the performance cores, and `thread_siblings_list` removes the second CPU of each core. |
-| macOS | It reads `hw.perflevel0.physicalcpu`, which is the performance cores of Apple Silicon. An Intel Mac gives `hw.physicalcpu`. |
+| macOS | It reads `hw.perflevel0.physicalcpu`, which is the number of performance cores on Apple Silicon. An Intel Mac gives `hw.physicalcpu`. |
 | Other systems | Half of the logical CPUs. A machine with four logical CPUs or fewer gets all of them. |
 
 On Linux and macOS, yzma also uses half of the logical CPUs when the system does not return a specific value.
@@ -121,7 +121,7 @@ The native examples have a `-t` flag. The value 0 gives the default.
 
 ## Pin each thread to a core
 
-The operating system can move a thread from one core to a different core. On a machine with two kinds of cores, it can put a thread on an efficiency core. If this occurs, then that thread will be slow for inference. A thread pool with a CPU mask prevents this.
+The operating system can move a thread from one core to a different core. On a machine with two kinds of cores, it can put a thread on an efficiency core. If this happens, that thread will be slow for inference. A thread pool with a CPU mask prevents this.
 
 `llama.NewPerformanceThreadpool()` creates a pool with one thread for each performance core. Each thread stays on a CPU of its own.
 
@@ -151,7 +151,7 @@ llama.Free(ctx)
 llama.ThreadpoolFree(tp)
 ```
 
-Obey these rules:
+Follow these rules:
 
 - Call `llama.Init()` before you create a pool. The CPU backend supplies the pool calls, and they exist only after the backend starts.
 - Use `ModelParams.SetCPUOnly()` for the model. Do not set the CPU in a device list with `SetDevices`. Using a device list makes `llama.cpp` start a second CPU backend, and the pool then gets no work.
@@ -182,7 +182,7 @@ tp, err := llama.ThreadpoolNew(&params)
 
 ## Goroutines
 
-The `mtmd` package knows which calls are safe to be used from more than one goroutine.
+The `mtmd` package knows which calls are safe to use from more than one goroutine.
 
 | Call | Safe from multiple goroutines |
 | --- | --- |
@@ -200,15 +200,15 @@ There are three builds of `llama.cpp` for WebAssembly. The loader selects one of
 | CPU with multithreading | The logical CPUs of the machine, from 1 to 16. |
 | CPU with single threading | 1. |
 
-The build with multithread needs `SharedArrayBuffer`. The browser passes it only to a page that has the `Cross-Origin-Opener-Policy` header and the `Cross-Origin-Embedder-Policy` header. Without them, the loader selects the single threaded build.
+The multithreaded build needs `SharedArrayBuffer`. The browser passes it only to a page that has the `Cross-Origin-Opener-Policy` header and the `Cross-Origin-Embedder-Policy` header. Without them, the loader selects the single threaded build.
 
-These calls of `llamawasm` can tell what the loader selected.
+These `llamawasm` calls tell you what the loader selected.
 
 - `Threaded()` tells if the module uses multithreading.
 - `Threads()` returns the number of threads. `ContextDefaultParams` and `MtmdContextParamsDefault` set this value.
 - `Backend()` returns `webgpu`, `cpu-threads`, or `cpu`.
 
-`llamawasm.SetNThreads` changes the threads of a context after you make it.
+`llamawasm.SetNThreads` changes the thread count of a context after you create it.
 
 Only one goroutine can call into the module at a time, because the package keeps scratch memory in the module. Each call is synchronous, so put the code in a Web Worker and not on the main thread. For more, see the [browser guide](/docs/guides/browser/).
 

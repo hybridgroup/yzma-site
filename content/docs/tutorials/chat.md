@@ -11,7 +11,7 @@ The `hello` program sends one prompt. A chat program keeps the conversation, so 
 
 ## Before you start
 
-Download a model that follows an instruction:
+Download a model that follows instructions:
 
 ```shell
 yzma model get -u https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-fp16.gguf
@@ -49,7 +49,7 @@ prompt := llama.ChatApplyTemplate(tmpl, messages, true)
 
 See [Chat templates](/docs/guides/chat-templates/).
 
-**The context keeps the conversation.** Each new message goes on the end of the same context. The model then sees the complete history.
+**The context keeps the conversation.** Each new message goes on the end of the same context, so the model sees the complete history.
 
 **The sampler is not greedy.** A chat needs some variation. The example uses a chain with a temperature sampler, a top-k sampler, a top-p sampler, and a min-p sampler.
 
@@ -57,7 +57,7 @@ See [Chat templates](/docs/guides/chat-templates/).
 
 | Flag | Default | What it does |
 | --- | --- | --- |
-| `-model` | none | The model file. This flag is necessary. |
+| `-model` | none | The model file. This flag is required. |
 | `-lib` | `YZMA_LIB` | The directory with the `llama.cpp` libraries. |
 | `-p` | none | One prompt. Omit this flag for a chat session. |
 | `-sys` | none | The system prompt. |
@@ -67,12 +67,12 @@ See [Chat templates](/docs/guides/chat-templates/).
 | `-top-p` | 0.9 | Keeps the tokens that make 90 percent of the probability. |
 | `-min-p` | 0.1 | Removes a token that is much worse than the best one. |
 | `-c` | 4096 | The size of the context in tokens. |
-| `-n` | -1 | How many tokens to make. -1 means the size of the context. |
+| `-n` | -1 | How many tokens to generate. -1 means the size of the context. |
 | `-b` | 2048 | The logical batch size. |
 | `-ub` | 2048 | The physical batch size. |
 | `-cmoe` | false | Keeps all Mixture of Experts weights in the CPU. |
 | `-ncmoe` | 0 | Keeps the Mixture of Experts weights of the first N layers in the CPU. |
-| `-v` | false | Shows the messages of `llama.cpp`. |
+| `-v` | false | Shows the `llama.cpp` log messages. |
 
 ## When the context is full
 

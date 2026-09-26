@@ -38,7 +38,7 @@ params.PoolingType = llama.PoolingTypeMean
 ctx, err := llama.InitFromModel(model, params)
 ```
 
-The pooling type says how to make one vector from many tokens. `PoolingTypeMean` takes the mean of every token. There is also `PoolingTypeCLS`, `PoolingTypeLast`, and `PoolingTypeNone`.
+The pooling type says how to make one vector from many tokens. `PoolingTypeMean` takes the mean of every token. There are also `PoolingTypeCLS`, `PoolingTypeLast`, and `PoolingTypeNone`.
 
 **2. Tokenize the text and run one decode.**
 
@@ -48,7 +48,7 @@ batch := llama.BatchGetOne(tokens)
 llama.Decode(ctx, batch)
 ```
 
-There is no loop. An embedding needs one pass only.
+There is no loop. An embedding needs only one pass.
 
 **3. Read the vector.**
 

@@ -23,7 +23,7 @@ A browser is also a target:
 | --- | --- | --- |
 | Browser | wasm32 SIMD, one or more threads | WebGPU |
 
-In a browser the API is the smaller one of `pkg/llamawasm`. It has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory.
+In a browser the API is the smaller `pkg/llamawasm` API. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
 
 ## Boards
 
@@ -50,7 +50,7 @@ Sometimes a change in `llama.cpp` breaks yzma. These are the known compatible ve
 | v0.4.1 | v1.27.0 |
 | v0.5.0 | v1.28.0 |
 
-A tagged release of yzma installs its own `llama.cpp` release by default. Thus `yzma install` with no `--version` flag gets the version in this table. Use `-version latest` to get the most recent nightly build. A build from the `main` branch always uses the most recent nightly build.
+A tagged release of yzma installs its own `llama.cpp` release by default. So `yzma install` with no `--version` flag gets the version in this table. Use `-version latest` to get the most recent nightly build. A build from the `main` branch always uses the most recent nightly build.
 
 These are some of the known compatible versions for the nightly builds.
 
@@ -72,7 +72,7 @@ These are some of the known compatible versions for the nightly builds.
 | b10545 to b10779 | v1.24.0 to v1.25.0 |
 | b10780 and later | v1.26.0 and later |
 
-The tests of yzma run automatically when there is a new release of `llama.cpp`. This keeps yzma up to date with the newest code and models.
+The yzma tests run automatically when there is a new release of `llama.cpp`. This keeps yzma up to date with the newest code and models.
 
 For the current list, see [the README](https://github.com/hybridgroup/yzma#required-versions-of-llamacpp).
 

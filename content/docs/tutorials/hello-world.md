@@ -40,9 +40,9 @@ llama.LogSet(llama.LogSilent())
 llama.Init()
 ```
 
-`LogSilent` stops the messages that `llama.cpp` prints. Remove that line to see what the library does.
+`LogSilent` hides the messages that `llama.cpp` prints. Remove that line to see what the library does.
 
-**2. Load the model and make a context.**
+**2. Load the model and create a context.**
 
 ```go
 model, _ := llama.ModelLoadFromFile(path, llama.ModelDefaultParams())
@@ -68,7 +68,7 @@ sampler := llama.SamplerChainInit(llama.SamplerChainDefaultParams())
 llama.SamplerChainAdd(sampler, llama.SamplerInitGreedy())
 ```
 
-A greedy sampler always takes the token with the highest score. The answer is then the same every time. See [Sampling](/docs/guides/sampling/) for the other samplers.
+A greedy sampler always takes the token with the highest score. So the answer is the same every time. See [Sampling](/docs/guides/sampling/) for the other samplers.
 
 **5. Run the loop.**
 
@@ -91,7 +91,7 @@ for pos := int32(0); pos < responseLength; pos += batch.NTokens {
 
 `Decode` runs the model. `SamplerSample` takes the next token. `TokenToPiece` turns that token into text. The new token becomes the next batch.
 
-`VocabIsEOG` reports the end of generation token. The model gives this token when it has no more to say.
+`VocabIsEOG` reports the end of generation token. The model returns this token when it has no more to say.
 
 ## Next steps
 

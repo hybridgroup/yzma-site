@@ -7,13 +7,13 @@ description: >
   How much of llama.cpp yzma covers.
 ---
 
-yzma covers more than 96 percent of the `llama.cpp` functionality.
+yzma covers more than 96 percent of `llama.cpp` functionality.
 
 The complete list changes with each release, so it stays in the repository:
 
 **[ROADMAP.md](https://github.com/hybridgroup/yzma/blob/main/ROADMAP.md)**
 
-That page gives a table for each area. Each row names a `llama.cpp` function and gives two columns. One column is the state of the wrapper in yzma. The other column is the state of the same function in a browser.
+That page gives a table for each area. Each row names a `llama.cpp` function and has two columns, one for the state of the yzma wrapper and one for the state of the same function in a browser.
 
 ## The areas
 
@@ -44,7 +44,7 @@ These mtmd functions have no wrapper yet.
 
 The browser shim uses ABI 9. 170 functions reach WebAssembly. 163 of them are complete and 7 are partial. All of them are among the 258 that have a wrapper on a host.
 
-The browser package has no audio, no video, no LoRA adapters, no state in a file, and no quantization. It saves the state of a context in memory. See [WebAssembly](/docs/concepts/webassembly/).
+The browser package doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory. See [WebAssembly](/docs/concepts/webassembly/).
 
 ## How the bindings stay correct
 
