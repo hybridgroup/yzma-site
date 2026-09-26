@@ -13,11 +13,11 @@ yzma uses no CGo, so cross compilation is the normal Go workflow. Set `GOOS` and
 GOOS=linux GOARCH=arm64 go build -o myapp-arm64 .
 ```
 
-You need no C compiler and no cross toolchain.
+You don't need a C compiler or a cross toolchain.
 
 ## Why this works
 
-A CGo program must compile C code for the target, so it needs a cross toolchain for each target. yzma calls `llama.cpp` through purego and libffi. Nothing about `llama.cpp` is part of your binary, so the Go compiler alone is sufficient.
+A CGo program must compile C code for the target, so it needs a cross toolchain for each target. yzma calls `llama.cpp` through purego and libffi. Nothing about `llama.cpp` is part of your binary, so the Go compiler alone is enough.
 
 See [Architecture](/docs/concepts/architecture/).
 

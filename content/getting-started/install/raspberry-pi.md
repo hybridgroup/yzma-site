@@ -11,7 +11,7 @@ description: >
 
 yzma runs on a Raspberry Pi 4 and on a Raspberry Pi 5. You need the 64 bit version of the Raspberry Pi OS.
 
-The Raspberry Pi OS uses its own library versions, so you must name the operating system with the `--os` flag.
+The Raspberry Pi OS uses its own library versions, so you must set the operating system with the `--os` flag.
 
 {{< tabpane text=true >}}
 {{% tab header="Raspberry Pi OS (64-bit)" %}}

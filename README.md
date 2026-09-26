@@ -12,7 +12,7 @@ The site uses [Hugo](https://gohugo.io) with the [Docsy](https://www.docsy.dev) 
 
 ## Build the site
 
-Install the Node packages one time:
+Install the Node packages once:
 
 ```shell
 npm install
@@ -63,7 +63,7 @@ The result goes in the `public` directory.
 
 The page at [yzma.ai/try/](https://yzma.ai/try/) holds a frame with the demo
 from [yzma-wasm-example](https://github.com/hybridgroup/yzma-wasm-example). The
-files of the demo are not in this repository. A build gets them from the `demo`
+demo files are not in this repository. A build gets them from the `demo`
 release of that repository:
 
 ```shell
@@ -71,7 +71,7 @@ release of that repository:
 ```
 
 The files go to `static/try/app`, which git ignores. Netlify runs the script
-before Hugo. Set `DEMO_URL` to take the tarball from another place, such as a
+before Hugo. Set `DEMO_URL` to take the tarball from somewhere else, such as a
 local build.
 
 ```shell
@@ -100,7 +100,7 @@ The `weight` sets the order in the menu. Use steps of 10, so you can put a new p
 
 ## Style
 
-Follow [AGENTS.md](./AGENTS.md). Write the pages in ASD-STE100 Simplified Technical English.
+Follow [AGENTS.md](./AGENTS.md). Write the pages in simple, direct English.
 
 ## Deployment
 

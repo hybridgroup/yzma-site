@@ -20,7 +20,7 @@ For the current list, see [the README](https://github.com/hybridgroup/yzma#requi
 | v0.4.1 | v1.27.0 |
 | v0.5.0 | v1.28.0 |
 
-A tagged release of yzma installs its own `llama.cpp` release by default. Thus `yzma install` with no `--version` flag gets the version in this table.
+A tagged release of yzma installs its own `llama.cpp` release by default. So `yzma install` with no `--version` flag gets the version in this table.
 
 Use `-version latest` to get the most recent nightly build instead. A build from the `main` branch always uses the most recent nightly build.
 
@@ -46,7 +46,7 @@ Use `-version latest` to get the most recent nightly build instead. A build from
 
 ## How yzma stays up to date
 
-The tests of yzma run automatically when there is a new release of `llama.cpp`. This finds a breaking change quickly.
+The yzma tests run automatically when there is a new release of `llama.cpp`. This catches breaking changes quickly.
 
 `yzma-checker` also compares the FFI types and the constants of yzma against the headers of that release. See [Roadmap](/docs/reference/roadmap/).
 
@@ -72,7 +72,7 @@ curl -s https://hybridgroup.github.io/llama-cpp-builder/version.json
 
 ## Update the libraries
 
-`llama.cpp` changes often. You can update the libraries without a new build of your Go program, while `llama.cpp` makes no breaking change.
+`llama.cpp` changes often. You can update the libraries without rebuilding your Go program, as long as `llama.cpp` makes no breaking change.
 
 ```shell
 yzma install --lib /path/to/lib --upgrade

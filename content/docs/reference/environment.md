@@ -26,7 +26,7 @@ set YZMA_LIB=C:\yzma\lib
 {{% /tab %}}
 {{< /tabpane >}}
 
-The `yzma install` command and the `yzma verify` command also read it, so the `--lib` flag is not necessary when it is set.
+The `yzma install` command and the `yzma verify` command also read it, so you don't need the `--lib` flag when it is set.
 
 A program does not have to use this variable. `llama.Load` takes any path:
 
@@ -50,7 +50,7 @@ export YZMA_VERIFY=require
 
 See [Verify an installation](/docs/guides/verifying/).
 
-## For the tests of yzma
+## For the yzma tests
 
 These variables name the model files that the test suite uses. `make test` sets them.
 

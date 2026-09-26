@@ -7,7 +7,7 @@ description: >
   Check that the llama.cpp libraries are the files that the release published.
 ---
 
-`yzma install` downloads shared libraries and your program then runs them. Thus yzma checks each file.
+`yzma install` downloads shared libraries that your program then runs, so yzma checks each file.
 
 See [Verification](/docs/concepts/verification/) for how the checks work. This page shows the commands and the Go code.
 
@@ -20,7 +20,7 @@ yzma verify --lib /path/to/lib
 | Flag | What it does |
 | --- | --- |
 | `--lib`, `-l` | The directory with the libraries. Also reads `YZMA_LIB`. |
-| `--version`, `-v` | The `llama.cpp` version that must be there. |
+| `--version`, `-v` | The `llama.cpp` version to expect. |
 | `--strict` | Also fails when the directory holds a file that this install did not put there. |
 | `--json` | Writes the report as JSON. |
 
@@ -50,9 +50,9 @@ Put the digest of the manifest after the version:
 yzma install --lib /path/to/lib --version b10783@sha256:abc123...
 ```
 
-This gives you a value from outside the release host to check the manifest against. Use it when you must know that the files never change.
+This gives you a value from outside the release host to check the manifest against. Use it when you need to know that the files never change.
 
-Nothing in a pinned setup makes an unpinned version stop working. Thus an application can install a `llama.cpp` release that is newer than the one this yzma release pins.
+A pinned setup does not stop unpinned versions from working, so an application can install a `llama.cpp` release that is newer than the one this yzma release pins.
 
 ## Check from Go code
 
@@ -67,7 +67,7 @@ if !report.OK() {
 }
 ```
 
-An empty tag takes the release from the record. Give a tag to name the release that must be there. The record sits beside the libraries, so anything that can change the libraries can change the record. A tag makes the check resolve the assets of that release itself.
+An empty tag uses the release from the record. Pass a tag to name the release you expect. The record sits beside the libraries, so anything that can change the libraries can change the record. A tag makes the check resolve the assets of that release itself.
 
 ## Set the policy from Go code
 
@@ -91,7 +91,7 @@ err := download.Install(ctx, target, libPath, download.ProgressTracker, nil,
 
 ## An older installation
 
-An installation that an earlier release of yzma made has no manifest. The first check then fetches one and keeps it. That first check needs a network. No check after that does.
+An installation that an earlier release of yzma made has no manifest. The first check then fetches one and saves it, so it needs a network. Later checks don't.
 
 ## Check the bindings
 
@@ -101,4 +101,4 @@ An installation that an earlier release of yzma made has no manifest. The first 
 make check-ffi
 ```
 
-This is a tool for the people who build yzma. It is not part of a normal installation.
+This tool is for yzma developers. It is not part of a normal installation.

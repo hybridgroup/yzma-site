@@ -82,7 +82,7 @@ mtmd.HelperEvalChunks(mtmdCtx, lctx, output, 0, 0, int32(ctxParams.NBatch), true
 
 **6. Take the answer with the normal loop.**
 
-The rest is the same as a text model. `Decode`, `SamplerSample`, and `TokenToPiece`.
+The rest is the same as a text model, with `Decode`, `SamplerSample`, and `TokenToPiece`.
 
 ## Check what the model accepts
 
@@ -92,7 +92,7 @@ if mtmd.SupportVision(mtmdCtx) {
 }
 ```
 
-There is also `SupportAudio` and `SupportVideo`.
+There are also `SupportAudio` and `SupportVideo`.
 
 ## Describe an image from a URL
 
@@ -110,7 +110,7 @@ go install github.com/hybridgroup/yzma/examples/describe@latest
 
 ## Speed
 
-An image takes much more work than text. The projector runs one time for each image. On a CPU this takes half a minute or more. On a GPU it takes a second or two.
+An image takes much more work than text. The projector runs once for each image. On a CPU this takes half a minute or more. On a GPU it takes a second or two.
 
 Use a GPU for a program that reads images. See [Hardware acceleration](/docs/concepts/acceleration/).
 

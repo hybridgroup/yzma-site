@@ -7,7 +7,7 @@ description: >
   Run yzma in a web page.
 ---
 
-yzma runs in a browser. The model stays on the machine of the reader, and no server does the work.
+yzma runs in a browser. The model stays on the reader's machine, and no server does the work.
 
 ## Before you start
 
@@ -30,7 +30,7 @@ This is the same as:
 yzma install --lib ./build/wasm --os wasm
 ```
 
-It downloads all three builds. There is a build for WebGPU, a build with more than one thread, and a build with one thread.
+It downloads all three builds, one for WebGPU, one with more than one thread, and one with a single thread.
 
 ## Build the programs
 
@@ -105,7 +105,7 @@ make wasm-example
 make test-wasm
 ```
 
-`node/run.js` loads a small model, makes tokens with the greedy sampler, and prints them. The greedy sampler always takes the most probable token, so the output does not change and a test can compare it.
+`node/run.js` loads a small model, generates tokens with the greedy sampler, and prints them. The greedy sampler always takes the most probable token, so the output does not change and a test can compare it.
 
 `make test-wasm-mt` does the same with the build that uses more than one thread. `make test-wasm-webgpu` tests the fallback from WebGPU.
 

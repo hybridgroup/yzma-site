@@ -31,7 +31,7 @@ See [the tutorial](/docs/tutorials/tool-calling/) for a complete program. This p
 toolCalls := message.ParseToolCalls(response)
 ```
 
-`ParseToolCalls` finds the format without help. It reads every format that the table below lists.
+`ParseToolCalls` detects the format on its own. It reads every format that the table below lists.
 
 `StripMarkup` removes the tool call markers from the text:
 

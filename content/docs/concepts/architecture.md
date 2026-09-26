@@ -60,7 +60,7 @@ yzma uses [purego](https://github.com/ebitengine/purego) and [ffi](https://githu
 - You build your program with the normal `go build` and `go run` commands.
 - You do not need a C compiler.
 - You cross compile with the normal `GOOS` and `GOARCH` variables.
-- You can replace the `llama.cpp` libraries without a new build of your Go program, while `llama.cpp` makes no breaking change.
+- You can replace the `llama.cpp` libraries without a new build of your Go program, as long as `llama.cpp` makes no breaking changes.
 
 ## Load at run time
 
@@ -71,7 +71,7 @@ llama.Load(os.Getenv("YZMA_LIB"))
 llama.Init()
 ```
 
-`Load` prepares each function call one time. `pkg/loader` holds this code.
+`Load` prepares each function call once. `pkg/loader` holds this code.
 
 ## The generation loop
 

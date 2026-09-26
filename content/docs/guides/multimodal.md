@@ -29,7 +29,7 @@ mtmd.SupportAudio(mtmdCtx)
 mtmd.SupportVideo(mtmdCtx)
 ```
 
-Each one gives a boolean. Check before you send the input.
+Each one returns a boolean. Check before you send the input.
 
 ## Images
 
@@ -127,7 +127,7 @@ mtmd.TokenizeFromParts(mtmdCtx, output, parts, true)
 
 ## Speed
 
-The projector runs one time for each image. This is the slow part. On a CPU it takes half a minute or more. On a GPU it takes a second or two.
+The projector runs once for each image. This is the slow part. On a CPU it takes half a minute or more. On a GPU it takes a second or two.
 
 Use a GPU for a program that reads images. See [Hardware acceleration](/docs/concepts/acceleration/).
 

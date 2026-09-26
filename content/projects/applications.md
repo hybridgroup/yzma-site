@@ -33,7 +33,7 @@ https://github.com/orneryd/NornicDB
 <img src="https://github.com/user-attachments/assets/cf8ca3ce-8b02-43f0-9d0f-5a331488da4b" width="300" alt="Crush logo">
 </a>
 
-Crush gives agentic coding with style. It is built on Fantasy.
+Crush is agentic coding with style. It is built on Fantasy.
 
 https://github.com/charmbracelet/crush
 
@@ -43,7 +43,7 @@ https://github.com/charmbracelet/crush
 <img src="https://github.com/user-attachments/assets/bc695966-8c2b-4956-9b8b-e711333588e4" width="300" alt="floop logo">
 </a>
 
-floop gives a memory that lasts to AI coding agents.
+floop gives AI coding agents a memory that lasts.
 
 https://github.com/nvandessel/floop
 
@@ -73,7 +73,7 @@ https://github.com/amken3d/Pingo
 <img src="https://raw.githubusercontent.com/uchebnick/unch/refs/heads/main/docs/assets/unch-logo.svg" width="300" alt="unch logo">
 </a>
 
-unch gives semantic search for code symbols and documents.
+unch provides semantic search for code symbols and documents.
 
 https://github.com/uchebnick/unch
 

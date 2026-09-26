@@ -14,12 +14,12 @@ menu:
 
 <p class="lead">The model runs on your machine, in your browser. No install, no signup, and no server.</p>
 
-<p>Push <strong>Load</strong> to start. The smallest model in the list is 220 MB, so the first download takes a moment, and then the browser keeps it for the next time. The line at the top right names the backend.</p>
+<p>Click <strong>Load</strong> to start. The smallest model in the list is 220 MB, so the first download takes a moment, and then the browser keeps it for the next time. The line at the top right shows the backend.</p>
 
 <iframe class="yzma-demo" src="/try/app/?embed=1" title="yzma chat demo"></iframe>
 
 <script>
-// The frame has the height of its content, thus the page scrolls and the
+// The frame is as tall as its content, so the page scrolls and the
 // frame does not. The demo is on this origin, so the page can measure it.
 (function () {
 	var frame = document.querySelector(".yzma-demo");
@@ -31,11 +31,11 @@ menu:
 	function fit() {
 		var doc = frame.contentDocument;
 		if (!doc || !doc.body) return;
-		// scrollHeight is never less than the frame, thus measure the box.
+		// scrollHeight is never less than the frame, so measure the box.
 		var height = Math.ceil(doc.documentElement.getBoundingClientRect().height);
 		if (!height || height === last) return;
 		last = height;
-		// The border is part of the height of the frame, thus add it.
+		// The border is part of the frame height, so add it.
 		frame.style.height = (height + frame.offsetHeight - frame.clientHeight) + "px";
 	}
 
@@ -52,12 +52,12 @@ menu:
 })();
 </script>
 
-<p class="mt-4">The demo is a Go program that <a href="https://tinygo.org">TinyGo</a> compiles to WebAssembly. It uses the <a href="https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm"><code>pkg/llamawasm</code></a> package, which has the same calls as the package for a host.</p>
+<p class="mt-4">The demo is a Go program that <a href="https://tinygo.org">TinyGo</a> compiles to WebAssembly. It uses the <a href="https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm"><code>pkg/llamawasm</code></a> package, which has the same calls as the native package.</p>
 
 <ul>
-	<li><a href="https://github.com/hybridgroup/yzma-wasm-example">The code of the demo</a></li>
+	<li><a href="https://github.com/hybridgroup/yzma-wasm-example">The demo code</a></li>
 	<li><a href="/docs/concepts/webassembly/">WebAssembly</a> shows how the parts fit together.</li>
-	<li><a href="/docs/tutorials/browser/">Run yzma in a browser</a> builds such a page yourself.</li>
+	<li><a href="/docs/tutorials/browser/">Run yzma in a browser</a> shows how to build a page like this yourself.</li>
 </ul>
 
 {{< /blocks/section >}}

@@ -13,7 +13,7 @@ description: >
 <img src="https://github.com/ardanlabs/kronk/blob/main/images/project/kronk_logo1_color.png?raw=true" width="300" alt="Kronk logo">
 </a>
 
-Kronk gives a high level API that feels like an OpenAI compatible API.
+Kronk provides a high level API that feels like an OpenAI compatible API.
 
 https://github.com/ardanlabs/kronk
 
