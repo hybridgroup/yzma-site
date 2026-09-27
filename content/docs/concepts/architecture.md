@@ -64,7 +64,7 @@ yzma uses [purego](https://github.com/ebitengine/purego) and [ffi](https://githu
 
 ## Load at run time
 
-`llama.Load` opens the shared libraries. It takes the directory that holds them. Most programs read that directory from the `YZMA_LIB` environment variable.
+`llama.Load` opens the shared libraries. It takes the directory that contains them. Most programs read that directory from the `YZMA_LIB` environment variable.
 
 ```go
 llama.Load(os.Getenv("YZMA_LIB"))

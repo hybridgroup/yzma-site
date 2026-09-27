@@ -48,7 +48,7 @@ The details are in [linux.md](https://github.com/hybridgroup/yzma/blob/main/benc
 
 ## Multimodal
 
-The model is `SmolVLM-256M-Instruct-Q8_0` with its projector. The benchmark uses one thread for each performance core, so the CPU rows reflect the size of the processor.
+The model is `SmolVLM-256M-Instruct-Q8_0` with its projector. The benchmark uses one thread for each performance core, so the CPU rows reflect processor size.
 
 | Platform | Backend | Machine | Device | Tokens a second |
 | --- | --- | --- | --- | --- |
@@ -131,13 +131,13 @@ make download-benchmark-models
 ./benchmarks/run.sh
 ```
 
-On Windows, use a PowerShell prompt at the root of the repository. A Command Prompt opens the file in an editor and does not run it.
+On Windows, use a PowerShell prompt at the repository root. A Command Prompt opens the file in an editor and does not run it.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\benchmarks\run.ps1
 ```
 
-The script asks `llama.cpp` which devices the machine has. It runs the text suite and the multimodal suite for each one, and it writes each result to the platform's file. It takes the `llama.cpp` tag from `yzma-install.json` in the library directory.
+The script asks `llama.cpp` which devices the machine has. It runs the text suite and the multimodal suite for each one, and it writes each result to the platform's file. It reads the `llama.cpp` tag from `yzma-install.json` in the library directory.
 
 | Flag | What it does |
 | --- | --- |

@@ -52,7 +52,7 @@ The model needs to know where the image goes in the text. `mtmd.DefaultMarker` g
 messages = append(messages, llama.NewChatMessage("user", mtmd.DefaultMarker()+prompt))
 ```
 
-`mtmd.GetMarker(mtmdCtx)` gives the marker of a specific model.
+`mtmd.GetMarker(mtmdCtx)` returns the marker for a specific model.
 
 **3. Read the image.**
 
@@ -78,7 +78,7 @@ var n llama.Pos
 mtmd.HelperEvalChunks(mtmdCtx, lctx, output, 0, 0, int32(ctxParams.NBatch), true, &n)
 ```
 
-`n` gives the new position in the context. Use it as the start of the generation loop.
+`n` is the new position in the context. Use it as the start of the generation loop.
 
 **6. Take the answer with the normal loop.**
 

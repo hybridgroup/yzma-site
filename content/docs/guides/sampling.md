@@ -7,7 +7,7 @@ description: >
   How to control which token the model takes next.
 ---
 
-A model doesn't output a single token. It gives a score for every token in the vocabulary. The sampler chain turns those scores into one token.
+A model doesn't output a single token. It scores every token in the vocabulary. The sampler chain turns those scores into one token.
 
 ## The chain
 
@@ -31,7 +31,7 @@ Put the sampler that picks the token at the end. That is `SamplerInitDist` or `S
 token := llama.SamplerSample(sampler, ctx, -1)
 ```
 
-The last argument is the index of the token in the batch. Use `-1` for the last one.
+The last argument is the token's index in the batch. Use `-1` for the last one.
 
 ## The samplers
 
@@ -43,18 +43,18 @@ The last argument is the index of the token in the batch. Use `-1` for the last 
 | `SamplerInitTopP(p, keep)` | Keeps the best tokens whose combined probability reaches p. |
 | `SamplerInitMinP(p, keep)` | Removes tokens that are much less likely than the best one. |
 | `SamplerInitTemp(t)` | A higher t gives more variation. A lower t gives a safer answer. |
-| `SamplerInitTempExt` | A temperature that changes with the certainty of the model. |
+| `SamplerInitTempExt` | A temperature that changes with the model's certainty. |
 | `SamplerInitTypical(p, keep)` | Keeps the tokens with a typical amount of information. |
 | `SamplerInitTopNSigma(n)` | Keeps the tokens within n standard deviations of the best one. |
 | `SamplerInitXTC` | Sometimes removes the most probable tokens, to make the text less predictable. |
-| `SamplerInitPenalties` | Lowers the score of a token that came before. This stops repetition. |
+| `SamplerInitPenalties` | Lowers the score of tokens that already appeared. This stops repetition. |
 | `SamplerInitDry` | Stops the model from repeating a sequence. |
-| `SamplerInitMirostat` | Keeps the surprise of the text near a target value. |
+| `SamplerInitMirostat` | Keeps the text's surprise near a target value. |
 | `SamplerInitMirostatV2` | The newer version of Mirostat. |
-| `SamplerInitLogitBias` | Adds a value to the score of the tokens that you name. |
+| `SamplerInitLogitBias` | Adds a value to the scores of the tokens that you name. |
 | `SamplerInitGrammar` | Makes the answer follow a GBNF grammar. |
-| `SamplerInitAdaptiveP` | Changes the cut with the certainty of the model. |
-| `SamplerInitInfill` | For a model that fills a hole in the middle of the text. |
+| `SamplerInitAdaptiveP` | Changes the cutoff with the model's certainty. |
+| `SamplerInitInfill` | For a model that fills in the middle of the text. |
 
 ## A chain that is made for you
 

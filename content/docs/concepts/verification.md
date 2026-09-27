@@ -13,7 +13,7 @@ description: >
 
 `Install` reads the SHA-256 of each asset and compares it with the expected value. The expected values come from the manifest that `llama-cpp-builder` publishes for each release tag.
 
-The manifest is an asset of the release, and there is a copy beside the version files:
+The manifest is a release asset, and there is a copy beside the version files:
 
 ```
 https://github.com/hybridgroup/llama-cpp-builder/releases/download/b10783/b10783.json
@@ -61,7 +61,7 @@ Nothing in a pinned setup makes an unpinned version stop working.
 `Install` writes two files beside the libraries.
 
 - `yzma-install.json` says what the install put there.
-- `yzma-manifest.json` keeps the digests of the release.
+- `yzma-manifest.json` keeps the release digests.
 
 `VerifyInstall` reads these two files, so a later check needs no network.
 

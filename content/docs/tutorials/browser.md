@@ -64,7 +64,7 @@ Add `?mode=cpu` or `?mode=webgpu` to the URL to select the backend yourself.
 
 ## The Go code
 
-A browser program imports `pkg/llamawasm` in place of `pkg/llama` and `pkg/mtmd`. The names and the order of the calls are the same.
+A browser program imports `pkg/llamawasm` in place of `pkg/llama` and `pkg/mtmd`. The call names and order are the same.
 
 ```go
 //go:build js && wasm

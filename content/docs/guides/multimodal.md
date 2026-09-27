@@ -79,8 +79,8 @@ video := mtmd.VideoInit(mtmdCtx, videoFile, params)
 
 | Field | What it does |
 | --- | --- |
-| `FPSTarget` | How many frames to take each second. A value of 0 or less takes the native rate of the video. |
-| `FFmpegBinDir` | The directory that holds `ffmpeg` and `ffprobe`. A nil value searches the PATH. Use `utils.BytePtrFromString` to make the value. |
+| `FPSTarget` | How many frames to take each second. A value of 0 or less uses the video's native rate. |
+| `FFmpegBinDir` | The directory that contains `ffmpeg` and `ffprobe`. A nil value searches the PATH. Use `utils.BytePtrFromString` to make the value. |
 | `TimestampIntervalMs` | How often to put a time marker in the tokens, such as `[10m50.5s]`. A value of 0 or less adds no markers. |
 
 A lower `FPSTarget` gives fewer frames. Fewer frames need less time and less memory. Start with 1.0.

@@ -68,7 +68,7 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 
 | Call | What it does |
 | --- | --- |
-| `llama.GetMemory(ctx)` | Returns the memory of the context. |
+| `llama.GetMemory(ctx)` | Returns the context memory. |
 | `llama.MemoryClear(mem, data)` | Clears it. |
 | `llama.MemorySeqRm(mem, seq, p0, p1)` | Removes part of a sequence. |
 
@@ -78,4 +78,4 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 import "github.com/hybridgroup/yzma"
 ```
 
-The root package holds the package documentation. The `yzma version` command prints the version of the tool.
+The root package holds the package documentation. The `yzma version` command prints the tool version.

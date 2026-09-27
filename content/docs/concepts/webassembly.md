@@ -38,7 +38,7 @@ The JavaScript glue selects the best build that the browser can run.
 
 | Build | What the browser must have |
 | --- | --- |
-| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux). In Firefox the loader takes the CPU, which is faster there. |
+| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux). In Firefox the loader uses the CPU, which is faster there. |
 | More threads | `SharedArrayBuffer`, so the page must send the COOP header and the COEP header. |
 | One thread | Nothing. It works in every browser. |
 
@@ -71,7 +71,7 @@ The worker sends each piece of text to the page with `postMessage`, so the page 
 
 ## The API
 
-A browser program uses [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm). It has the calls that text generation, embeddings, and images need. The names and the order of the calls are the same as in `pkg/llama` and `pkg/mtmd`, so you can move a program from one to the other by changing the import.
+A browser program uses [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm). It has the calls that text generation, embeddings, and images need. The call names and order are the same as in `pkg/llama` and `pkg/mtmd`, so you can move a program from one to the other by changing the import.
 
 ## Limits
 

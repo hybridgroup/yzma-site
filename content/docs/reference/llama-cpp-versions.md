@@ -7,7 +7,7 @@ description: >
   Which llama.cpp version goes with which yzma version.
 ---
 
-Sometimes a change in `llama.cpp` breaks yzma. This page gives the known compatible versions.
+Sometimes a change in `llama.cpp` breaks yzma. This page lists the known compatible versions.
 
 For the current list, see [the README](https://github.com/hybridgroup/yzma#required-versions-of-llamacpp).
 
@@ -58,7 +58,7 @@ The most recent `llama.cpp` version:
 yzma llama
 ```
 
-The version that an installation holds:
+The version in an installation:
 
 ```shell
 yzma verify --lib /path/to/lib

@@ -13,7 +13,7 @@ The complete list changes with each release, so it stays in the repository:
 
 **[ROADMAP.md](https://github.com/hybridgroup/yzma/blob/main/ROADMAP.md)**
 
-That page gives a table for each area. Each row names a `llama.cpp` function and has two columns, one for the state of the yzma wrapper and one for the state of the same function in a browser.
+That page gives a table for each area. Each row names a `llama.cpp` function and has two columns, one for the yzma wrapper status and one for the same function's status in a browser.
 
 ## The areas
 

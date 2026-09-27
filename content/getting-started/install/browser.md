@@ -17,15 +17,15 @@ This command downloads all three builds, one for WebGPU, one with more than one 
 
 | Build | What the browser must have |
 | --- | --- |
-| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux). In Firefox the loader takes the CPU, which is faster there. |
+| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux). In Firefox the loader uses the CPU, which is faster there. |
 | More threads | `SharedArrayBuffer`, so the page must send the COOP header and the COEP header. |
 | One thread | Nothing. It works in every browser. |
 
 A browser with no WebGPU still works. It runs on the CPU.
 
-Every build holds the multimodal library, so a model with a projector works for images.
+Every build includes the multimodal library, so a model with a projector works for images.
 
-A browser program uses the smaller API of the [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm) package. The names and the order of the calls are the same as in `pkg/llama`, so you can move a program from one to the other by changing the import.
+A browser program uses the smaller [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm) API. The call names and order are the same as in `pkg/llama`, so you can move a program from one to the other by changing the import.
 
 You also need [TinyGo](https://tinygo.org) 0.42.0 or later to build the program.
 

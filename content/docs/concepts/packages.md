@@ -11,7 +11,7 @@ yzma is a set of Go packages. Most programs use two or three of them.
 
 | Package | What it does |
 | --- | --- |
-| [`pkg/llama`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llama) | The main bindings. Models, contexts, tokens, batches, samplers, and the memory of a conversation. |
+| [`pkg/llama`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llama) | The main bindings. Models, contexts, tokens, batches, samplers, and conversation memory. |
 | [`pkg/mtmd`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/mtmd) | Multimodal input. Images, audio, and video. |
 | [`pkg/download`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/download) | Downloads the `llama.cpp` libraries and the models. Checks the digests. |
 | [`pkg/message`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/message) | Chat messages and tool calls. Reads the tool call format of each model family. |
@@ -53,12 +53,12 @@ Use this package to install the libraries from inside your own program, and to d
 
 - `Install` downloads and extracts the libraries for a `Target`.
 - `Resolver` names the files to install. Write one to use your own mirror.
-- `VerifyInstall` checks the files against the digests of the release.
+- `VerifyInstall` checks the files against the release digests.
 - `GetModel` downloads a model file.
 - `DefaultModelsDir` gives the default directory for models.
 
 ## Which package for a browser
 
-A browser program imports `pkg/llamawasm` instead of `pkg/llama` and `pkg/mtmd`. The names and the order of the calls are the same, so you can move a program from one to the other by changing the import.
+A browser program imports `pkg/llamawasm` instead of `pkg/llama` and `pkg/mtmd`. The call names and order are the same, so you can move a program from one to the other by changing the import.
 
 The browser package is smaller. It has text generation, embeddings, images, every native sampler, logits, model metadata, and performance counters. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
