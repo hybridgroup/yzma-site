@@ -20,7 +20,7 @@ The [examples directory](https://github.com/hybridgroup/yzma/tree/main/examples)
 | [`embeddings`](https://github.com/hybridgroup/yzma/tree/main/examples/embeddings) | Turns text into a vector. |
 | [`tooluse`](https://github.com/hybridgroup/yzma/tree/main/examples/tooluse) | One round of tool calling. |
 | [`multitool`](https://github.com/hybridgroup/yzma/tree/main/examples/multitool) | Tool calling in a loop, for a problem with steps. |
-| [`modelinfo`](https://github.com/hybridgroup/yzma/tree/main/examples/modelinfo) | Prints the description, the size, and the metadata of a model. |
+| [`modelinfo`](https://github.com/hybridgroup/yzma/tree/main/examples/modelinfo) | Prints a model's description, size, and metadata. |
 | [`systeminfo`](https://github.com/hybridgroup/yzma/tree/main/examples/systeminfo) | Lists the devices that `llama.cpp` found. |
 | [`installer`](https://github.com/hybridgroup/yzma/tree/main/examples/installer) | Installs the `llama.cpp` libraries from Go code. |
 | [`resolver`](https://github.com/hybridgroup/yzma/tree/main/examples/resolver) | Installs from your own mirror with a custom resolver. |
@@ -58,7 +58,7 @@ Most examples take these flags.
 | `-lib` | The directory with the libraries. The default is `$YZMA_LIB`. |
 | `-p` | The prompt. |
 | `-sys` | The system prompt. |
-| `-template` | The name of a template, when the model file holds none. |
+| `-template` | A template name, when the model file has none. |
 | `-image` | The image file. |
 | `-temp` | The temperature. |
 | `-c` | The size of the context. |

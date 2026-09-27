@@ -19,7 +19,7 @@ Most GGUF files hold their own template.
 tmpl := llama.ModelChatTemplate(model)
 ```
 
-An empty result means the file holds no template. Then you must give one.
+An empty result means the file has no template. Then you must provide one.
 
 ## Apply the template
 
@@ -62,7 +62,7 @@ if !ok {
 
 The `chat` example and the `vlm` example take the name with the `-template` flag.
 
-`llama.ChatBuiltinTemplates()` lists the templates that `llama.cpp` holds.
+`llama.ChatBuiltinTemplates()` lists the templates built into `llama.cpp`.
 
 ## Thinking mode
 
@@ -96,9 +96,9 @@ When the tools list is empty, the template takes its plain path.
 
 See [Tool calling](/docs/guides/tool-calling/).
 
-## Read the template of a file
+## Read a file's template
 
-The `modelinfo` example prints the metadata of a GGUF file, and the chat template is part of it.
+The `modelinfo` example prints a GGUF file's metadata, and the chat template is part of it.
 
 ```shell
 go run ./examples/modelinfo/ -model ~/models/gemma-3-1b-it-Q4_K_M.gguf

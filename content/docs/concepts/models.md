@@ -9,13 +9,13 @@ description: >
 
 ## GGUF
 
-yzma uses models in the GGUF format. This is the format that `llama.cpp` reads. A GGUF file holds the weights of the model and the metadata about it, such as the name, the context size, and the chat template.
+yzma uses models in the GGUF format. This is the format that `llama.cpp` reads. A GGUF file holds the model weights and metadata, such as the name, the context size, and the chat template.
 
 There are more than 201,000 GGUF models on Hugging Face:
 
 https://huggingface.co/models?library=gguf&sort=trending
 
-Read the metadata of a file with the `modelinfo` example program.
+Read a file's metadata with the `modelinfo` example program.
 
 ## Quantization
 

@@ -38,7 +38,7 @@ params.PoolingType = llama.PoolingTypeMean
 ctx, err := llama.InitFromModel(model, params)
 ```
 
-The pooling type says how to make one vector from many tokens. `PoolingTypeMean` takes the mean of every token. There are also `PoolingTypeCLS`, `PoolingTypeLast`, and `PoolingTypeNone`.
+The pooling type says how to make one vector from many tokens. `PoolingTypeMean` averages every token. There are also `PoolingTypeCLS`, `PoolingTypeLast`, and `PoolingTypeNone`.
 
 **2. Tokenize the text and run one decode.**
 
@@ -57,11 +57,11 @@ nEmbd := llama.ModelNEmbd(model)
 embd, err := llama.GetEmbeddingsSeq(ctx, 0, nEmbd)
 ```
 
-`ModelNEmbd` gives the length of the vector.
+`ModelNEmbd` returns the vector length.
 
 ## Compare two vectors
 
-Use the cosine of the angle between the two vectors. A value near 1 means the two pieces of text have a similar meaning.
+Use cosine similarity between the two vectors. A value near 1 means the two pieces of text have a similar meaning.
 
 ```go
 func cosine(a, b []float32) float32 {

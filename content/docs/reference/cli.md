@@ -92,7 +92,7 @@ Checks the files that are in place against the digests that the publisher record
 | --- | --- | --- |
 | `--lib`, `-l` | `$YZMA_LIB` | The directory with the library files. |
 | `--version`, `-v` | The installed one | The `llama.cpp` version that must be there. Accepts `VERSION@sha256:DIGEST`. |
-| `--strict` | false | Also fails when the directory holds a file that this install did not put there. |
+| `--strict` | false | Also fails when the directory has a file that this install did not put there. |
 | `--json` | false | Writes the report as JSON. |
 
 A good result:
@@ -136,7 +136,7 @@ Downloads a model from a URL.
 | `--url`, `-u` | The URL of the model. This flag is required. |
 | `--output`, `-o` | Where to put the file. The default is the models directory. |
 | `--yes`, `-y` | Answers yes to every question. |
-| `--show-progress` | Shows the progress of the download. |
+| `--show-progress` | Shows download progress. |
 
 ```shell
 yzma model get -u https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF/resolve/main/gemma-3-1b-it-Q4_K_M.gguf
@@ -169,7 +169,7 @@ yzma llama
 
 ## yzma version
 
-Shows the yzma version. `yzma info` gives the same result.
+Shows the yzma version. `yzma info` does the same.
 
 ```shell
 yzma version
@@ -179,7 +179,7 @@ yzma version
 
 `yzma-checker` is a separate tool for people who work on yzma. It is not a subcommand. It compares the FFI parameter types, the return types, and the constants of yzma against the `llama.cpp` headers.
 
-It is a nested Go module, so `go build ./...` and `go test ./...` at the root of the repository do not include it.
+It is a nested Go module, so `go build ./...` and `go test ./...` at the repository root do not include it.
 
 ```shell
 make check-ffi
@@ -187,12 +187,12 @@ make check-ffi
 
 ## yzma-bench
 
-`yzma-bench` is a separate tool for people who run the benchmarks. It is not a subcommand. It puts the result of a run into the platform's markdown file in `benchmarks/` and rebuilds the tables in that file. The scripts `benchmarks/run.sh` and `benchmarks/compare.sh` call it, so you seldom run it yourself.
+`yzma-bench` is a separate tool for people who run the benchmarks. It is not a subcommand. It puts a run's result into the platform's markdown file in `benchmarks/` and rebuilds the tables in that file. The scripts `benchmarks/run.sh` and `benchmarks/compare.sh` call it, so you seldom run it yourself.
 
 | Subcommand | What it does |
 | --- | --- |
 | `update` | Puts one result in the file and rebuilds the tables. |
-| `remove` | Deletes the sections of the keys that you give and rebuilds the tables. |
+| `remove` | Deletes the sections for the keys that you give and rebuilds the tables. |
 | `check` | Checks that the tables match the sections. |
 
 The main flags of `update`:

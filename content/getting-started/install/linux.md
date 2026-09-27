@@ -28,7 +28,7 @@ Then run this command:
 yzma install --lib /path/to/lib --processor cuda
 ```
 
-The command reads the CUDA version of the machine and takes the CUDA 12 build or the CUDA 13 build. To choose one, use `--processor cuda-12` or `--processor cuda-13`.
+The command reads the machine's CUDA version and picks the CUDA 12 or CUDA 13 build. To choose one, use `--processor cuda-12` or `--processor cuda-13`.
 {{% /tab %}}
 {{% tab header="OpenVINO" %}}
 To use an Intel CPU, GPU, or NPU with OpenVINO, run this command. OpenVINO is on amd64 only.

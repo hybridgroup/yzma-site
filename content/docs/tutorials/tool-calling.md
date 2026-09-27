@@ -40,7 +40,7 @@ $ go run ./examples/tooluse/ -model ~/models/qwen2.5-0.5b-instruct-fp16.gguf -qu
 
 ## Describe your tools
 
-A tool definition gives the name of the function, what it does, and the parameters that it takes.
+A tool definition gives the function name, what it does, and its parameters.
 
 ```go
 tools := []message.ToolDefinition{
@@ -142,7 +142,7 @@ Each model family writes a tool call in its own way. `pkg/message` reads all of 
 | `FormatGPT` | `.name <\|message\|>{...}` |
 | `FormatPhi` | Standard JSON, with its own turn markers |
 
-`ParseToolCalls` finds the format on its own. `DetectFormat` reads the format from the answer, and `DetectFormatFromPath` reads it from the name of the model file.
+`ParseToolCalls` finds the format on its own. `DetectFormat` reads the format from the answer, and `DetectFormatFromPath` reads it from the model file name.
 
 ## Stop markers
 

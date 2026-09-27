@@ -4,7 +4,7 @@ linkTitle: "Raspberry Pi"
 type: "docs"
 weight: 30
 description: >
-  Run models with the CPU of a Raspberry Pi.
+  Run models on a Raspberry Pi CPU.
 ---
 
 <img src="/images/raspberry-pi-os-logo.png" alt="Raspberry Pi logo" class="platform-logo">

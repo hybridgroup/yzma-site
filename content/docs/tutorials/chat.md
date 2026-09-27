@@ -67,7 +67,7 @@ See [Chat templates](/docs/guides/chat-templates/).
 | `-top-p` | 0.9 | Keeps the tokens that make 90 percent of the probability. |
 | `-min-p` | 0.1 | Removes a token that is much worse than the best one. |
 | `-c` | 4096 | The size of the context in tokens. |
-| `-n` | -1 | How many tokens to generate. -1 means the size of the context. |
+| `-n` | -1 | How many tokens to generate. -1 means the context size. |
 | `-b` | 2048 | The logical batch size. |
 | `-ub` | 2048 | The physical batch size. |
 | `-cmoe` | false | Keeps all Mixture of Experts weights in the CPU. |

@@ -4,7 +4,7 @@ linkTitle: "Jetson Orin Nano"
 type: "docs"
 weight: 20
 description: >
-  Use the GPU of the NVIDIA Jetson Orin Nano with CUDA or Vulkan.
+  Use the NVIDIA Jetson Orin Nano GPU with CUDA or Vulkan.
 ---
 
 <img src="/images/NVIDIA-logo.png" alt="NVIDIA logo" class="platform-logo">

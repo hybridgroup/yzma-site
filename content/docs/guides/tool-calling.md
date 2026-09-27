@@ -9,19 +9,19 @@ description: >
 
 Tool calling lets a model ask your program to run a function. The model writes a request, your code runs the function, and you send the result back.
 
-See [the tutorial](/docs/tutorials/tool-calling/) for a complete program. This page holds the details.
+See [the tutorial](/docs/tutorials/tool-calling/) for a complete program. This page has the details.
 
 ## The parts
 
-`pkg/message` holds these types.
+`pkg/message` has these types.
 
 | Type | What it is |
 | --- | --- |
 | `ToolDefinition` | The description of a tool that you give the model. |
-| `ToolFunctionDefinition` | The name, the description, and the parameters of a function. |
+| `ToolFunctionDefinition` | A function's name, description, and parameters. |
 | `ToolCall` | A request from the model to run one function. |
 | `ToolFunction` | The name and the arguments of that request. |
-| `Tool` | A message that holds tool calls, and the text that came with them. |
+| `Tool` | A message with tool calls, and the text that came with them. |
 | `ToolResponse` | The result that you send back to the model. |
 | `Chat` | A normal message with a role and content. |
 
@@ -39,7 +39,7 @@ toolCalls := message.ParseToolCalls(response)
 fmt.Println(message.StripMarkup(response))
 ```
 
-`TextAfterToolCalls` gives the text that comes after the last tool call.
+`TextAfterToolCalls` returns the text after the last tool call.
 
 ## Each model family writes a tool call in its own way
 
@@ -57,13 +57,13 @@ fmt.Println(message.StripMarkup(response))
 
 ## Find the format
 
-`DetectFormat` reads the format from the answer. It looks at the markers in the text only. It does not look at the name of the model.
+`DetectFormat` reads the format from the answer. It looks at the markers in the text only. It does not look at the model name.
 
 ```go
 format := message.DetectFormat(response)
 ```
 
-`DetectFormatFromPath` reads the format from the name of the model file:
+`DetectFormatFromPath` reads the format from the model file name:
 
 ```go
 format := message.DetectFormatFromPath("~/models/Qwen3-4B-Q4_K_M.gguf")
@@ -128,7 +128,7 @@ A small model makes mistakes. Always check the arguments before you use them.
 
 ## Put the tools in the template
 
-`template.ApplyWithTools` puts the tool definitions in the prompt with the template of the model:
+`template.ApplyWithTools` puts the tool definitions in the prompt with the model's template:
 
 ```go
 prompt, err := template.ApplyWithTools(tmpl, messages, tools, true)

@@ -45,7 +45,7 @@ yzma install --lib /path/to/lib --processor cuda
 
 `yzma` also finds CUDA and ROCm on its own. `download.HasCUDA()` and `download.HasROCm()` report what the machine has, and the version that it has.
 
-On Linux, the CUDA build must match the CUDA version of the machine. `yzma install` reads that version and takes the CUDA 12 build or the CUDA 13 build. To name one, use `--processor cuda-12` or `--processor cuda-13`. If the machine reports no version, arm64 takes CUDA 12 and amd64 takes CUDA 13.
+On Linux, the CUDA build must match the machine's CUDA version. `yzma install` reads that version and picks the CUDA 12 or CUDA 13 build. To choose one, use `--processor cuda-12` or `--processor cuda-13`. If the machine reports no version, arm64 uses CUDA 12 and amd64 uses CUDA 13.
 
 OpenVINO uses the CPU unless you name another device. Set `GGML_OPENVINO_DEVICE` to `GPU` or `NPU` before you run the program. On a machine with more than one Intel GPU, use `GPU.0` or `GPU.1`.
 
@@ -65,7 +65,7 @@ yzma system
 
 ## Layers on the GPU
 
-`ModelParams.NGpuLayers` sets how many layers of the model go to the GPU. Put all of the layers on the GPU when the model fits in GPU memory. Put fewer layers there when it does not fit.
+`ModelParams.NGpuLayers` sets how many model layers go to the GPU. Put all of the layers on the GPU when the model fits in GPU memory. Put fewer layers there when it does not fit.
 
 `llama.SupportsGpuOffload()` reports if the build can move layers at all.
 

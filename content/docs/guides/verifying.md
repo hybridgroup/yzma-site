@@ -21,7 +21,7 @@ yzma verify --lib /path/to/lib
 | --- | --- |
 | `--lib`, `-l` | The directory with the libraries. Also reads `YZMA_LIB`. |
 | `--version`, `-v` | The `llama.cpp` version to expect. |
-| `--strict` | Also fails when the directory holds a file that this install did not put there. |
+| `--strict` | Also fails when the directory has a file that this install did not put there. |
 | `--json` | Writes the report as JSON. |
 
 The check reads the manifest that the install kept, so it needs no network.
@@ -44,7 +44,7 @@ Use `require` in a build that must be repeatable. The builds from `llama-cpp-bui
 
 ## Pin the digest
 
-Put the digest of the manifest after the version:
+Put the manifest digest after the version:
 
 ```shell
 yzma install --lib /path/to/lib --version b10783@sha256:abc123...
@@ -85,7 +85,7 @@ err := download.Install(ctx, target, libPath, download.ProgressTracker, nil,
 | `FileOK` | The file matches the digest. |
 | `FileChanged` | The file is there but the digest does not match. |
 | `FileMissing` | The file is not there. |
-| `FileUnexpected` | The directory holds a file that no asset of this install holds. |
+| `FileUnexpected` | The directory has a file that is not an asset of this install. |
 
 `FileUnexpected` does not make `OK` false, because one directory can hold more than one install. Use `--strict` to make it fail. The record and the manifest belong to the install, so neither is counted.
 

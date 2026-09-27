@@ -88,7 +88,7 @@ By default `llama.cpp` requests four threads. This is slow on a machine with man
 
 | System | How yzma counts the cores |
 | --- | --- |
-| Linux | It reads sysfs. `/sys/devices/cpu_core/cpus` gives the performance cores, and `thread_siblings_list` removes the second CPU of each core. |
+| Linux | It reads sysfs. `/sys/devices/cpu_core/cpus` gives the performance cores, and `thread_siblings_list` removes each core's second CPU. |
 | macOS | It reads `hw.perflevel0.physicalcpu`, which is the number of performance cores on Apple Silicon. An Intel Mac gives `hw.physicalcpu`. |
 | Other systems | Half of the logical CPUs. A machine with four logical CPUs or fewer gets all of them. |
 
@@ -117,7 +117,7 @@ To change these values after you have created the context, use `llama.SetNThread
 
 For a multimodal model, set `Threads` in the parameters of `mtmd` as well.
 
-The native examples have a `-t` flag. The value 0 gives the default.
+The native examples have a `-t` flag. The value 0 uses the default.
 
 ## Pin each thread to a core
 
