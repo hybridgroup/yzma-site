@@ -109,6 +109,8 @@ make test-wasm
 
 `make test-wasm-mt` does the same with the build that uses more than one thread. `make test-wasm-webgpu` tests the fallback from WebGPU.
 
+Two more targets run the WebGPU build on a real GPU without a browser. `make test-wasm-dawn` uses Dawn, the WebGPU of Chrome, and needs Node 25 or later. `make test-wasm-wgpu` uses wgpu, the WebGPU of Firefox, in Deno. Add `GPU=high-performance` or `GPU=low-power` to pick the GPU.
+
 ## Next steps
 
 - [Try it in your browser](/try/) runs a page like this one, with no build.
