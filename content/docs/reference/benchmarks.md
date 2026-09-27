@@ -80,10 +80,14 @@ The model is `SmolLM-135M.Q2_K`.
 | Where | Build | Machine | Tokens a second |
 | --- | --- | --- | --- |
 | Node | CPU, more threads | Intel Core i9-13900HX | 105.7 |
-| Chrome | CPU, more threads | Intel Core i9-13900HX | 91.8 |
+| Chrome | CPU, more threads | Intel Core i9-13900HX | 92.8 |
+| Chrome | WebGPU, RTX 4070 | Intel Core i9-13900HX | 69.8 |
+| Chrome | WebGPU, Intel graphics | Intel Core i9-13900HX | 19.9 |
 | Node | CPU, one thread | Intel Core i9-13900HX | 13.8 |
 
-The build with more threads is 7.7 times faster than the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them. There is no WebGPU result yet.
+The build with more threads is 7.7 times faster than the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
+
+On a model this small the CPU with more threads beats WebGPU. The RTX 4070 is 3.5 times faster than the Intel graphics. WebGPU in Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux).
 
 The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md).
 

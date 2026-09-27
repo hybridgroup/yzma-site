@@ -17,7 +17,7 @@ This command downloads all three builds, one for WebGPU, one with more than one 
 
 | Build | What the browser must have |
 | --- | --- |
-| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. |
+| WebGPU | WebGPU with f16 shaders, and JSPI. Chrome or Edge 137 and later, or Firefox 153 and later with two settings in `about:config`. Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux). In Firefox the loader takes the CPU, which is faster there. |
 | More threads | `SharedArrayBuffer`, so the page must send the COOP header and the COEP header. |
 | One thread | Nothing. It works in every browser. |
 

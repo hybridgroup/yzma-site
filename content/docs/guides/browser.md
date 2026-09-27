@@ -15,15 +15,17 @@ This page holds the details for a program that runs in a browser. See [the tutor
 
 | Build | What the browser must have |
 | --- | --- |
-| `yzma_wasm_webgpu` | WebGPU with f16 shaders, and JSPI. Chrome and Edge 137 or later. The loader also drops this build if the self test of the GPU fails. |
+| `yzma_wasm_webgpu` | WebGPU with f16 shaders, and JSPI. Chrome and Edge 137 or later, or Firefox 153 or later. Auto mode skips it in Firefox, which is faster on the CPU. The loader also drops this build if the self test of the GPU fails. |
 | `yzma_wasm_mt` | `SharedArrayBuffer`, so a page with the COOP header and the COEP header. |
 | `yzma_wasm` | Nothing. It works in every browser. |
 
 A page can set the choice with `globalThis.yzmaMode`. The values are `auto`, which is the default, `webgpu`, and `cpu`. A page URL also accepts `?mode=cpu` or `?mode=webgpu`.
 
+A machine with an integrated GPU and a discrete GPU gives the browser a choice. A page picks one with `globalThis.yzmaPowerPreference`, which takes `high-performance` or `low-power`. A page URL also accepts `?gpu=high-performance` or `?gpu=low-power`. With no value the browser picks. The loader tests that GPU and makes `llama.cpp` ask for the same one.
+
 With `webgpu` the loader still falls back to the CPU when the browser cannot run that build. A slow page is better than a page that does not work.
 
-Ask `llama.cpp` which device does the work, not the browser. A page can have WebGpu while `llama.cpp` finds no device.
+Ask `llama.cpp` which device does the work, not the browser. A page can have WebGPU while `llama.cpp` finds no device.
 
 ```go
 backend := llamawasm.Backend()
@@ -61,11 +63,11 @@ The threads have no effect on an image. The projector used 30.4 seconds on four 
 
 ## Speed
 
-The numbers are on the [Benchmarks](/docs/reference/benchmarks/#in-a-browser) page. With `SmolLM-135M.Q2_K` on an Intel Core i9-13900HX, the build with more threads gives 91.8 tokens a second in Chrome. That is 7.7 times the build with one thread.
+The numbers are on the [Benchmarks](/docs/reference/benchmarks/#in-a-browser) page. With `SmolLM-135M.Q2_K` on an Intel Core i9-13900HX in Chrome, the build with more threads gives 92.8 tokens a second. WebGPU gives 69.8 on an RTX 4070 and 19.9 on the Intel graphics of the same machine.
 
-To measure a build, run `./benchmarks/run.sh --backend wasm` in the yzma repository for Node. For a browser, which WebGPU needs, paste `benchmarks/browser-bench.js` in the console of the page.
+To measure a build, run `./benchmarks/run.sh --backend wasm` in the yzma repository for Node. For a browser, which WebGPU needs, paste `benchmarks/browser-bench.js` in the console of the page. Set `gpu` in the script to pick the GPU.
 
-The GPU is faster on a larger model. On a small model the CPU and the GPU agree, because each operation is too small to justify the transfer to the GPU. Test both with `?mode=cpu` and `?mode=webgpu`.
+On a small model the CPU with more threads is faster than the GPU, because each operation is too small to be worth the transfer to the GPU. The GPU does better on a larger model. Test both with `?mode=cpu` and `?mode=webgpu`.
 
 An image gives a different result. A photo of 960 by 720 through the projector of SmolVLM-256M Q8_0 takes 42.7 seconds on the CPU with more threads and 1.6 seconds with WebGPU.
 
@@ -132,6 +134,8 @@ The backend of `llama.cpp` needs `shader-f16` and reports no device without it. 
 google-chrome --enable-dawn-features=vulkan_enable_f16_on_nvidia
 ```
 
+On Linux this switch alone is not enough. See [Vulkan in Chrome on Linux](#vulkan-in-chrome-on-linux).
+
 ### The self test of the GPU
 
 A GPU that `llama.cpp` accepts can still compute wrong values. The answer of the model is then random tokens, and nothing in the text shows that the fault is the GPU and not a weak model. So the loader measures the device.
@@ -157,16 +161,34 @@ This path gives one of two results, and neither is good.
 - On many cards the adapter has no `shader-f16`. `llama.cpp` then finds no device and the loader takes the CPU. The page is slow but correct.
 - On an Intel Xe with Mesa the adapter has `shader-f16`, `llama.cpp` takes it, and it computes wrong values. The [self test](#the-self-test-of-the-gpu) catches this case and takes the CPU. See [issue #341](https://github.com/hybridgroup/yzma/issues/341).
 
-These switches ask Chrome for the Vulkan backend. Close all Chrome windows first.
+These three switches give Chrome the Vulkan backend. Close all Chrome windows first, and make sure no Chrome process keeps running in the background.
 
 ```shell
-google-chrome --enable-features=Vulkan \
+google-chrome --enable-unsafe-webgpu --enable-features=Vulkan \
   --enable-dawn-features=vulkan_enable_f16_on_nvidia
 ```
 
-`chrome://gpu` must then say `Vulkan: Enabled`, and the first adapter of Dawn Info must be a `Vulkan backend` line with the name of the card.
+| Switch | Why |
+| --- | --- |
+| `--enable-unsafe-webgpu` | Turns off Dawn's list of blocked adapters. Without it Chrome hides the Vulkan adapters and gives only the OpenGL ES adapter. |
+| `--enable-features=Vulkan` | Turns on Vulkan in Chrome's GPU process. |
+| `--enable-dawn-features=vulkan_enable_f16_on_nvidia` | Gives `shader-f16` on an NVIDIA card. |
 
-The switches are worth a test, but they are not a repair. On Ubuntu 22.04 with Mesa 23.2.1, Chrome says `Vulkan: Enabled` and Dawn still gives the OpenGL ES adapter, so the GPU still computes wrong values. Such a machine has no GPU path that works, and the self test takes the CPU.
+All three are needed. `--use-angle=vulkan` is not. If a switch seems to do nothing, check the command line in `chrome://version`.
+
+On Chrome 154 with Ubuntu 24.04, an Intel Raptor Lake, and an RTX 4070, the three switches give a Vulkan adapter for each GPU, both with `shader-f16`. This check in the console of any page lists them.
+
+```js
+for (const p of ["low-power", "high-performance"]) {
+  const a = await navigator.gpu.requestAdapter({ powerPreference: p });
+  console.log(p, a && a.info.vendor, a && a.info.architecture,
+    a && a.features.has("shader-f16"));
+}
+```
+
+A good result names a GPU on each line, not `swiftshader`, and ends with `true`.
+
+Issue #341 was tested with only the last two switches. On Ubuntu 22.04 with Mesa 23.2.1, Dawn then still gave the OpenGL ES adapter. Such a machine can try all three. Without them the self test takes the CPU.
 
 ### Firefox
 
@@ -179,11 +201,19 @@ Firefox runs the WebGPU build, but WebGPU is not on by default. Set both of thes
 
 JSPI arrived in Firefox 153, so 153 or later needs no other switches.
 
-The WebGPU of Firefox gives wrong values to `llama.cpp`, so auto mode takes the CPU there. Mode `webgpu` still selects the GPU, which makes it easy to test a fix.
+Firefox 154 gave `llama.cpp` wrong values. Firefox 156 gives the right text, but very slowly.
+
+| Firefox 156 | Tokens a second |
+| --- | --- |
+| WebGPU, Intel graphics | 0.66 |
+| WebGPU, RTX 4070 | 0.71 |
+| CPU, more threads | 123 |
+
+The RTX 4070 is no faster than the Intel graphics, so the time goes to Firefox and not to the GPU. Auto mode takes the CPU in Firefox. Mode `webgpu` still selects the GPU, which makes it easy to test a new Firefox.
 
 ## Limits
 
-- WebGPU needs an adapter with f16 shaders, and Chrome or Edge 137 or later. Every other browser uses the CPU with SIMD.
+- WebGPU needs an adapter with f16 shaders, and Chrome or Edge 137 or later. Firefox 153 or later can run it, but the loader takes the CPU there because it is faster. Every other browser uses the CPU with SIMD.
 - A browser does not give the matrix instructions of a subgroup, which `llama.cpp` uses only outside a browser. So the GPU is slower in a page than the same backend on a desktop.
 - Some drivers give an adapter that `llama.cpp` accepts and that computes wrong values. The loader then takes a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
