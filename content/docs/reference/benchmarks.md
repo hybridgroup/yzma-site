@@ -91,7 +91,7 @@ On a model this small the CPU with more threads beats WebGPU. The RTX 4070 is 3.
 
 The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md).
 
-## Against other engines
+## Comparing engines
 
 These benchmarks are to compare inference performance using 3 different engines that support GGUF models:
 
