@@ -111,6 +111,8 @@ results, err := d.DecideMany(state, []decide.Question{q1, q2, q3}, "")
 
 The package also builds with TinyGo for the browser and runs on `pkg/llamawasm`. Asking many questions about one state needs a `llama.cpp` module with ABI 10 or later. An older module still works, and decodes each question on its own. See the [`wasm/decide`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/decide) example.
 
+A model that loads with `decide.Open`, such as Julia-1 or Laya, needs yzma 1.29.1 or later in the browser. [Jeyzma](https://jeyzma.com) runs these models in a page.
+
 ## The example
 
 The [`decide`](https://github.com/hybridgroup/yzma/tree/main/examples/decide) example runs all of the model families from the command line.
