@@ -71,6 +71,8 @@ Then set the `YZMA_LIB` environment variable:
 set YZMA_LIB=C:\path\to\lib
 ```
 
+You do not need to add this directory to `PATH`. yzma loads the DLLs that the libraries need from the same directory.
+
 ## Next steps
 
 Go to [Download models](/getting-started/download-models/).

@@ -16,6 +16,7 @@ The [examples directory](https://github.com/hybridgroup/yzma/tree/main/examples)
 | [`hello`](https://github.com/hybridgroup/yzma/tree/main/examples/hello) | The smallest program. Loads a model and prints an answer. |
 | [`chat`](https://github.com/hybridgroup/yzma/tree/main/examples/chat) | An interactive chat that keeps the conversation. |
 | [`vlm`](https://github.com/hybridgroup/yzma/tree/main/examples/vlm) | Sends an image and a prompt to a Vision Language Model. |
+| [`decide`](https://github.com/hybridgroup/yzma/tree/main/examples/decide) | Asks a System One model a typed question. See [Typed decisions](/docs/guides/decisions/). |
 | [`describe`](https://github.com/hybridgroup/yzma/tree/main/examples/describe) | Describes an image from a URL or a local file. Installs as a command. |
 | [`embeddings`](https://github.com/hybridgroup/yzma/tree/main/examples/embeddings) | Turns text into a vector. |
 | [`tooluse`](https://github.com/hybridgroup/yzma/tree/main/examples/tooluse) | One round of tool calling. |
@@ -32,6 +33,7 @@ The [examples directory](https://github.com/hybridgroup/yzma/tree/main/examples)
 | [`wasm/chat`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/chat) | A chat page. |
 | [`wasm/vlm`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/vlm) | A page that asks a question about an image. |
 | [`wasm/tools`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/tools) | A page where the model calls tools. |
+| [`wasm/decide`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/decide) | A page that asks a System One model typed questions. |
 
 ## Run one
 
@@ -63,6 +65,7 @@ Most examples take these flags.
 | `-temp` | The temperature. |
 | `-c` | The size of the context. |
 | `-n` | How many tokens to generate. |
+| `-t` | The CPU threads. 0 uses a count from the model size. |
 | `-v` | Shows the messages of `llama.cpp`. |
 
 ## Related pages

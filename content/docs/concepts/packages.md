@@ -21,6 +21,7 @@ yzma is a set of Go packages. Most programs use two or three of them.
 | [`pkg/loader`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/loader) | Opens a shared library and prepares a function call. |
 | [`pkg/utils`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/utils) | Converts a Go string to a C string and back. |
 | [`exp/speculative`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/speculative) | Experimental. The NextN hidden state calls for MTP speculative decoding. They can change with a `llama.cpp` update. |
+| [`exp/decide`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/decide) | Experimental. Runs System One models that answer a typed question with a probability for each option. See [Typed decisions](/docs/guides/decisions/). |
 
 ## pkg/llama
 
@@ -35,7 +36,8 @@ This is the package that most programs import. It has about 250 functions in the
 - **Memory.** `GetMemory`, `MemoryClear`, `MemorySeqRm`, and the other sequence operations.
 - **State.** `StateSaveFile`, `StateLoadFile`.
 - **LoRA.** `AdapterLoraInit`, `SetAdaptersLora`.
-- **Backends.** `GGMLBackendLoadAll`, `GGMLBackendDeviceCount`, `GGMLBackendDeviceName`.
+- **Extended batches.** `BatchExtInit`, `BatchExtAddToken`, `BatchExtSetPos`, `Process`.
+- **Backends.** `GGMLBackendLoadAll`, `GGMLBackendDeviceCount`, `GGMLBackendDeviceName`, `GGMLBackendLoadErrors`.
 
 ## pkg/mtmd
 

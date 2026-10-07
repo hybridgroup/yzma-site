@@ -28,7 +28,7 @@ set YZMA_LIB=C:\yzma\lib
 
 The `yzma install` command and the `yzma verify` command also read it, so you don't need the `--lib` flag when it is set.
 
-A program does not have to use this variable. `llama.Load` takes any path:
+`llama.Load("")` reads this variable, so a program can pass an empty path. A program does not have to use the variable. `llama.Load` takes any path:
 
 ```go
 llama.Load("/opt/myapp/lib")

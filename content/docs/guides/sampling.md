@@ -68,7 +68,11 @@ params.TopK = 40
 sampler := llama.NewSampler(model, samplers, params)
 ```
 
-`NewSampler` always adds the distribution sampler last. It also adds a logit bias that stops the model from giving an end of generation token too early.
+`NewSampler` adds the samplers in the order of the list. It adds the distribution sampler last, or the Adaptive-P sampler when the list has `SamplerTypeAdaptiveP`.
+
+- When `IgnoreEos` is set, it first adds a logit bias that stops the model from ever giving an end of generation token.
+- When `Mirostat` is 1 or 2, it ignores the list and makes a chain of temperature and then Mirostat, as `llama.cpp` does.
+- It returns a zero `Sampler` when the list is empty, the parameters are nil, or `Mirostat` is not 0, 1 or 2. Check for this before you use the sampler.
 
 ## The defaults
 
@@ -80,10 +84,12 @@ sampler := llama.NewSampler(model, samplers, params)
 | `TopK` | 40 |
 | `TopP` | 0.95 |
 | `MinP` | 0.05 |
-| `NPrev` | 64 |
+| `PenaltyLastN` | 64 |
 | `TypP` | 1.0, which is off |
 | `XTCProbability` | 0.0, which is off |
 | `DynatempRange` | 0.0, which is off |
+| `AdaptiveTarget` | -1.0, which is off |
+| `IgnoreEos` | false |
 
 ## Which values to use
 

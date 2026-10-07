@@ -21,6 +21,7 @@ The complete API is on [pkg.go.dev](https://pkg.go.dev/github.com/hybridgroup/yz
 | loader | [`pkg/loader`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/loader) | Opens a shared library and prepares a call. |
 | utils | [`pkg/utils`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/utils) | Converts a Go string to a C string and back. |
 | speculative | [`exp/speculative`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/speculative) | Experimental. The NextN hidden state calls for MTP speculative decoding. |
+| decide | [`exp/decide`](https://pkg.go.dev/github.com/hybridgroup/yzma/exp/decide) | Experimental. Runs System One models that answer a typed question with probabilities. |
 
 See [Packages](/docs/concepts/packages/) for what each one is for.
 
@@ -30,8 +31,9 @@ See [Packages](/docs/concepts/packages/) for what each one is for.
 
 | Call | What it does |
 | --- | --- |
-| `llama.Load(path)` | Opens the shared libraries. |
-| `llama.Init()` | Starts the backend. |
+| `llama.Load(path)` | Opens the shared libraries. An empty path reads `YZMA_LIB`. |
+| `llama.Init()` | Starts the backend and loads the backend libraries. Returns an error. |
+| `llama.Version()` | The version of the loaded `llama.cpp`. |
 | `llama.LogSet(llama.LogSilent())` | Silences the `llama.cpp` log messages. |
 | `llama.Close()` | Closes the libraries. |
 

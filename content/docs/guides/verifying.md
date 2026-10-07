@@ -95,7 +95,7 @@ An installation that an earlier release of yzma made has no manifest. The first 
 
 ## Check the bindings
 
-`yzma-checker` is a separate tool. It compares the FFI types and the constants in yzma against the `llama.cpp` headers for the build that yzma installs. It checks 265 bindings, 170 constants, 4 callbacks, and 5 function pointer members.
+`yzma-checker` is a separate tool. It compares the FFI types and the constants in yzma against the `llama.cpp` headers for the build that yzma installs. It checks 296 bindings, 181 constants, 4 callbacks, and 5 function pointer members.
 
 ```shell
 make check-ffi

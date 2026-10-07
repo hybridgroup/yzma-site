@@ -40,11 +40,20 @@ bitmap := mtmd.BitmapInitFromFile(mtmdCtx, imageFile, false, mtmd.InitOptDefault
 defer mtmd.BitmapFree(bitmap.Bitmap)
 ```
 
-Read an image from memory:
+Read an image file that is already in memory, such as a PNG or a JPEG:
 
 ```go
 bitmap := mtmd.BitmapInitFromBuf(mtmdCtx, &data[0], uint64(len(data)), false, mtmd.InitOptDefault())
 ```
+
+Make an image from raw RGB pixels, 3 bytes for each pixel:
+
+```go
+bitmap := mtmd.BitmapInit(width, height, rgb)
+defer mtmd.BitmapFree(bitmap)
+```
+
+`BitmapInit` returns 0 when `rgb` is shorter than `width * height * 3`.
 
 See [Vision](/docs/tutorials/vision/) for the complete program.
 
@@ -96,7 +105,7 @@ output := mtmd.InputChunksInit()
 defer mtmd.InputChunksFree(output)
 
 input := mtmd.NewInputText(prompt, true, true)
-mtmd.Tokenize(mtmdCtx, output, input, []mtmd.Bitmap{bitmap})
+mtmd.Tokenize(mtmdCtx, output, input, []mtmd.Bitmap{bitmap.Bitmap})
 
 var n llama.Pos
 mtmd.HelperEvalChunks(mtmdCtx, lctx, output, 0, 0, nBatch, true, &n)
@@ -119,7 +128,7 @@ mtmd.Tokenize(mtmdCtx, output, input, []mtmd.Bitmap{first, second})
 ```go
 parts := []*mtmd.InputPart{
 	mtmd.NewInputTextPart(mtmd.NewInputText("Look at this:", true, true)),
-	mtmd.NewInputBitmapPart(bitmap),
+	mtmd.NewInputBitmapPart(bitmap.Bitmap),
 }
 
 mtmd.TokenizeFromParts(mtmdCtx, output, parts, true)

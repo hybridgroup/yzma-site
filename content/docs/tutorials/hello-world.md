@@ -42,6 +42,8 @@ llama.Init()
 
 `LogSilent` hides the messages that `llama.cpp` prints. Remove that line to see what the library does.
 
+`Load` and `Init` each return an error. This program ignores them to stay short. A real program checks them.
+
 **2. Load the model and create a context.**
 
 ```go
