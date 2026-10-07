@@ -121,6 +121,19 @@ A model must be trained for tool calls to make one. Qwen2.5-0.5B-Instruct is abo
 
 The shim has no end of turn token, so the WebAssembly build uses the end of sequence token's text and tries a short list of the usual markers. A host build reads the token itself.
 
+## Typed decisions
+
+The [`exp/decide`](/docs/guides/decisions/) package also builds for the browser. It runs a System One model that answers a typed question with a probability for each option. The [`wasm/decide`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/decide) example is a page for it.
+
+`DecideMany` reads the state once and then asks each question. For this it needs a context where the sequences share one cache. Set these `ContextParams` fields to make one.
+
+| Field | What it does |
+| --- | --- |
+| `KVUnified` | 1 for the sequences to share one cache. |
+| `NOutputsMax` | The largest number of outputs in one batch. 0 uses `NBatch`. |
+
+Both need a `llama.cpp` module with ABI 10 or later, which is v0.6.0 or later. An older module returns `llamawasm.ErrNoKVUnified` when `KVUnified` is set. `exp/decide` then decodes each question on its own, so it still works, only slower.
+
 ## WebGPU settings
 
 ### f16 shaders and NVIDIA
@@ -151,6 +164,24 @@ if !llamawasm.BackendOK() {
 ```
 
 `BackendOK` is true for a build with only the CPU, and for a module older than ABI 8, which has no test.
+
+### Test WebGPU without a browser
+
+The yzma repository can run the WebGPU build outside a browser, with the same WebGPU code that the browsers use.
+
+```shell
+make test-wasm-dawn NODE=/path/to/node26
+make test-wasm-wgpu
+```
+
+| Target | WebGPU | Needs |
+| --- | --- | --- |
+| `test-wasm-dawn` | Dawn, as in Chrome, from the npm package `webgpu` | Node 25 or later for JSPI. |
+| `test-wasm-wgpu` | wgpu, as in Firefox | Deno 2.9 or later. |
+
+Set `GPU=high-performance` or `GPU=low-power` to pick the GPU. `DAWN_FLAGS` passes flags to Dawn, for example `backend=vulkan,adapter=NVIDIA`. `DAWN_FLAGS=backend=opengles` runs the same OpenGL ES path as Chrome on Linux. Dawn then uses its compatibility mode, as Chrome does.
+
+These tests need a GPU, so they are not in CI.
 
 ### Vulkan in Chrome on Linux
 
@@ -218,5 +249,5 @@ The RTX 4070 is no faster than the Intel graphics, so the time goes to Firefox a
 - Some drivers expose an adapter that `llama.cpp` accepts and that computes wrong values. The loader then uses a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - A JavaScript ArrayBuffer holds at most 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
+- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, quantization, or the extended batch API. It saves context state in memory.
 - The shim has no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.
