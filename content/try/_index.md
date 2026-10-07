@@ -18,6 +18,8 @@ menu:
 
 <iframe class="yzma-demo" src="/try/app/?embed=1" title="yzma chat demo"></iframe>
 
+<p class="mt-4">On a computer with two GPUs, open the demo on its own page with <a href="/try/app/?gpu=high-performance"><code>?gpu=high-performance</code></a> to use the faster GPU, or with <code>?mode=cpu</code> to compare it with the CPU.</p>
+
 <script>
 // The frame is as tall as its content, so the page scrolls and the
 // frame does not. The demo is on this origin, so the page can measure it.
