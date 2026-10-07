@@ -159,6 +159,8 @@ Shows the system information of `llama.cpp`. It lists the devices that `llama.cp
 yzma system
 ```
 
+When a backend library fails to load, such as CUDA without its runtime, the output has a `Backend Load Errors` section with the reason. `llama.cpp` does not report these errors itself.
+
 ## yzma llama
 
 Shows the most recent `llama.cpp` version.

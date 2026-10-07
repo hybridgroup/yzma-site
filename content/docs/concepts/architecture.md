@@ -64,12 +64,18 @@ yzma uses [purego](https://github.com/ebitengine/purego) and [ffi](https://githu
 
 ## Load at run time
 
-`llama.Load` opens the shared libraries. It takes the directory that contains them. Most programs read that directory from the `YZMA_LIB` environment variable.
+`llama.Load` opens the shared libraries. It takes the directory that contains them. Most programs read that directory from the `YZMA_LIB` environment variable. An empty path reads that variable too.
 
 ```go
-llama.Load(os.Getenv("YZMA_LIB"))
-llama.Init()
+if err := llama.Load(os.Getenv("YZMA_LIB")); err != nil {
+	log.Fatal(err)
+}
+if err := llama.Init(); err != nil {
+	log.Fatal(err)
+}
 ```
+
+`Init` loads the backends, such as CUDA or Vulkan, from the same directory. `llama.cpp` skips a backend that fails to load and does not say why. `llama.GGMLBackendLoadErrors(path)` and `yzma system` give the reason.
 
 `Load` prepares each function call once. `pkg/loader` holds this code.
 

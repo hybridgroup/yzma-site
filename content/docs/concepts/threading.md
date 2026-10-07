@@ -59,7 +59,8 @@ flowchart TD
     subgraph yzma["pkg/llama"]
         threads["Threads()"]
         perf["PerformanceCPUs()"]
-        params["ContextDefaultParams()<br/>NThreads, NThreadsBatch"]
+        mthreads["ModelThreads()"]
+        params["InitFromModel()<br/>NThreads, NThreadsBatch"]
         pool["NewPerformanceThreadpool()"]
         attach["AttachThreadpool()"]
     end
@@ -71,6 +72,8 @@ flowchart TD
 
     cores --> threads
     cores --> perf
+    threads --> mthreads
+    mthreads --> params
     threads --> params
     params --> ctx
     perf --> pool
@@ -90,14 +93,20 @@ By default `llama.cpp` requests four threads. This is slow on a machine with man
 | --- | --- |
 | Linux | It reads sysfs. `/sys/devices/cpu_core/cpus` gives the performance cores, and `thread_siblings_list` removes each core's second CPU. |
 | macOS | It reads `hw.perflevel0.physicalcpu`, which is the number of performance cores on Apple Silicon. An Intel Mac gives `hw.physicalcpu`. |
+| Windows | It calls `GetLogicalProcessorInformationEx`, which gives one record for each physical core, and leaves out the efficiency cores. |
 | Other systems | Half of the logical CPUs. A machine with four logical CPUs or fewer gets all of them. |
 
-On Linux and macOS, yzma also uses half of the logical CPUs when the system does not return a specific value.
+On Linux, macOS and Windows, yzma also uses half of the logical CPUs when the system does not return a specific value.
 
-These calls use `llama.Threads()`:
+The prompt runs well on all of these threads. Generating one token is different, because memory speed limits it. So a small model does not need as many threads.
 
-- `llama.ContextDefaultParams()` sets `NThreads` and `NThreadsBatch`.
-- `mtmd.ContextParamsDefault()` sets `Threads`.
+So `llama.ModelThreads(model)` gives a count for generation that comes from the model size. It is one thread for each 80 MiB of weights that a token reads, at least 4 and at most `llama.Threads()`. A MoE model reads only the experts that it uses, so only those count.
+
+These calls set the defaults:
+
+- `llama.ContextDefaultParams()` sets `NThreadsBatch` to `llama.Threads()` and leaves `NThreads` at 0.
+- `llama.InitFromModel()` sets an `NThreads` of 0 to `llama.ModelThreads(model)`.
+- `mtmd.ContextParamsDefault()` sets `Threads` to `llama.Threads()`.
 
 ## Changing the number of threads
 
@@ -117,7 +126,7 @@ To change these values after you have created the context, use `llama.SetNThread
 
 For a multimodal model, set `Threads` in the parameters of `mtmd` as well.
 
-The native examples have a `-t` flag. The value 0 uses the default.
+The native examples have a `-t` flag. The value 0 uses the count from the model size.
 
 ## Pin each thread to a core
 
@@ -164,7 +173,7 @@ The call can return two errors.
 | `llama.ErrNoPerformanceCPUs` | The system cannot tell which CPUs to use. |
 | `llama.ErrNoThreadpool` | This build of `llama.cpp` cannot create pools. |
 
-Only Linux returns info for the CPUs. macOS does not let a thread select a CPU, and on the other systems yzma cannot read the cores. On those systems, just use the default threads.
+Only Linux returns info for the CPUs. macOS does not let a thread select a CPU. Windows gives the cores, but yzma does not pin threads there. On those systems, just use the default threads.
 
 ### Create your own thread pool
 
@@ -187,8 +196,8 @@ The `mtmd` package knows which calls are safe to use from more than one goroutin
 | Call | Safe from multiple goroutines |
 | --- | --- |
 | `mtmd.Tokenize` | Yes, with a shared context. |
-| `mtmd.Encode`, `mtmd.EncodeChunk` | No. |
-| `mtmd.HelperEvalChunks` | yzma lets only one call run at a time, for all contexts. |
+| `mtmd.EncodeChunk` | No. |
+| `mtmd.HelperEvalChunks` | yzma lets only one call run at a time for each context. Calls on different contexts run at the same time. |
 
 ## In the browser
 

@@ -21,16 +21,16 @@ yzma model get -u https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve
 
 ```shell
 $ go run ./examples/chat/ -model ./models/qwen2.5-0.5b-instruct-fp16.gguf
-Enter prompt: Are you ready to go?
+USER> Are you ready to go?
 
 Yes, I'm ready to go! What would you like to do?
 
-Enter prompt: Let's go to the zoo
+USER> Let's go to the zoo
 
 
 Great! Let's go to the zoo. What would you like to see?
 
-Enter prompt: I want to feed the llama
+USER> I want to feed the llama
 
 
 Sure! Let's go to the zoo and feed the llama. What kind of llama are you interested in feeding?
@@ -49,7 +49,14 @@ prompt := llama.ChatApplyTemplate(tmpl, messages, true)
 
 See [Chat templates](/docs/guides/chat-templates/).
 
-**The context keeps the conversation.** Each new message goes on the end of the same context, so the model sees the complete history.
+**The context keeps the conversation.** The example adds each question and each reply to the list of messages. It then applies the template to the whole list, and decodes only the text that is not in the context yet. So the model sees the complete history, but each turn decodes only the new part.
+
+```go
+formatted, _ := chatTemplate(true)
+text, ok := strings.CutPrefix(formatted, decoded)
+```
+
+If the new history does not start with the old one, the example clears the memory and decodes everything again.
 
 **The sampler is not greedy.** A chat needs some variation. The example uses a chain with a temperature sampler, a top-k sampler, a top-p sampler, and a min-p sampler.
 
@@ -67,6 +74,7 @@ See [Chat templates](/docs/guides/chat-templates/).
 | `-top-p` | 0.9 | Keeps the tokens that make 90 percent of the probability. |
 | `-min-p` | 0.1 | Removes a token that is much worse than the best one. |
 | `-c` | 4096 | The size of the context in tokens. |
+| `-t` | 0 | The CPU threads. 0 uses a count from the model size. |
 | `-n` | -1 | How many tokens to generate. -1 means the context size. |
 | `-b` | 2048 | The logical batch size. |
 | `-ub` | 2048 | The physical batch size. |
