@@ -63,7 +63,7 @@ The threads have no effect on an image. The projector used 30.4 seconds on four 
 
 ## Speed
 
-The numbers are on the [Benchmarks](/docs/reference/benchmarks/#in-a-browser) page. With `SmolLM-135M.Q2_K` on an Intel Core i9-13900HX in Chrome, the build with more threads gives 92.8 tokens a second. WebGPU gives 69.8 on an RTX 4070 and 19.9 on the Intel graphics of the same machine.
+The numbers are on the [Benchmarks](/docs/reference/benchmarks/#in-a-browser) page. With `SmolLM-135M.Q2_K` on an Intel Core i9-13900HX in Chrome, the build with more threads gives 93.3 tokens a second. WebGPU gives 66.2 on an RTX 4070 and 19.6 on the Intel graphics of the same machine.
 
 To measure a build, run `./benchmarks/run.sh --backend wasm` in the yzma repository for Node. For a browser, which WebGPU needs, paste `benchmarks/browser-bench.js` in the page's console. Set `gpu` in the script to pick the GPU.
 
@@ -133,6 +133,8 @@ The [`exp/decide`](/docs/guides/decisions/) package also builds for the browser.
 | `NOutputsMax` | The largest number of outputs in one batch. 0 uses `NBatch`. |
 
 Both need a `llama.cpp` module with ABI 10 or later, which is v0.6.0 or later. An older module returns `llamawasm.ErrNoKVUnified` when `KVUnified` is set. `exp/decide` then decodes each question on its own, so it still works, only slower.
+
+Clef and Decision 2.0 models read a decision head through an extended batch. This needs a module with ABI 11 or later, which is v0.7.0 or later.
 
 ## WebGPU settings
 
@@ -249,5 +251,5 @@ The RTX 4070 is no faster than the Intel graphics, so the time goes to Firefox a
 - Some drivers expose an adapter that `llama.cpp` accepts and that computes wrong values. The loader then uses a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - A JavaScript ArrayBuffer holds at most 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, quantization, or the extended batch API. It saves context state in memory.
+- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. The extended batch has no embedding input. It saves context state in memory.
 - The shim has no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.

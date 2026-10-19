@@ -73,6 +73,8 @@ The worker sends each piece of text to the page with `postMessage`, so the page 
 
 A browser program uses [`pkg/llamawasm`](https://pkg.go.dev/github.com/hybridgroup/yzma/pkg/llamawasm). It has the calls that text generation, embeddings, and images need. The call names and order are the same as in `pkg/llama` and `pkg/mtmd`, so you can move a program from one to the other by changing the import.
 
+The package also has the extended batch, which runs the decision heads of [`exp/decide`](/docs/guides/decisions/) in a browser. It needs yzma 1.30.0 and `llama.cpp` v0.7.0 or later.
+
 ## Limits
 
 The browser package doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.

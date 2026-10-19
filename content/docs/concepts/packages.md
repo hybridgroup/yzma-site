@@ -36,7 +36,7 @@ This is the package that most programs import. It has about 250 functions in the
 - **Memory.** `GetMemory`, `MemoryClear`, `MemorySeqRm`, and the other sequence operations.
 - **State.** `StateSaveFile`, `StateLoadFile`.
 - **LoRA.** `AdapterLoraInit`, `SetAdaptersLora`.
-- **Extended batches.** `BatchExtInit`, `BatchExtAddToken`, `BatchExtSetPos`, `Process`.
+- **Extended batches.** `BatchExtInit`, `BatchExtAddToken`, `BatchExtSetPos`, `BatchExtSetDecisionOrder`, `Process`.
 - **Backends.** `GGMLBackendLoadAll`, `GGMLBackendDeviceCount`, `GGMLBackendDeviceName`, `GGMLBackendLoadErrors`.
 
 ## pkg/mtmd
