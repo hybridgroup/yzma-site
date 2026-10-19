@@ -20,9 +20,16 @@ The package is experimental. Its API can change in a later release.
 | [Jev-Style](https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF) | `decide.New` | `readout_config.json` |
 | [JevK5](https://huggingface.co/alibiserikbay/JevK5-GGUF) | `decide.NewJevK5` | `jevk5_config.json` |
 | [decider](https://huggingface.co/Mapika/decider-0.8b) | `decide.NewDeciderModel` | `decider_config.json` |
-| [Lev](https://huggingface.co/ggml-org/lev-GGUF), [OpenJev](https://huggingface.co/ggml-org/OpenJev-GGUF), [Laya](https://huggingface.co/ggml-org/Laya-GGUF), [Julia-1](https://huggingface.co/ggml-org/Julia-1-GGUF), [Kev](https://huggingface.co/ggml-org/Kev-4B-GGUF) | `decide.Open` | None. The GGUF file holds it. |
+| [Lev](https://huggingface.co/ggml-org/lev-GGUF), [OpenJev](https://huggingface.co/ggml-org/OpenJev-GGUF), [Laya](https://huggingface.co/ggml-org/Laya-GGUF), [Julia-1](https://huggingface.co/ggml-org/Julia-1-GGUF), [Kev](https://huggingface.co/ggml-org/Kev-4B-GGUF), [Clef](https://huggingface.co/ggml-org/Clef-GGUF), [pplx-decider](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b), [d1](https://huggingface.co/LiquidAI/d1-3B-GGUF), [Decision 2.0](https://huggingface.co/collections/vllm-sr/decision-20), [Decision 3.0](https://huggingface.co/collections/vllm-sr/decision-30) | `decide.Open` | None. The GGUF file holds it. |
 
-The config file holds the token ids and the calibration temperatures. Download it from the same model page as the GGUF file. Laya, Julia-1 and Kev need `llama.cpp` v0.6.0 or later.
+The config file holds the token ids and the calibration temperatures. Download it from the same model page as the GGUF file. Laya, Julia-1, Kev and Clef need `llama.cpp` v0.6.0 or later. pplx-decider, d1, Decision 2.0 and Decision 3.0 need `llama.cpp` v0.7.0 or later.
+
+Some of these families work in a different way.
+
+- d1 and Decision 3.0 take a nil state. Decision 3.0 also takes a question with no text.
+- Clef and Decision 2.0 have a decision head in the `llama.cpp` graph. yzma marks the question and the options in an extended batch.
+- Clef reads all the questions of `DecideMany` in one prompt, so one answer depends on the others.
+- For Decision 2.0, the confidence is 1 minus the normalized entropy.
 
 ## Three kinds of question
 
@@ -111,7 +118,7 @@ results, err := d.DecideMany(state, []decide.Question{q1, q2, q3}, "")
 
 The package also builds with TinyGo for the browser and runs on `pkg/llamawasm`. Asking many questions about one state needs a `llama.cpp` module with ABI 10 or later. An older module still works, and decodes each question on its own. See the [`wasm/decide`](https://github.com/hybridgroup/yzma/tree/main/examples/wasm/decide) example.
 
-A model that loads with `decide.Open`, such as Julia-1 or Laya, needs yzma 1.29.1 or later in the browser. [Jeyzma](https://jeyzma.com) runs these models in a page.
+A model that loads with `decide.Open`, such as Julia-1 or Laya, needs yzma 1.29.1 or later in the browser. Clef and Decision 2.0 need yzma 1.30.0 and a `llama.cpp` module with ABI 11 or later, which is v0.7.0 or later. [Jeyzma](https://jeyzma.com) runs these models in a page.
 
 ## The example
 

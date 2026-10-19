@@ -9,13 +9,13 @@ description: >
 
 yzma is fast because it calls `llama.cpp` in the same process. There is no external server.
 
-These are the results for yzma 1.28.0 with `llama.cpp` v0.5.0, which is build b11146. Keep three things in mind.
+These are the results for yzma 1.30.0 with `llama.cpp` v0.7.0, which is build b11669. Keep three things in mind.
 
 - Each number is the median of five runs.
 - The text tables and the multimodal tables use different models and different prompts. Numbers in one table don't compare with numbers in the other.
 - The WebAssembly numbers come from the generation loop of the browser example, not from the Go benchmark. They do not compare with the native tables.
 
-The numbers change with each `llama.cpp` release. The [detail files](#the-detail-files) in the repository are always the newest ones. All the measurements here are from 2026-09-24.
+The numbers change with each `llama.cpp` release. The [detail files](#the-detail-files) in the repository are always the newest ones. The measurements here are from 2026-10-16 to 2026-10-19. The AMD EPYC rows are older, from build b11146 on 2026-09-24 and 2026-09-25.
 
 ## Text generation
 
@@ -23,24 +23,24 @@ The model is `SmolLM-135M.Q2_K`. The benchmark uses 4 threads on each machine.
 
 | Platform | Backend | Machine | Device | Tokens a second |
 | --- | --- | --- | --- | --- |
-| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 853.4 |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 846.1 |
 | Linux amd64 | Vulkan | AMD EPYC 7443P | Vulkan0 | 806.5 |
-| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 744.2 |
-| Linux amd64 | CPU | AMD EPYC 7443P | - | 358.9 |
-| Linux amd64 | CPU | Intel Core i9-13900HX | - | 265.1 |
-| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 190.0 |
-| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 171.6 |
-| Linux arm64 | CPU | Jetson Orin Nano Super | - | 84.1 |
-| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 35.4 |
-| Linux arm64 | CPU | Arduino UNO Q | - | 32.2 |
-| macOS arm64 | CPU | Apple M4 Pro | - | 903.5 |
-| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 511.5 |
-| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 503.2 |
-| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 802.3 |
-| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 700.5 |
-| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 112.9 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 747.5 |
+| Linux amd64 | CPU | AMD EPYC 7443P | - | 253.4 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 251.4 |
+| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 188.3 |
+| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 171.2 |
+| Linux arm64 | CPU | Jetson Orin Nano Super | - | 80.8 |
+| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 34.9 |
+| Linux arm64 | CPU | Arduino UNO Q | - | 31.9 |
+| macOS arm64 | CPU | Apple M4 Pro | - | 900.4 |
+| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 543.1 |
+| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 515.6 |
+| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 820.5 |
+| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 703.3 |
+| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 110.7 |
 
-This model is small, so a CPU can be faster than a GPU. On the M4 Pro, for example, the CPU is 1.8 times faster than Metal. A larger model changes the order.
+This model is small, so a CPU can be faster than a GPU. On the M4 Pro, for example, the CPU is 1.7 times faster than Metal. A larger model changes the order.
 
 The GPUs are an RTX 4070 Laptop in the Intel Core i9-13900HX, a Radeon RX 7900 XTX in the AMD EPYC 7443P, and an RTX 3070 in the AMD Ryzen 9 7950X. The i9-13900HX and the Ryzen 9 7950X also have an integrated GPU, which is slower. The tables show the fastest device only.
 
@@ -52,21 +52,21 @@ The model is `SmolVLM-256M-Instruct-Q8_0` with its projector. The benchmark uses
 
 | Platform | Backend | Machine | Device | Tokens a second |
 | --- | --- | --- | --- | --- |
-| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 2277.0 |
-| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 2133.0 |
+| Linux amd64 | CUDA | Intel Core i9-13900HX | CUDA0 | 2448.0 |
+| Linux amd64 | Vulkan | Intel Core i9-13900HX | Vulkan1 | 2178.0 |
 | Linux amd64 | Vulkan | AMD EPYC 7443P | Vulkan0 | 1350.0 |
-| Linux amd64 | CPU | Intel Core i9-13900HX | - | 878.7 |
-| Linux amd64 | CPU | AMD EPYC 7443P | - | 314.5 |
-| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 2011.0 |
-| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 1782.0 |
-| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 291.9 |
-| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 1091.0 |
-| macOS arm64 | CPU | Apple M4 Pro | - | 904.3 |
-| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 571.0 |
-| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 427.3 |
-| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 421.6 |
-| Linux arm64 | CPU | Jetson Orin Nano Super | - | 208.3 |
-| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 5.6 |
+| Linux amd64 | CPU | Intel Core i9-13900HX | - | 842.6 |
+| Linux amd64 | CPU | AMD EPYC 7443P | - | 531.1 |
+| Windows amd64 | Vulkan | AMD Ryzen 9 7950X | Vulkan1 | 2093.0 |
+| Windows amd64 | CUDA | AMD Ryzen 9 7950X | CUDA0 | 1848.0 |
+| Windows amd64 | CPU | AMD Ryzen 9 7950X | - | 460.4 |
+| macOS arm64 | Metal | Apple M4 Pro | MTL0 | 1116.0 |
+| macOS arm64 | CPU | Apple M4 Pro | - | 994.1 |
+| macOS arm64 | BLAS | Apple M4 Pro | BLAS | 587.1 |
+| Linux arm64 | CUDA | Jetson Orin Nano Super | CUDA0 | 451.1 |
+| Linux arm64 | Vulkan | Jetson Orin Nano Super | Vulkan0 | 395.6 |
+| Linux arm64 | CPU | Jetson Orin Nano Super | - | 213.5 |
+| Linux arm64 | CPU | Raspberry Pi 4 Model B | - | 6.7 |
 | Linux arm64 | CPU | Arduino UNO Q | - | 4.1 |
 
 A projector does many calculations in parallel, which is what a GPU is good at. So a GPU helps a multimodal model more than a text model.
@@ -79,15 +79,15 @@ The model is `SmolLM-135M.Q2_K`.
 
 | Where | Build | Machine | Tokens a second |
 | --- | --- | --- | --- |
-| Node | CPU, more threads | Intel Core i9-13900HX | 105.7 |
-| Chrome | CPU, more threads | Intel Core i9-13900HX | 92.8 |
-| Chrome | WebGPU, RTX 4070 | Intel Core i9-13900HX | 69.8 |
-| Chrome | WebGPU, Intel graphics | Intel Core i9-13900HX | 19.9 |
-| Node | CPU, one thread | Intel Core i9-13900HX | 13.8 |
+| Node | CPU, more threads | Intel Core i9-13900HX | 111.7 |
+| Chrome | CPU, more threads | Intel Core i9-13900HX | 93.3 |
+| Chrome | WebGPU, RTX 4070 | Intel Core i9-13900HX | 66.2 |
+| Chrome | WebGPU, Intel graphics | Intel Core i9-13900HX | 19.6 |
+| Node | CPU, one thread | Intel Core i9-13900HX | 13.9 |
 
-The build with more threads is 7.7 times faster than the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
+The build with more threads is 8.0 times faster than the build with one thread. A page gets more than one thread only with the COOP and COEP headers. The [Build for a browser](/docs/guides/browser/) page has them.
 
-On a model this small the CPU with more threads beats WebGPU. The RTX 4070 is 3.5 times faster than the Intel graphics. WebGPU in Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux).
+On a model this small the CPU with more threads beats WebGPU. The RTX 4070 is 3.4 times faster than the Intel graphics. WebGPU in Chrome on Linux needs [three switches](/docs/guides/browser/#vulkan-in-chrome-on-linux).
 
 The details are in [webassembly.md](https://github.com/hybridgroup/yzma/blob/main/benchmarks/webassembly.md).
 
@@ -101,9 +101,11 @@ These benchmarks are to compare inference performance using 3 different engines 
 
 | Suite | Result | Evidence |
 | --- | --- | --- |
-| Embeddings | yzma 2.6 to 3.1 times faster, 1.4 ms against 4.3 ms and 3.7 ms | Five runs, no overlap, each engine at 29 prompt tokens and a vector of 384 |
-| Text | yzma 10.5 to 14.7 percent faster, 0.45 to 0.5 of the time to the first token | Five runs, no overlap, each engine at the same number of prompt tokens |
+| Embeddings | yzma 2.6 to 2.7 times faster, 1.7 ms against 4.5 ms and 4.6 ms | Five runs, no overlap, each engine at 29 prompt tokens and a vector of 384 |
+| Text | yzma 9.2 to 12.1 percent faster, 0.48 to 0.6 of the time to the first token | Five runs, no overlap, each engine at the same number of prompt tokens |
 | Images | yzma 1.2 to 1.4 times faster for a request, 0.5 to 0.8 of the time to the first token | Five runs, no overlap, yzma and Docker Model Runner at the same number of prompt tokens, ollama at 5 more |
+
+The engines are yzma 1.30.0, ollama 0.40.5, and Docker Model Runner v1.2.8, on the Intel Core i9-13900HX with the RTX 4070.
 
 yzma calls `llama.cpp` in the same process. ollama and Docker Model Runner require an OpenAI compatible REST interface, so each request pays for a round trip.
 

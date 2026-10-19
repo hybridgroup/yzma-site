@@ -19,6 +19,12 @@ That page gives a table for each area. Each row names a `llama.cpp` function and
 
 Backend, Model, Vocab, Context, Backend Sampling, Speculative Decoding, Memory, Batch, Sampling, Logging, Performance, Chat, State, LoRA, and mtmd.
 
+## New in yzma 1.30.0
+
+- `ContextParams.MoeCacheSize` sets the size of the device cache for the MoE experts that stay in host memory. It is the same as `--moe-cache-mib` in `llama.cpp`. It is experimental.
+- `PerfContextData` has the graph reallocation counters `NReallocsSame` and `NReallocsDiff`. A library before b11567 leaves them at 0.
+- The extended batch API works in the browser, apart from the embedding calls. `llamawasm.Process` runs it, so the decision heads of Clef and Decision 2.0 work in a page.
+
 ## New in yzma 1.29.0
 
 - `llama.Version` returns the version of the loaded `llama.cpp`.
@@ -51,7 +57,7 @@ These mtmd functions have no wrapper yet.
 
 ## WebAssembly
 
-The browser shim uses ABI 10. 170 functions reach WebAssembly. 163 of them are complete and 7 are partial. All of them are among the 272 that have a wrapper on a host. The extended batch API is not in the browser yet.
+The browser shim uses ABI 11. 180 functions reach WebAssembly. 173 of them are complete and 7 are partial. All of them are among the 273 that have a wrapper on a host. The extended batch API is in the browser, apart from `BatchExtAddEmbd`, `BatchExtSetEmbdState` and `BatchExtSetEmbdToken`.
 
 The browser package doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory. See [WebAssembly](/docs/concepts/webassembly/).
 
