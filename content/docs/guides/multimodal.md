@@ -31,6 +31,15 @@ mtmd.SupportVideo(mtmdCtx)
 
 Each one returns a boolean. Check before you send the input.
 
+`HelperGetCapabilities` gives all of them at once. It also reports chat, text generation, and audio generation. It needs yzma 1.31.0. An older library returns `mtmd.ErrNoCapabilities`.
+
+```go
+caps, err := mtmd.HelperGetCapabilities(model, mtmdCtx)
+if err == nil && caps.Vision {
+	// send an image
+}
+```
+
 ## Images
 
 Read an image from a file:
@@ -74,6 +83,26 @@ rate := mtmd.GetAudioSampleRate(mtmdCtx)
 
 Resample your audio to that rate before you send it.
 
+## Realtime audio
+
+The audio stream takes audio while it arrives, such as from a microphone. It is experimental and needs yzma 1.31.0. Check `SupportAudioStream` first.
+
+```go
+params, _ := mtmd.AudioStreamParamsDefault()
+stream, err := mtmd.AudioStreamInit(mtmdCtx, params)
+defer mtmd.AudioStreamFree(stream)
+
+mtmd.AudioStreamPush(stream, samples)
+
+n := mtmd.AudioStreamStep(stream, llama.TokenNull)
+if n > 0 {
+	rows, _ := mtmd.AudioStreamGetOutputEmbd(stream, n, llama.ModelNEmbdInp(model))
+	// decode the rows, then sample a token
+}
+```
+
+`AudioStreamStep` returns the number of rows that are ready. It returns `AudioStreamStepNeedAudio` when the stream needs more samples. Pass the token you sampled to the next step. `AudioStreamFlush` pads the stream so that all the pending rows come out.
+
 ## Video
 
 Video needs `ffmpeg` and `ffprobe` on the PATH. mtmd calls them to read the frames.
@@ -91,6 +120,7 @@ video := mtmd.VideoInit(mtmdCtx, videoFile, params)
 | `FPSTarget` | How many frames to take each second. A value of 0 or less uses the video's native rate. |
 | `FFmpegBinDir` | The directory that contains `ffmpeg` and `ffprobe`. A nil value searches the PATH. Use `utils.BytePtrFromString` to make the value. |
 | `TimestampIntervalMs` | How often to put a time marker in the tokens, such as `[10m50.5s]`. A value of 0 or less adds no markers. |
+| `NoSoundtrack` | Read only the frames, also for a model that can hear the soundtrack. It needs yzma 1.31.0. |
 
 A lower `FPSTarget` gives fewer frames. Fewer frames need less time and less memory. Start with 1.0.
 

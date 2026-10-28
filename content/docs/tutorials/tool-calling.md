@@ -141,6 +141,7 @@ Each model family writes a tool call in its own way. `pkg/message` reads all of 
 | `FormatGemma` | `call:name{key:value}` |
 | `FormatGPT` | `.name <\|message\|>{...}` |
 | `FormatPhi` | Standard JSON, with its own turn markers |
+| `FormatLFM` | `<\|tool_call_start\|>[name(key="value")]<\|tool_call_end\|>` |
 
 `ParseToolCalls` finds the format on its own. `DetectFormat` reads the format from the answer, and `DetectFormatFromPath` reads it from the model file name.
 
