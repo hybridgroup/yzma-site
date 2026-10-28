@@ -53,6 +53,7 @@ fmt.Println(message.StripMarkup(response))
 | `FormatGemma` | `call:funcname{key:value}` |
 | `FormatGPT` | `.FUNC_NAME <\|message\|>JSON_ARGS` |
 | `FormatPhi` | Standard JSON with its own turn markers |
+| `FormatLFM` | LFM2 Python style calls, `<\|tool_call_start\|>[funcname(key="value")]<\|tool_call_end\|>` |
 | `FormatAuto` | No known format was found. |
 
 ## Find the format
