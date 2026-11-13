@@ -48,6 +48,8 @@ This is the package that most programs import. It has about 250 functions in the
 - `BitmapInitFromAudio` reads a sound.
 - `VideoInit` reads a video. This needs `ffmpeg` and `ffprobe` on the PATH.
 - `AudioStreamInit` takes realtime audio input. It is experimental.
+- `HelperGenAudioInit` makes speech from text, for a model that can talk.
+- `HelperResamplerInit` changes the sample rate of a stream of audio.
 - `SupportVision`, `SupportAudio`, and `SupportVideo` report what the model accepts. `HelperGetCapabilities` reports all of them at once.
 
 ## pkg/download

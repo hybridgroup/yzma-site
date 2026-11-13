@@ -81,7 +81,16 @@ The model expects one sample rate. `GetAudioSampleRate` gives it:
 rate := mtmd.GetAudioSampleRate(mtmdCtx)
 ```
 
-Resample your audio to that rate before you send it.
+Resample your audio to that rate before you send it. `HelperResamplerInit` makes a resampler that keeps its state between calls, so it works on a stream. It needs yzma 1.33.0.
+
+```go
+r, err := mtmd.HelperResamplerInit(48000, rate)
+defer mtmd.HelperResamplerFree(r)
+
+out, err := mtmd.HelperResamplerProcess(r, samples)
+```
+
+The output points to memory that the resampler owns. Copy it before the next call.
 
 ## Realtime audio
 
@@ -102,6 +111,43 @@ if n > 0 {
 ```
 
 `AudioStreamStep` returns the number of rows that are ready. It returns `AudioStreamStepNeedAudio` when the stream needs more samples. Pass the token you sampled to the next step. `AudioStreamFlush` pads the stream so that all the pending rows come out.
+
+## Make speech
+
+A text to speech model, such as [Chatterbox Turbo](https://huggingface.co/ggml-org/chatterbox-turbo-GGUF), turns text into audio. The audio generation helper needs yzma 1.33.0 and `llama.cpp` b12219 or later. The context must have embeddings on, because the helper reads the hidden state of the model.
+
+```go
+gen, err := mtmd.HelperGenAudioInit(lctx, mtmdCtx)
+defer mtmd.HelperGenAudioFree(gen)
+
+input, _ := mtmd.HelperGenAudioInputDefault()
+input.SetPrompt("Hello from yzma.")
+input.OutType = mtmd.HelperGenAudioOutTypeWAV
+mtmd.HelperGenAudioSetInput(gen, &input)
+
+for {
+	left, _ := mtmd.HelperGenAudioStepPrompt(gen, 512)
+	if left == 0 {
+		break
+	}
+}
+
+token := llama.SamplerSample(sampler, lctx, -1)
+state, _ := llama.GetEmbeddingsIth(lctx, -1, llama.ModelNEmbd(model))
+for {
+	next, stop, _ := mtmd.HelperGenAudioStepGen(gen, token, state)
+	if stop || next == nil {
+		break
+	}
+	state = next
+	token = llama.SamplerSample(sampler, lctx, -1)
+}
+
+out, _ := mtmd.HelperGenAudioGetOutput(gen)
+os.WriteFile("hello.wav", out.Data, 0o644)
+```
+
+`GenAudioVoiceName` lists the preset voices of the model, and `GenAudioGetVoice` gives one as a bitmap. Put it in `input.SpeakerRef`. A short audio clip in `SpeakerRef` clones that voice. See the [`tts`](https://github.com/hybridgroup/yzma/tree/main/examples/tts) example for the complete program.
 
 ## Video
 

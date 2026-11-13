@@ -77,7 +77,7 @@ The package also has the extended batch, which runs the decision heads of [`exp/
 
 ## Limits
 
-The browser package doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
+The browser package takes audio input, but it doesn't make audio. It doesn't support video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory.
 
 The browser must download the model file before the first token. A 2 GB model is a 2 GB download.
 
