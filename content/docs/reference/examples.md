@@ -18,6 +18,7 @@ The [examples directory](https://github.com/hybridgroup/yzma/tree/main/examples)
 | [`vlm`](https://github.com/hybridgroup/yzma/tree/main/examples/vlm) | Sends an image and a prompt to a Vision Language Model. |
 | [`decide`](https://github.com/hybridgroup/yzma/tree/main/examples/decide) | Asks a System One model a typed question. See [Typed decisions](/docs/guides/decisions/). |
 | [`describe`](https://github.com/hybridgroup/yzma/tree/main/examples/describe) | Describes an image from a URL or a local file. Installs as a command. |
+| [`tts`](https://github.com/hybridgroup/yzma/tree/main/examples/tts) | Speaks a text prompt and writes the audio to a WAV file. |
 | [`embeddings`](https://github.com/hybridgroup/yzma/tree/main/examples/embeddings) | Turns text into a vector. |
 | [`tooluse`](https://github.com/hybridgroup/yzma/tree/main/examples/tooluse) | One round of tool calling. |
 | [`multitool`](https://github.com/hybridgroup/yzma/tree/main/examples/multitool) | Tool calling in a loop, for a problem with steps. |

@@ -134,7 +134,19 @@ The [`exp/decide`](/docs/guides/decisions/) package also builds for the browser.
 
 Both need a `llama.cpp` module with ABI 10 or later, which is v0.6.0 or later. An older module returns `llamawasm.ErrNoKVUnified` when `KVUnified` is set. `exp/decide` then decodes each question on its own, so it still works, only slower.
 
-Clef and Decision 2.0 models read a decision head through an extended batch. This needs a module with ABI 11 or later, which is v0.7.0 or later.
+Clef and Decision 2.0 models read a decision head through an extended batch. This needs a module with ABI 11 or later, which is v0.7.0 or later. H2O Lightning needs ABI 12 or later, which is v1.0.0 or later.
+
+## Stop a long prompt
+
+A module with ABI 13 or later has an abort flag. Connect it to a context with `SetAbortCallback`, and call `Abort` to stop. The call that runs the batch then returns 2. The flag stays set, so call `AbortReset` before the next request.
+
+```go
+if llamawasm.AbortSupported() {
+	llamawasm.SetAbortCallback(ctx, true)
+}
+```
+
+The CPU backend reads the flag after each node. The WebGPU backend doesn't read it. Only the build with threads shares its memory, so only there can the page set the flag during a decode, through `AbortFlagView`.
 
 ## WebGPU settings
 
@@ -251,5 +263,5 @@ The RTX 4070 is no faster than the Intel graphics, so the time goes to Firefox a
 - Some drivers expose an adapter that `llama.cpp` accepts and that computes wrong values. The loader then uses a CPU build.
 - An operation larger than `maxStorageBufferBindingSize` goes back to the CPU.
 - A JavaScript ArrayBuffer holds at most 2 GB, so a larger model must come in splits.
-- `pkg/llamawasm` has text generation, embeddings, and images. It doesn't support audio, video, LoRA adapters, saving state to a file, or quantization. The extended batch has no embedding input. It saves context state in memory.
+- `pkg/llamawasm` has text generation, embeddings, images, and audio input. It doesn't make audio, and it doesn't support video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory. Audio input and embeddings in the extended batch need ABI 14, which is v1.0.0 or later.
 - The shim has no grammar sampler, so a tool call cannot be forced by a grammar as it can on a host.

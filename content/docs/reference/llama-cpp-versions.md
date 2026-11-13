@@ -22,6 +22,8 @@ For the current list, see [the README](https://github.com/hybridgroup/yzma#requi
 | v0.6.0 | v1.29.0 to v1.29.1 |
 | v0.7.0 | v1.30.0 |
 | v0.8.0 | v1.31.0 |
+| v0.9.0 | v1.32.0 |
+| v1.0.0 | v1.33.0 |
 
 A tagged release of yzma installs its own `llama.cpp` release by default. So `yzma install` with no `--version` flag gets the version in this table.
 
@@ -48,7 +50,10 @@ Use `-version latest` to get the most recent nightly build instead. A build from
 | b10780 to b11410 | v1.26.0 to v1.28.0 |
 | b11411 to b11479 | v1.29.0 to v1.29.1 |
 | b11480 to b11959 | v1.30.0 |
-| b11960 and later | v1.31.0 and later |
+| b11960 to b12190 | v1.31.0 to v1.32.0 |
+| b12347 and later | v1.33.0 and later |
+
+Builds b12191 to b12346 work with no tagged release of yzma.
 
 ## How yzma stays up to date
 
