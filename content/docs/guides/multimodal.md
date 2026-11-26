@@ -26,12 +26,11 @@ defer mtmd.Free(mtmdCtx)
 ```go
 mtmd.SupportVision(mtmdCtx)
 mtmd.SupportAudio(mtmdCtx)
-mtmd.SupportVideo(mtmdCtx)
 ```
 
-Each one returns a boolean. Check before you send the input.
+Each one returns a boolean. Check before you send the input. `SupportVideo` is deprecated since yzma 1.34.0. Use `HelperGetCapabilities` for video.
 
-`HelperGetCapabilities` gives all of them at once. It also reports chat, text generation, and audio generation. It needs yzma 1.31.0. An older library returns `mtmd.ErrNoCapabilities`.
+`HelperGetCapabilities` gives all of them at once. It also reports chat, text generation, and audio generation. It needs yzma 1.31.0. `AudioDuplex` reports a model that speaks while it listens. It needs yzma 1.34.0. An older library returns `mtmd.ErrNoCapabilities`.
 
 ```go
 caps, err := mtmd.HelperGetCapabilities(model, mtmdCtx)
@@ -147,7 +146,20 @@ out, _ := mtmd.HelperGenAudioGetOutput(gen)
 os.WriteFile("hello.wav", out.Data, 0o644)
 ```
 
-`GenAudioVoiceName` lists the preset voices of the model, and `GenAudioGetVoice` gives one as a bitmap. Put it in `input.SpeakerRef`. A short audio clip in `SpeakerRef` clones that voice. See the [`tts`](https://github.com/hybridgroup/yzma/tree/main/examples/tts) example for the complete program.
+`GenAudioVoiceName` lists the preset voices of the model, and `GenAudioGetVoice` gives one as a bitmap. Put it in `input.SpeakerRef`. A short audio clip in `SpeakerRef` clones that voice. `SetSpeakerRefText` gives the words of that clip.
+
+yzma 1.34.0 adds more input fields. A value of 0 uses the model default.
+
+| Field | What it does |
+| --- | --- |
+| `Speed` | The speaking speed. 1 is the pace of the model. |
+| `Loudness` | The target loudness in LUFS, below 0. |
+| `CFGScale` | The classifier free guidance scale. 1 is no guidance. |
+| `FlowSteps` | The number of flow matching solver steps. |
+
+`GenAudioG2P` gives the phonemes of a word, for a model that has a letter to sound model. It returns an empty string when the model has none.
+
+See the [`tts`](https://github.com/hybridgroup/yzma/tree/main/examples/tts) example for the complete program.
 
 ## Video
 
@@ -167,6 +179,7 @@ video := mtmd.VideoInit(mtmdCtx, videoFile, params)
 | `FFmpegBinDir` | The directory that contains `ffmpeg` and `ffprobe`. A nil value searches the PATH. Use `utils.BytePtrFromString` to make the value. |
 | `TimestampIntervalMs` | How often to put a time marker in the tokens, such as `[10m50.5s]`. A value of 0 or less adds no markers. |
 | `NoSoundtrack` | Read only the frames, also for a model that can hear the soundtrack. It needs yzma 1.31.0. |
+| `Decoder` | A pointer to a C `mtmd_helper_video_decoder`. 0 uses ffmpeg. It needs yzma 1.34.0. |
 
 A lower `FPSTarget` gives fewer frames. Fewer frames need less time and less memory. Start with 1.0.
 

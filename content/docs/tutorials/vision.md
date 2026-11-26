@@ -92,7 +92,7 @@ if mtmd.SupportVision(mtmdCtx) {
 }
 ```
 
-There are also `SupportAudio` and `SupportVideo`.
+There is also `SupportAudio`. For video, use `HelperGetCapabilities`.
 
 ## Describe an image from a URL
 

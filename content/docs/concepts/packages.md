@@ -50,7 +50,8 @@ This is the package that most programs import. It has about 250 functions in the
 - `AudioStreamInit` takes realtime audio input. It is experimental.
 - `HelperGenAudioInit` makes speech from text, for a model that can talk.
 - `HelperResamplerInit` changes the sample rate of a stream of audio.
-- `SupportVision`, `SupportAudio`, and `SupportVideo` report what the model accepts. `HelperGetCapabilities` reports all of them at once.
+- `GenAudioG2P` gives the phonemes of a word for a speech model.
+- `SupportVision` and `SupportAudio` report what the model accepts. `HelperGetCapabilities` reports all of them at once.
 
 ## pkg/download
 
