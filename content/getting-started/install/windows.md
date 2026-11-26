@@ -28,7 +28,7 @@ Then run this command:
 yzma install --lib C:\path\to\lib --processor cuda
 ```
 
-The installer also downloads the `cudart` files that CUDA on Windows needs.
+The installer also downloads the `cudart` files that CUDA on Windows needs. Since yzma 1.34.0 the CUDA build comes from [llama-cpp-builder](https://github.com/hybridgroup/llama-cpp-builder). It has code for older GPUs such as the T4, so they need no new driver.
 {{% /tab %}}
 {{% tab header="OpenVINO" %}}
 To use an Intel CPU, GPU, or NPU with OpenVINO, run this command.

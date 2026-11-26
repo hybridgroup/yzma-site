@@ -29,6 +29,7 @@ Some of these families work in a different way.
 - d1 and Decision 3.0 take a nil state. Decision 3.0 also takes a question with no text.
 - Clef and Decision 2.0 have a decision head in the `llama.cpp` graph. yzma marks the question and the options in an extended batch.
 - Clef reads all the questions of `DecideMany` in one prompt, so one answer depends on the others.
+- lfm3-d1 reads up to 16 questions of `DecideMany` in one pass, as llama-server does. So one answer depends on the others. This needs yzma 1.34.0 and `llama.cpp` v1.1.0. An older library reads each question on its own.
 - For Decision 2.0, the confidence is 1 minus the normalized entropy.
 
 ## Three kinds of question

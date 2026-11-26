@@ -134,7 +134,7 @@ The [`exp/decide`](/docs/guides/decisions/) package also builds for the browser.
 
 Both need a `llama.cpp` module with ABI 10 or later, which is v0.6.0 or later. An older module returns `llamawasm.ErrNoKVUnified` when `KVUnified` is set. `exp/decide` then decodes each question on its own, so it still works, only slower.
 
-Clef and Decision 2.0 models read a decision head through an extended batch. This needs a module with ABI 11 or later, which is v0.7.0 or later. H2O Lightning needs ABI 12 or later, which is v1.0.0 or later.
+Clef and Decision 2.0 models read a decision head through an extended batch. This needs a module with ABI 11 or later, which is v0.7.0 or later. H2O Lightning needs ABI 12 or later, which is v1.0.0 or later. The lfm3-d1 models read their questions in one pass with ABI 15, which is v1.1.0 or later.
 
 ## Stop a long prompt
 

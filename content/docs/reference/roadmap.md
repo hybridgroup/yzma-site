@@ -19,6 +19,18 @@ That page gives a table for each area. Each row names a `llama.cpp` function and
 
 Backend, Model, Vocab, Context, Backend Sampling, Speculative Decoding, Memory, Batch, Sampling, Logging, Performance, Chat, State, LoRA, and mtmd.
 
+## New in yzma 1.34.0
+
+- `HelperGenAudioInput` has `Speed`, `Loudness`, `SpeakerRefText`, `CFGScale` and `FlowSteps` for text to speech.
+- `GenAudioG2P` gives the pronunciation of a word. `ModelMetaArrN` and `ModelMetaArrStr` read array values from the model metadata, such as a TTS dictionary.
+- `HelperCap.AudioDuplex` reports a model that speaks while it listens.
+- `VideoInitParams.Decoder` sets a video decoder in place of ffmpeg. `SupportVideo` is deprecated, so use `HelperGetCapabilities`.
+- The target layer functions for DFlash and DSpark draft models. `ModelTargetLayerIDs`, `SetEmbeddingsLayerInp`, `GetEmbeddingsLayerInp`, `SetEmbeddingsLayerInpDev`, `SupportsEmbdRow` and `BatchExtAddEmbdRow`.
+- `BatchExtSetDecisionGroup` puts the questions of a batch into groups. `exp/decide` uses it to read up to 16 lfm3-d1 questions in one pass, as llama-server does.
+- On Windows, `yzma install --processor cuda` gets the CUDA build from llama-cpp-builder. It has device code for older GPUs, so they need no new driver.
+- The browser gets decision groups, `SamplerApply`, `GetModel`, `GetCausalAttn`, `ModelMetaArrN`, `ModelMetaArrStr` and `Version`. These need `llama.cpp` v1.1.0, which has ABI 15.
+- A library from b12424 or later doesn't work with 1.33.0. A library from b12669 or later needs yzma 1.34.0.
+
 ## New in yzma 1.33.0
 
 - The mtmd audio generation helper makes speech from text. `HelperGenAudioInit`, `HelperGenAudioSetInput` and `HelperGenAudioStepGen` make the audio frames, and `HelperGenAudioGetOutput` returns PCM or WAV. `GenAudioVoiceName` and `GenAudioGetVoice` read the preset voices of a model.
@@ -82,12 +94,12 @@ These mtmd functions have no wrapper yet.
 
 ## WebAssembly
 
-The browser shim uses ABI 14. 217 functions reach WebAssembly. 209 of them are complete and 8 are partial. All of them also have a wrapper on a host. The whole extended batch API is in the browser, also the embedding calls.
+The browser shim uses ABI 15. 228 functions reach WebAssembly. 220 of them are complete and 8 are partial. All of them also have a wrapper on a host. The whole extended batch API is in the browser, also the embedding calls.
 
 The browser package takes audio input, but it doesn't make audio. It doesn't support video, LoRA adapters, saving state to a file, or quantization. It saves context state in memory. See [WebAssembly](/docs/concepts/webassembly/).
 
 ## How the bindings stay correct
 
-`yzma-checker` compares the FFI parameter types, the return types, and the constants of yzma against the `llama.cpp` headers of the build that yzma installs. It checks 320 bindings, 191 constants, 4 callbacks, and 5 function pointer members.
+`yzma-checker` compares the FFI parameter types, the return types, and the constants of yzma against the `llama.cpp` headers of the build that yzma installs. It checks 330 bindings, 191 constants, 4 callbacks, and 6 function pointer members.
 
 The tests also run automatically when there is a new release of `llama.cpp`.
